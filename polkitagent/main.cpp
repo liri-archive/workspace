@@ -30,15 +30,8 @@
 #include "config.h"
 #include "policykitagent.h"
 
-#if HAVE_SYSTEMD
-#  include <systemd/sd-daemon.h>
-#endif
-
 int main(int argc, char *argv[])
 {
-    // Force wayland QPA plugin
-    setenv("QT_QPA_PLATFORM", "wayland", 1);
-
     // Setup application
     QGuiApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Hawaii PolicyKit Agent"));
@@ -46,19 +39,6 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain(QStringLiteral("hawaii.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
     app.setQuitOnLastWindowClosed(false);
-
-    // This runs only on Wayland
-    if (!app.platformName().contains(QStringLiteral("wayland"))) {
-        const char *msg = "Hawaii's PolicyKit agent runs only on "
-                "Wayland, please pass the -platform wayland argument";
-#if HAVE_SYSTEMD
-        sd_notifyf(0,
-                   "STATUS=Failed to start up: %s\n"
-                   "ERRNO=%i",
-                   msg, EFAULT);
-#endif
-        qFatal("%s", msg);
-    }
 
     // Windows need the alpha buffer
     QQuickWindow::setDefaultAlphaBuffer(true);

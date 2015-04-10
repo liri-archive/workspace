@@ -35,7 +35,7 @@ class PolicyKitAgent : public PolkitQt1::Agent::Listener
 {
     Q_OBJECT
 public:
-    explicit PolicyKitAgent(QObject *parent = 0);
+    PolicyKitAgent(QObject *parent = 0);
     ~PolicyKitAgent();
 
     static PolicyKitAgent *instance();
