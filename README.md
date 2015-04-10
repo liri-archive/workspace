@@ -10,13 +10,13 @@ Base applications for the Hawaii desktop environment.
 
 Make sure you have Qt 5.4 or better with the following modules:
 
-* qtbase
-* qtdeclarative
-* qtquickcontrols
+* [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
+* [qtdeclarative](http://code.qt.io/cgit/qt/qtdeclarative.git)
+* [qtquickcontrols](http://code.qt.io/cgit/qt/qtquickcontrols.git)
 
 And the following modules from KDE:
 
-* polkit-qt5
+* [polkit-qt5](http://quickgit.kde.org/?p=polkit-qt-1.git)
 
 ## Build
 
