@@ -147,7 +147,7 @@ void PolicyKitAgent::initiateAuthentication(const QString &actionId,
     // Reset variables to keep track of this authorization session
     d->progressing = true;
     d->canceled = false;
-    d->session = 0;
+    d->session = Q_NULLPTR;
 
     // Cache cookie: we might need to reused it (to athenticated again
     // upon failure)
@@ -251,7 +251,7 @@ void PolicyKitAgent::cancelAuthentication()
     // Close current session
     d->progressing = false;
     d->canceled = true;
-    d->session = 0;
+    d->session = Q_NULLPTR;
 
     // Hide the dialog
     d->hideDialog();
@@ -325,7 +325,7 @@ void PolicyKitAgent::completed(bool gainedAuthorization)
         }
 
         d->session->deleteLater();
-        d->session = 0;
+        d->session = Q_NULLPTR;
     }
 
     // Complete session only if authorization went fine, otherwise
@@ -337,7 +337,7 @@ void PolicyKitAgent::completed(bool gainedAuthorization)
         // Complete session
         d->session->result()->setCompleted();
         d->session->deleteLater();
-        d->session = 0;
+        d->session = Q_NULLPTR;
     }
 
     // Try again if there was an authentication error
