@@ -13,7 +13,9 @@ set(SOURCES
     policykitagent.cpp
 )
 
-add_executable(hawaii-polkit-agent ${SOURCES})
+qt5_add_resources(RESOURCES polkitagent.qrc)
+
+add_executable(hawaii-polkit-agent ${SOURCES} ${RESOURCES})
 target_link_libraries(hawaii-polkit-agent
                       Qt5::Core
                       Qt5::Gui

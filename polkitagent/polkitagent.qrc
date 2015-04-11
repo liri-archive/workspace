@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/authdialog.qml</file>
+    </qresource>
+</RCC>
