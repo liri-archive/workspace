@@ -57,8 +57,6 @@ ApplicationWindow {
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
-    Keys.onEscapePressed: cancelButton.clicked()
-
     function open() {
         visible = true;
     }
@@ -86,6 +84,8 @@ ApplicationWindow {
             margins: Themes.Units.largeSpacing
         }
         spacing: Themes.Units.smallSpacing
+
+        Keys.onEscapePressed: cancelButton.clicked()
 
         RowLayout {
             spacing: Themes.Units.smallSpacing
@@ -160,6 +160,7 @@ ApplicationWindow {
                         id: passwordInput
                         echoMode: echo ? TextInput.Normal : TextInput.Password
                         focus: true
+                        onAccepted: okButton.clicked()
 
                         Layout.fillWidth: true
                     }
