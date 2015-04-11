@@ -384,13 +384,12 @@ void PolicyKitAgent::abortAuthentication()
 
     qDebug() << "Aborting authentication...";
 
-    Q_ASSERT(d->session);
-
     // Delete session and inform the dialog that the
     // authentication was canceled so it can be hidden
     d->progressing = false;
     d->canceled = true;
-    d->session->cancel();
+    if (d->session)
+        d->session->cancel();
 }
 
 #include "moc_policykitagent.cpp"
