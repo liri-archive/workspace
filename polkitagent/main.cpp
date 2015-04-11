@@ -25,7 +25,6 @@
  ***************************************************************************/
 
 #include <QtGui/QGuiApplication>
-#include <QtQuick/QQuickWindow>
 
 #include "config.h"
 #include "policykitagent.h"
@@ -39,9 +38,6 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain(QStringLiteral("hawaii.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
     app.setQuitOnLastWindowClosed(false);
-
-    // Windows need the alpha buffer
-    QQuickWindow::setDefaultAlphaBuffer(true);
 
     // Create the agent instance
     PolicyKitAgent::instance();
