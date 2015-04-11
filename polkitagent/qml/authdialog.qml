@@ -31,7 +31,7 @@ import QtQuick.Layouts 1.0
 import Hawaii.Components 1.0 as Components
 import Hawaii.Themes 1.0 as Themes
 
-Dialog {
+ApplicationWindow {
     id: authenticationDialog
 
     property string actionId
@@ -52,8 +52,44 @@ Dialog {
     }
 
     title: qsTr("Authentication required")
-    contentItem: ColumnLayout {
+    minimumWidth: Themes.Units.dp(320)
+    minimumHeight: Themes.Units.dp(200)
+    maximumWidth: minimumWidth
+    maximumHeight: minimumHeight
+
+    Keys.onEscapePressed: cancelButton.clicked()
+
+    function open() {
+        visible = true;
+    }
+
+    function close() {
+        visible = false;
+        cleanup();
+    }
+
+    function cleanup() {
+        actionId = "";
+        message = "";
+        iconName = "";
+        realName = "";
+        avatar = "";
+        prompt = "";
+        passwordInput.text = "";
+        infoMessage = "";
+        errorMessage = "";
+    }
+
+    ColumnLayout {
+        anchors {
+            fill: parent
+            margins: Themes.Units.largeSpacing
+        }
+        spacing: Themes.Units.smallSpacing
+
         RowLayout {
+            spacing: Themes.Units.smallSpacing
+
             Components.Icon {
                 iconName: "dialog-password-symbolic"
                 width: Themes.Units.iconSizes.medium
@@ -64,6 +100,8 @@ Dialog {
             }
 
             ColumnLayout {
+                spacing: Themes.Units.smallSpacing
+
                 Label {
                     text: qsTr("Authentication required")
                     font.bold: true
@@ -77,6 +115,8 @@ Dialog {
                 }
 
                 RowLayout {
+                    spacing: Themes.Units.smallSpacing
+
                     Image {
                         id: avatarImage
                         source: {
@@ -96,6 +136,7 @@ Dialog {
                         width: Themes.Units.iconSizes.large
                         height: width
                         smooth: true
+                        cache: false
                     }
 
                     Label {
@@ -109,15 +150,16 @@ Dialog {
                 }
 
                 RowLayout {
+                    spacing: Themes.Units.smallSpacing
+
                     Label {
                         id: promptLabel
-
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     }
 
                     TextField {
                         id: passwordInput
                         echoMode: echo ? TextInput.Normal : TextInput.Password
+                        focus: true
 
                         Layout.fillWidth: true
                     }
@@ -153,19 +195,22 @@ Dialog {
         }
 
         RowLayout {
+            spacing: Themes.Units.smallSpacing
+
             Button {
+                id: cancelButton
                 text: qsTr("Cancel")
                 onClicked: authenticationDialog.authenticationCanceled()
             }
 
             Button {
+                id: okButton
                 text: qsTr("Authenticate")
                 onClicked: authenticationDialog.authenticationReady(passwordInput.text)
             }
 
-            Layout.alignment: Qt.AlignCenter
+            Layout.alignment: Qt.AlignRight
             Layout.fillWidth: true
         }
     }
-    onRejected: authenticationCanceled()
 }
