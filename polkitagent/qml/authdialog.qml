@@ -25,10 +25,11 @@
  ***************************************************************************/
 
 import QtQuick 2.1
+import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
-import Fluid.Ui 1.0 as FluidUi
-import Hawaii.Shell.Components 1.0
+import Hawaii.Components 1.0 as Components
+import Hawaii.Themes 1.0 as Themes
 
 Dialog {
     id: authenticationDialog
@@ -42,19 +43,21 @@ Dialog {
     property bool echo: false
     property alias infoMessage: infoLabel.text
     property alias errorMessage: errorLabel.text
-    property var palette: SystemPalette {}
 
     signal authenticationReady(string response)
     signal authenticationCanceled()
 
-    onRejected: authenticationCanceled()
+    SystemPalette {
+        id: palette
+    }
 
-    ColumnLayout {
+    title: qsTr("Authentication required")
+    contentItem: ColumnLayout {
         RowLayout {
-            FluidUi.Icon {
+            Components.Icon {
                 iconName: "dialog-password-symbolic"
-                width: 24
-                height: 24
+                width: Themes.Units.iconSizes.medium
+                height: width
                 color: palette.text
 
                 Layout.alignment: Qt.AlignTop
@@ -90,8 +93,8 @@ Dialog {
                         }
                         sourceSize.width: width
                         sourceSize.height: height
-                        width: 64
-                        height: 64
+                        width: Themes.Units.iconSizes.large
+                        height: width
                         smooth: true
                     }
 
@@ -164,4 +167,5 @@ Dialog {
             Layout.fillWidth: true
         }
     }
+    onRejected: authenticationCanceled()
 }

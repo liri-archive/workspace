@@ -31,9 +31,7 @@
 #include <polkitqt1-details.h>
 #include <polkitqt1-identity.h>
 
-#include <HawaiiShell/Mantle>
-#include <HawaiiShell/QmlObject>
-
+class QQmlApplicationEngine;
 class PolicyKitAgent;
 
 class PolicyKitAgentPrivate
@@ -46,14 +44,12 @@ public:
                       const QString &iconName,
                       const QString &realName,
                       const QString &avatar);
-    void destroyDialog();
+    void hideDialog();
 
     void settingChanged(const QString &key, const QVariant &value);
 
-    Hawaii::Mantle *mantle;
-
-    Hawaii::QmlObject *qmlObject;
-    QObject *dialog;
+    QQmlApplicationEngine *engine;
+    QObject *window;
 
     bool progressing;
     bool canceled;
