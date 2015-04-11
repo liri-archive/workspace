@@ -34,7 +34,9 @@
 
 #include <PolkitQt1/Subject>
 
+#include <sys/types.h>
 #include <unistd.h>
+#include <pwd.h>
 
 #if HAVE_SYSTEMD
 #  include <systemd/sd-daemon.h>
@@ -158,57 +160,46 @@ void PolicyKitAgent::initiateAuthentication(const QString &actionId,
         qDebug() << "PolicyKitAgent: received" << identities.size()
                  << "identities, only considering one";
 
-#if 0
-    // Currently logged in user
-    AccountsManager manager;
-    UserAccount *account = manager.findUserById(::geteuid());
+    // uid to authenticate
+    uid_t uidToAuthenticate = ::geteuid();
+    struct passwd *pw = Q_NULLPTR;
 
     // Find the right username
     bool found = false;
     for (int i = 0; i < identities.size(); i++) {
         PolkitQt1::Identity identity = identities.at(i);
 
-        if (identity.toUnixUserIdentity().uid() == account->userId()) {
+        if (identity.toUnixUserIdentity().uid() == ::geteuid()) {
             found = true;
+            pw = ::getpwuid(::geteuid());
+            d->realName = QLatin1String(pw->pw_gecos);
+            uidToAuthenticate = identity.toUnixUserIdentity().uid();
             break;
         }
     }
-    if (!found)
-        account = manager.findUserByName(QStringLiteral("root"));
 
     // Can we find root?
     found = false;
+    pw = ::getpwnam("root");
     for (int i = 0; i < identities.size(); i++) {
         PolkitQt1::Identity identity = identities.at(i);
 
-        if (identity.toUnixUserIdentity().uid() == account->userId()) {
+        if (identity.toUnixUserIdentity().uid() == pw->pw_uid) {
             found = true;
+            d->realName = tr("Administrator");
+            uidToAuthenticate = identity.toUnixUserIdentity().uid();
             break;
         }
     }
     if (!found) {
         PolkitQt1::Identity identity = identities.at(0);
-        uid_t uid = identity.toUnixUserIdentity().uid();
-        account = manager.findUserById(uid);
+        uidToAuthenticate = identity.toUnixUserIdentity().uid();
+        pw = ::getpwuid(uidToAuthenticate);
+        d->realName = QLatin1String(pw->pw_gecos);
     }
 
-    // Real name
-    d->realName = account->realName();
-
-    // Special case for root
-    if (account->userName() == QStringLiteral("root"))
-        d->realName = tr("Administrator");
-#else
-    d->realName = "ciao";
-#endif
-
     // Identity to authenticate
-#if 0
-    d->identity = PolkitQt1::UnixUserIdentity(account->userId());
-#else
-    PolkitQt1::Identity i = identities.at(0);
-    d->identity = i.toUnixUserIdentity();
-#endif
+    d->identity = PolkitQt1::UnixUserIdentity(uidToAuthenticate);
 
     // Associate sessions with identities and initiate session
     PolkitQt1::Agent::Session *session =
@@ -220,12 +211,8 @@ void PolicyKitAgent::initiateAuthentication(const QString &actionId,
     session->initiate();
 
     // Initiate authentication sequence
-    d->createDialog(actionId, message, iconName, d->realName,
-#if 0
-                    account->iconFileName());
-#else
-                    "ciao");
-#endif
+    // TODO: Find user icon
+    d->createDialog(actionId, message, iconName, d->realName, "");
 }
 
 bool PolicyKitAgent::initiateAuthenticationFinish()
