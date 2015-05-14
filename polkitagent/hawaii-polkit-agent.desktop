@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=PolicyKit Authentication Agent
+Comment=PolicyKit Authentication Agent
+Exec=hawaii-polkit-agent
+TryExec=hawaii-polkit-agent
+Terminal=false
+StartupNotify=false
+OnlyShowIn=X-Hawaii;
+NoDisplay=true
