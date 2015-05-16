@@ -12,7 +12,7 @@ set(CMAKE_AUTOMOC ON)
 option(ENABLE_SYSTEMD "Enables systemd support" ON)
 
 # Set version
-set(PROJECT_VERSION "0.4.0")
+set(PROJECT_VERSION "0.4.90")
 
 # ECM
 find_package(ECM 0.0.11 REQUIRED NO_MODULE)
