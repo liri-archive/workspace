@@ -18,15 +18,21 @@ set(PROJECT_VERSION "0.4.90")
 find_package(ECM 0.0.11 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-# Installation directories
-include(KDEInstallDirs)
-
-# Other macros
-include(KDECMakeSettings)
-include(KDECompilerSettings)
-
-# Macro to print feature summary
+# Macros
 include(FeatureSummary)
+include(KDEInstallDirs)
+include(KDECompilerSettings)
+include(KDECMakeSettings)
+
+# Require at least gcc 4.8
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if ("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS "4.8")
+        message(SEND_ERROR "Version ${CMAKE_CXX_COMPILER_VERSION} of the ${CMAKE_CXX_COMPILER_ID} C++ compiler is not supported. Please use version 4.8 or later.")
+    endif()
+endif()
+
+# Adjusting CMAKE_C_FLAGS to get Wayland protocols to compile
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu90")
 
 # Find pkg-config here so that it can be referenced soon
 find_package(PkgConfig)
@@ -62,6 +68,17 @@ add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "" FORCE)
 endif()
+
+# Wayland
+set(REQUIRED_WAYLAND_VERSION 1.2.0)
+find_package(Wayland ${REQUIRED_WAYLAND_VERSION} COMPONENTS Client)
+set_package_properties(Wayland PROPERTIES
+    TYPE REQUIRED
+    PURPOSE "Required for Wayland protocols")
+add_feature_info("Wayland-Client" Wayland_Client_FOUND "Required for Wayland protocols")
+
+# Wayland and QtWayland scanner
+find_package(QtWaylandScanner REQUIRED)
 
 # Minimum version requirements
 set(QT_MIN_VERSION "5.4.0")

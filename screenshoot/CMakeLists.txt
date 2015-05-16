@@ -1,10 +1,19 @@
 include_directories(
     ${CMAKE_SOURCE_DIR}/headers
     ${CMAKE_BINARY_DIR}/headers
+    ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
 )
+
+add_definitions(-Wno-deprecated-declarations)
 
 set(SOURCES
     main.cpp
+)
+
+ecm_add_qtwayland_client_protocol(SOURCES
+    PROTOCOL ${CMAKE_CURRENT_SOURCE_DIR}/greenisland-screenshooter.xml
+    BASENAME greenisland-screenshooter
+    PREFIX greenisland_
 )
 
 qt5_add_resources(RESOURCES hawaii-screenshot.qrc)
