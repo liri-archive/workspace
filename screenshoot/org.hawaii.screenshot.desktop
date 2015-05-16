@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Screenshot
+Comment=Save images of your screen or individual windows
+Keywords=snapshot;capture;print;screenshot;
+Categories=Qt;X-Hawaii;Utility;X-Hawaii-Utilities;
+Icon=applets-screenshooter
+Exec=hawaii-screenshot
+TryExec=hawaii-screenshot
+Terminal=false
+StartupNotify=true
+OnlyShowIn=X-Hawaii;
