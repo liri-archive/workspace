@@ -1,27 +1,36 @@
 project(HawaiiBaseApps)
 
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.12)
 
 # Silence CMake warnings
 if(POLICY CMP0063)
     cmake_policy(SET CMP0063 NEW)
 endif()
 
-# Find includes in corresponding build directories
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# Set version
+set(PROJECT_VERSION "0.4.90")
 
-# Instruct CMake to run moc automatically when needed
-set(CMAKE_AUTOMOC ON)
+# Set up packaging
+set(CPACK_PACKAGE_NAME "hawaii-baseapps")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+set(CPACK_GENERATOR "TGZ")
+set(CPACK_SET_DESTDIR FALSE)
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
+set(CPACK_SOURCE_IGNORE_FILES "/build/;/.git;/*.user;/.tx/;~$;${CPACK_SOURCE_IGNORE_FILES}")
+include(CPack)
+add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
 
 # Options
 option(ENABLE_SYSTEMD "Enables systemd support" ON)
 
-# Set version
-set(PROJECT_VERSION "0.4.90")
+# Enable QML debugger for debug or release with debug info builds
+if(CMAKE_BUILD_TYPE MATCHES "[Dd][Ee][Bb]")
+    add_definitions(-DQT_QML_DEBUG)
+endif()
 
 # ECM
-find_package(ECM 0.0.11 REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+find_package(ECM 1.4.0 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} "${CMAKE_SOURCE_DIR}/cmake")
 
 # Macros
 include(FeatureSummary)
@@ -52,16 +61,6 @@ if ("${ECM_VERSION}" VERSION_LESS "1.7.0")
     add_custom_target(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 endif()
 
-# Set up packaging
-set(CPACK_PACKAGE_NAME "hawaii-baseapps")
-set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
-set(CPACK_GENERATOR "TGZ")
-set(CPACK_SET_DESTDIR FALSE)
-set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
-set(CPACK_SOURCE_IGNORE_FILES "/build/;/.git;/*.user;/.tx/;~$;${CPACK_SOURCE_IGNORE_FILES}")
-include(CPack)
-add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
-
 # Assume release build by default
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "" FORCE)
@@ -89,7 +88,7 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
              Qml
              Quick)
 
-# FInd PolicyKit Qt5
+# Find PolicyKit Qt5
 find_package(PolkitQt5-1 REQUIRED 0.103.0)
 
 # Find systemd
