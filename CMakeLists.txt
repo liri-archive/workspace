@@ -67,7 +67,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Wayland
-set(REQUIRED_WAYLAND_VERSION 1.2.0)
+set(REQUIRED_WAYLAND_VERSION 1.4.0)
 find_package(Wayland ${REQUIRED_WAYLAND_VERSION} COMPONENTS Client)
 set_package_properties(Wayland PROPERTIES
     TYPE REQUIRED
