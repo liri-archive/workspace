@@ -1,4 +1,4 @@
-project(HawaiiBaseApps)
+project(HawaiiWorkspace)
 
 cmake_minimum_required(VERSION 2.8.12)
 
@@ -11,7 +11,7 @@ endif()
 set(PROJECT_VERSION "0.4.90")
 
 # Set up packaging
-set(CPACK_PACKAGE_NAME "hawaii-baseapps")
+set(CPACK_PACKAGE_NAME "hawaii-workspace")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_GENERATOR "TGZ")
 set(CPACK_SET_DESTDIR FALSE)
