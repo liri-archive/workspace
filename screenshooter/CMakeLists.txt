@@ -21,7 +21,8 @@ qt5_add_resources(RESOURCES hawaii-screenshot.qrc)
 add_executable(hawaii-screenshot ${SOURCES} ${RESOURCES})
 target_link_libraries(hawaii-screenshot
                       Qt5::Qml
-                      Qt5::Quick)
+                      Qt5::Quick
+                      Wayland::Client)
 
 install(TARGETS hawaii-screenshot
         DESTINATION ${CMAKE_INSTALL_BINDIR})
