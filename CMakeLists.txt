@@ -118,7 +118,7 @@ endif()
 # Subdirectories
 add_subdirectory(headers)
 add_subdirectory(polkitagent)
-add_subdirectory(screenshoot)
+add_subdirectory(screenshooter)
 
 # Display featute summary
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

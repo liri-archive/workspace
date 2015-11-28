@@ -25,5 +25,5 @@ target_link_libraries(hawaii-screenshot
 
 install(TARGETS hawaii-screenshot
         DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES org.hawaii.screenshot.desktop
+install(FILES org.hawaiios.screenshot.desktop
         DESTINATION ${XDG_APPS_INSTALL_DIR})
