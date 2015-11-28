@@ -74,8 +74,8 @@ set_package_properties(Wayland PROPERTIES
     PURPOSE "Required for Wayland protocols")
 add_feature_info("Wayland-Client" Wayland_Client_FOUND "Required for Wayland protocols")
 
-# Wayland and QtWayland scanner
-find_package(QtWaylandScanner REQUIRED)
+# Find Green Island
+find_package(GreenIsland 0.6.90 REQUIRED)
 
 # Minimum version requirements
 set(QT_MIN_VERSION "5.4.0")

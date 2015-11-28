@@ -10,7 +10,7 @@ set(SOURCES
     main.cpp
 )
 
-ecm_add_qtwayland_client_protocol(SOURCES
+greenisland_add_client_protocol(SOURCES
     PROTOCOL ${CMAKE_CURRENT_SOURCE_DIR}/greenisland-screenshooter.xml
     BASENAME greenisland-screenshooter
     PREFIX greenisland_
