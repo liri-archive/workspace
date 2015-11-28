@@ -32,11 +32,12 @@
     </enum>
 
     <request name="shoot">
-      <description summary="quit an application">
-        Ask the compositor to terminate a Wayland client with the specified application identifier.
+      <description summary="take a screenshot">
+        Ask the compositor to take a screenshot of the output and save it
+        to the buffer.
       </description>
-      <arg name="output" type="object" summary="wl_output"/>
-      <arg name="buffer" type="object" summary="wl_buffer"/>
+      <arg name="output" type="object" interface="wl_output"/>
+      <arg name="buffer" type="object" interface="wl_buffer"/>
     </request>
 
     <event name="done">
