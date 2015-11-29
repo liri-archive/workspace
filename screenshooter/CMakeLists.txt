@@ -8,6 +8,7 @@ add_definitions(-Wno-deprecated-declarations)
 
 set(SOURCES
     main.cpp
+    screenshooter.cpp
 )
 
 greenisland_add_client_protocol(SOURCES
