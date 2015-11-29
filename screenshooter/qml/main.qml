@@ -56,9 +56,40 @@ ApplicationWindow {
                 ColumnLayout {
                     spacing: Themes.Units.smallSpacing
 
+                    ExclusiveGroup { id: options }
+
                     RadioButton {
                         text: qsTr("Grab the whole screen")
+                        exclusiveGroup: options
                         checked: true
+                    }
+
+                    RadioButton {
+                        text: qsTr("Grab the current window")
+                        exclusiveGroup: options
+                        checked: false
+                        enabled: false
+                    }
+
+                    RadioButton {
+                        text: qsTr("Select area to grab")
+                        exclusiveGroup: options
+                        checked: false
+                        enabled: false
+                    }
+
+                    RowLayout {
+                        Label {
+                            text: qsTr("Grab after a delay of")
+                        }
+
+                        SpinBox {
+                            id: grabDelay
+                        }
+
+                        Label {
+                            text: qsTr("seconds")
+                        }
                     }
                 }
             }
