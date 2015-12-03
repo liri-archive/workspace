@@ -1,11 +1,16 @@
-Hawaii Base Applications
-========================
+Hawaii Workspace
+================
 
 [![IRC Network](https://img.shields.io/badge/irc-freenode-blue.svg "IRC Freenode")](https://webchat.freenode.net/?channels=hawaii-desktop)
 [![GitHub release](https://img.shields.io/github/release/hawaii-desktop/hawaii-baseapps.svg)](https://github.com/hawaii-desktop/hawaii-baseapps)
 [![GitHub issues](https://img.shields.io/github/issues/hawaii-desktop/hawaii-baseapps.svg)](https://github.com/hawaii-desktop/hawaii-baseapps/issues)
 
 Base applications for the Hawaii desktop environment.
+
+Includes:
+
+* hawaii-polkit-agent, the PolicyKit agent
+* hawaii-screenshooter, screenshot application
 
 ## Dependencies
 
