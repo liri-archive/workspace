@@ -118,6 +118,7 @@ endif()
 # Subdirectories
 add_subdirectory(headers)
 add_subdirectory(polkitagent)
+add_subdirectory(powermanager)
 add_subdirectory(screenshooter)
 
 # Display featute summary

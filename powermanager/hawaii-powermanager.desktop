@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Power Manager
+Comment=Power Manager
+Exec=hawaii-powermanager
+TryExec=hawaii-powermanager
+Terminal=false
+StartupNotify=false
+OnlyShowIn=X-Hawaii;
+NoDisplay=true
