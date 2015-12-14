@@ -24,31 +24,26 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#ifndef SCREENSHOOTER_H
-#define SCREENSHOOTER_H
+#ifndef SCREENSHOT_P_H
+#define SCREENSHOT_P_H
 
-#include <QtCore/QObject>
-#include <QtGui/QScreen>
+#include <QtCore/private/qobject_p.h>
 
-struct wl_shm;
+#include "screenshot.h"
+#include "qwayland-greenisland-screenshooter.h"
 
-class ScreenshooterPrivate;
-
-class Screenshooter : public QObject
+class ScreenshotPrivate
+        : public QObjectPrivate
+        , public QtWayland::greenisland_screenshot
 {
-    Q_OBJECT
-    Q_DECLARE_PRIVATE(Screenshooter)
-    Q_ENUMS(What Result)
+    Q_DECLARE_PUBLIC(Screenshot)
 public:
-    enum What {
-        WholeScreen = 1,
-        CurrentWindow,
-        SelectArea
-    };
+    ScreenshotPrivate();
 
-    Screenshooter(QObject *parent = Q_NULLPTR);
+    ScreenshotPrivate *get(Screenshot *ss) { return ss->d_func(); }
 
-    Q_INVOKABLE void takeScreenshot(What what);
+protected:
+    void screenshot_done(int32_t result) Q_DECL_OVERRIDE;
 };
 
-#endif // SCREENSHOOTER_H
+#endif // SCREENSHOT_P_H

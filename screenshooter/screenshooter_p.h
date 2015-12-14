@@ -42,8 +42,11 @@ public:
     ScreenshooterPrivate();
 
     wl_shm *shm;
+    QVector<Screenshot *> pendingScreenshots;
 
     Screenshot *shoot(Screenshooter::What what, QScreen *screen);
+
+    static ScreenshooterPrivate *get(Screenshooter *s) { return s->d_func(); }
 };
 
 #endif // SCREENSHOOTER_P_H

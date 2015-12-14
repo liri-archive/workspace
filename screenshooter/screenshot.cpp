@@ -24,14 +24,46 @@
  * $END_LICENSE$
  ***************************************************************************/
 
+#include <QtGui/QGuiApplication>
+#include <QtGui/qpa/qplatformnativeinterface.h>
+
 #include "screenshot.h"
+#include "screenshot_p.h"
+#include "screenshooter_p.h"
 
 #include <wayland-client.h>
 
+/*
+ * ScreenshotPrivate
+ */
+
+ScreenshotPrivate::ScreenshotPrivate()
+    : QtWayland::greenisland_screenshot()
+{
+}
+
+void ScreenshotPrivate::screenshot_done(int32_t result)
+{
+    Q_Q(Screenshot);
+    Q_EMIT q->done(static_cast<Screenshot::Result>(result));
+}
+
+/*
+ * Screenshot
+ */
+
 Screenshot::Screenshot(Screenshooter::What what, QScreen *screen, uchar *data,
                        wl_buffer *buffer, QObject *parent)
-    : QObject(parent)
+    : QObject(*new ScreenshotPrivate(), parent)
 {
+    Screenshooter *shooter = static_cast<Screenshooter *>(parent);
+    if (shooter) {
+        wl_output *output = static_cast<wl_output *>(QGuiApplication::platformNativeInterface()->nativeResourceForScreen("output", screen));
+        ScreenshooterPrivate *ds = ScreenshooterPrivate::get(shooter);
+        greenisland_screenshot *object =
+                greenisland_screenshooter_shoot(ds->object(), what, output, buffer);
+        d_func()->init(object);
+    }
 }
 
 #include "moc_screenshot.cpp"

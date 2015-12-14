@@ -103,18 +103,14 @@ Screenshooter::Screenshooter(QObject *parent)
 {
 }
 
-void Screenshooter::shoot(What what, QScreen *screen)
-{
-    Q_D(Screenshooter);
-    d->shoot(what, screen);
-}
-
-void Screenshooter::shootScreens(What what)
+void Screenshooter::takeScreenshot(What what)
 {
     Q_D(Screenshooter);
 
-    Q_FOREACH (QScreen *screen, QGuiApplication::screens())
-        d->shoot(what, screen);
+    Q_FOREACH (QScreen *screen, QGuiApplication::screens()) {
+        Screenshot *ss = d->shoot(what, screen);
+        d->pendingScreenshots.append(ss);
+    }
 }
 
 #include "moc_screenshooter.cpp"

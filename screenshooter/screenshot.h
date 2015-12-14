@@ -33,16 +33,19 @@
 
 struct wl_buffer;
 
+class ScreenshotPrivate;
+
 class Screenshot : public QObject
 {
     Q_OBJECT
+    Q_DECLARE_PRIVATE(Screenshot)
 public:
     enum Result {
         Success,
         BadOutput,
         BadBuffer
     };
-    Q_ENUM(Result)
+    Q_ENUM(Result);
 
     Screenshot(Screenshooter::What what, QScreen *screen,
                uchar *data, wl_buffer *buffer, QObject *parent = Q_NULLPTR);
