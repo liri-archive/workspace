@@ -19,22 +19,29 @@
 
   <interface name="greenisland_screenshooter" version="1">
     <description summary="dump the contents of an output to a buffer">
-      This interface is used by programs to take a screenshot of an output.
-      Output contents are dumped into a buffer that is read by
-      the screenshot application and saved as an image file.
+      This interface is used by programs to take a screenshot of an entire
+      output, a portion or a specific window.
+      Captured contents are dumped in a buffer read by the client application
+      that can save it on the disk or show it to the user.
       The done event is sent when the buffer is filled.
     </description>
 
     <enum name="what">
-      <entry name="whole_screen" value="1"/>
-      <entry name="current_window" value="2"/>
-      <entry name="select_area" value="3"/>
-    </enum>
-
-    <enum name="result">
-      <entry name="bad_output" value="1"/>
-      <entry name="bad_buffer" value="2"/>
-      <entry name="success" value="3"/>
+      <description summary="what is going to be captured">
+        These values are used to indicate what the client want the compositor
+        to capture.
+        The 'whole_output' member of this enum indicates that the client wants
+        to capture the whole output.
+        The 'active_window' member of this enum indicates that the client wants
+        to capture only the active window for the given output.
+        The 'select_area' member of this enum indicates that the client wants
+        to capture a specific area. A compositor receiving this request should
+        disable normal interaction with windows and let the user select the
+        portion of the given output they want to capture.
+      </description>
+      <entry name="whole_output" value="1" summary="Capture the whole output"/>
+      <entry name="active_window" value="2" summary="Capture only the active window"/>
+      <entry name="select_area" value="3" summary="Capture the selected portion of the output"/>
     </enum>
 
     <request name="shoot">
@@ -42,16 +49,28 @@
         Ask the compositor to take a screenshot of the output and save it
         to the buffer.
       </description>
+      <arg name="id" type="new_id" interface="greenisland_screenshot"/>
       <arg name="what" type="int"/>
       <arg name="output" type="object" interface="wl_output"/>
       <arg name="buffer" type="object" interface="wl_buffer"/>
     </request>
+  </interface>
+
+  <interface name="greenisland_screenshot" version="1">
+    <enum name="result">
+      <description summary="greenisland_screenshot result values">
+        Result of the screenshot.
+      </description>
+      <entry name="success" value="0" summary="Capture was successful"/>
+      <entry name="bad_output" value="1" summary="Given output was not found"/>
+      <entry name="bad_buffer" value="2" summary="Given buffer was invalid"/>
+    </enum>
 
     <event name="done">
       <description summary="emitted when the buffer is filled">
-        This event is sent when the buffer is filled and the screenshot has been done.
+        The done event is sent when the buffer is filled and the screenshot has been done.
       </description>
-      <arg name="result" type="int"/>
+      <arg name="result" type="int" summary="Result of the capture"/>
     </event>
   </interface>
 </protocol>
