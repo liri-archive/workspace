@@ -75,7 +75,7 @@ set_package_properties(Wayland PROPERTIES
 add_feature_info("Wayland-Client" Wayland_Client_FOUND "Required for Wayland protocols")
 
 # Find Green Island
-find_package(GreenIsland 0.6.90 REQUIRED)
+find_package(GreenIsland 0.7.90 REQUIRED COMPONENTS Server)
 
 # Minimum version requirements
 set(QT_MIN_VERSION "5.4.0")
