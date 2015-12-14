@@ -24,10 +24,21 @@
  * $END_LICENSE$
  ***************************************************************************/
 
+#include <QtCore/QStandardPaths>
+#include <QtCore/QTemporaryFile>
+#include <QtGui/QGuiApplication>
+#include <QtGui/QScreen>
+
 #include "screenshooter.h"
 #include "screenshooter_p.h"
+#include "screenshot.h"
 
 #include <wayland-client.h>
+
+//#include <stdlib.h>
+#include <sys/mman.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 /*
  * ScreenshooterPrivate
@@ -35,7 +46,52 @@
 
 ScreenshooterPrivate::ScreenshooterPrivate()
     : QtWayland::greenisland_screenshooter()
+    , shm(Q_NULLPTR)
 {
+}
+
+Screenshot *ScreenshooterPrivate::shoot(Screenshooter::What what, QScreen *screen)
+{
+    Q_Q(Screenshooter);
+
+    int w = screen->size().width();
+    int h = screen->size().height();
+    int stride = w * 4;
+    int area = w * h;
+
+    const QString shmFileTemplate = QStringLiteral("%1/hawaii-screenshooter-shm-XXXXXX")
+            .arg(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+    QTemporaryFile tmpFile(shmFileTemplate);
+    if (!tmpFile.open()) {
+        qWarning("Failed to create temporary file for shm buffer: %s",
+                 qPrintable(tmpFile.errorString()));
+        return Q_NULLPTR;
+    }
+
+    int fd = tmpFile.handle();
+    int flags = fcntl(fd, F_GETFD);
+    if (flags != -1)
+        fcntl(fd, F_SETFD, flags | FD_CLOEXEC);
+
+    if (ftruncate(fd, area) < 0) {
+        qWarning("ftruncate failed: %s", strerror(errno));
+        return Q_NULLPTR;
+    }
+
+    uchar *data = static_cast<uchar *>(mmap(Q_NULLPTR, area, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0));
+    if (data == static_cast<uchar *>(MAP_FAILED)) {
+        qWarning("Failed to allocate memory for the screenshot: %s",
+                 qPrintable(strerror(errno)));
+        return Q_NULLPTR;
+    }
+
+    wl_shm_pool *pool = wl_shm_create_pool(shm, fd, area);
+    wl_buffer *buffer = wl_shm_pool_create_buffer(pool, 0, w, h, stride, WL_SHM_FORMAT_ARGB8888);
+    wl_shm_pool_destroy(pool);
+
+    tmpFile.close();
+
+    return new Screenshot(what, screen, data, buffer, q);
 }
 
 /*
@@ -47,11 +103,18 @@ Screenshooter::Screenshooter(QObject *parent)
 {
 }
 
-void Screenshooter::shoot(What what, wl_shm *shm, QScreen *screen)
+void Screenshooter::shoot(What what, QScreen *screen)
 {
-    Q_UNUSED(what);
-    Q_UNUSED(shm);
-    Q_UNUSED(screen);
+    Q_D(Screenshooter);
+    d->shoot(what, screen);
+}
+
+void Screenshooter::shootScreens(What what)
+{
+    Q_D(Screenshooter);
+
+    Q_FOREACH (QScreen *screen, QGuiApplication::screens())
+        d->shoot(what, screen);
 }
 
 #include "moc_screenshooter.cpp"

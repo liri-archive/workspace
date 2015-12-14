@@ -9,6 +9,7 @@ add_definitions(-Wno-deprecated-declarations)
 set(SOURCES
     main.cpp
     screenshooter.cpp
+    screenshot.cpp
 )
 
 greenisland_add_client_protocol(SOURCES

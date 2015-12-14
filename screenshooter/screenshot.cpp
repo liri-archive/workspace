@@ -24,26 +24,14 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#ifndef SCREENSHOOTER_P_H
-#define SCREENSHOOTER_P_H
+#include "screenshot.h"
 
-#include <QtCore/private/qobject_p.h>
+#include <wayland-client.h>
 
-#include "screenshooter.h"
-#include "qwayland-greenisland-screenshooter.h"
-
-class Screenshot;
-
-class ScreenshooterPrivate : public QObjectPrivate
-                           , public QtWayland::greenisland_screenshooter
+Screenshot::Screenshot(Screenshooter::What what, QScreen *screen, uchar *data,
+                       wl_buffer *buffer, QObject *parent)
+    : QObject(parent)
 {
-    Q_DECLARE_PUBLIC(Screenshooter)
-public:
-    ScreenshooterPrivate();
+}
 
-    wl_shm *shm;
-
-    Screenshot *shoot(Screenshooter::What what, QScreen *screen);
-};
-
-#endif // SCREENSHOOTER_P_H
+#include "moc_screenshot.cpp"

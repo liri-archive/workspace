@@ -46,20 +46,10 @@ public:
         SelectArea
     };
 
-    enum Result {
-        BadOutput = 1,
-        BadBuffer,
-        Success
-    };
-    Q_DECLARE_FLAGS(Results, Result)
-
     Screenshooter(QObject *parent = Q_NULLPTR);
 
-Q_SIGNALS:
-    void done(Results results);
-
-public Q_SLOTS:
-    void shoot(What what, wl_shm *shm, QScreen *screen);
+    Q_INVOKABLE void shoot(What what, QScreen *screen);
+    Q_INVOKABLE void shootScreens(What what);
 };
 
 #endif // SCREENSHOOTER_H
