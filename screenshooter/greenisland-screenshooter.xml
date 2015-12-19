@@ -18,59 +18,103 @@
   ]]></copyright>
 
   <interface name="greenisland_screenshooter" version="1">
-    <description summary="dump the contents of an output to a buffer">
+    <description summary="dump the contents of an output, a surface or an area to a buffer">
       This interface is used by programs to take a screenshot of an entire
-      output, a portion or a specific window.
-      Captured contents are dumped in a buffer read by the client application
-      that can save it on the disk or show it to the user.
-      The done event is sent when the buffer is filled.
+      output, a user-selected area or a specific surface.
+      Captured contents are dumped into a ARGB888 buffer allocated by the
+      client application.
+
+      The client asks the compositor to capture with one of the capture
+      requests. As a result, a greenisland_screenshot object will be created
+      and the greenisland_screenshot.ready event will be sent as soon as the
+      client binds to the interface.
+
+      Then the client allocates the buffer and provides it to the compositor
+      invoking the greenisland_screenshot.capture request.
+      The compositor signals that the capture was done with the
+      greenisland_screenshot.done event.
     </description>
 
-    <enum name="what">
-      <description summary="what is going to be captured">
-        These values are used to indicate what the client want the compositor
-        to capture.
-        The 'whole_output' member of this enum indicates that the client wants
-        to capture the whole output.
-        The 'active_window' member of this enum indicates that the client wants
-        to capture only the active window for the given output.
-        The 'select_area' member of this enum indicates that the client wants
-        to capture a specific area. A compositor receiving this request should
-        disable normal interaction with windows and let the user select the
-        portion of the given output they want to capture.
-      </description>
-      <entry name="whole_output" value="1" summary="Capture the whole output"/>
-      <entry name="active_window" value="2" summary="Capture only the active window"/>
-      <entry name="select_area" value="3" summary="Capture the selected portion of the output"/>
-    </enum>
-
-    <request name="shoot">
-      <description summary="take a screenshot">
-        Ask the compositor to take a screenshot of the output and save it
-        to the buffer.
+    <request name="capture_output">
+      <description summary="take a screenshot of an entire output">
+        Ask the compositor to capture an entire output.
       </description>
       <arg name="id" type="new_id" interface="greenisland_screenshot"/>
-      <arg name="what" type="int"/>
       <arg name="output" type="object" interface="wl_output"/>
-      <arg name="buffer" type="object" interface="wl_buffer"/>
+    </request>
+
+    <request name="capture_active">
+      <description summary="take a screenshot of the active window">
+        Ask the compositor to take a screenshot of the active window.
+      </description>
+      <arg name="id" type="new_id" interface="greenisland_screenshot"/>
+    </request>
+
+    <request name="capture_surface">
+      <description summary="take a screenshot of a surface">
+        Ask the compositor to take a screenshot of a surface of a window
+        selected by the user.
+      </description>
+      <arg name="id" type="new_id" interface="greenisland_screenshot"/>
+    </request>
+
+    <request name="capture_area">
+      <description summary="take a screenshot of an area">
+        Ask the compositor to take a screenshot of an area.
+        This request starts a user-driven selection of the area that will
+        be captured.
+      </description>
+      <arg name="id" type="new_id" interface="greenisland_screenshot"/>
     </request>
   </interface>
 
   <interface name="greenisland_screenshot" version="1">
-    <enum name="result">
-      <description summary="greenisland_screenshot result values">
-        Result of the screenshot.
+    <description summary="screenshot">
+      A screenshot allows a client to perform a capture of an entire output,
+      an area selected by a user-driven operation, the active window or a
+      specific surface.  Whatever is to be captured is decided by the capture
+      request that was called from the greenisland_screenshooter interface.
+
+      The 'ready' event is sent as soon as the client binds to this interface
+      and indicates the size of the buffer that needs to be allocated.
+
+      Invoking the 'capture' request triggers the actual capture.
+      The 'done' event is sent when the capture is done, at this point the
+      client can decide what to do with the buffer (store into a file, display
+      to the user, ...).
+    </description>
+
+    <request name="destroy" type="destructor">
+      <description summary="remove greenisland_screenshot interface">
+        This destroys the screenshot object.
       </description>
-      <entry name="success" value="0" summary="Capture was successful"/>
-      <entry name="bad_output" value="1" summary="Given output was not found"/>
-      <entry name="bad_buffer" value="2" summary="Given buffer was invalid"/>
-    </enum>
+    </request>
+
+    <request name="capture">
+      <description summary="take a screenshot">
+        Ask the compositor to take a screenshot and save the contents into
+        the buffer.  What is being capture can be either an output, a surface
+        or an area that was selected with user interaction, depending on the
+        greenisland_screenshooter request that was invoked.
+      </description>
+      <arg name="buffer" type="object" interface="wl_buffer"/>
+    </request>
+
+    <event name="ready">
+      <description summary="compositor is ready to capture">
+        The ready event is sent when the client binds to the
+        greenisland_screenshot interface and reports the size of the buffer
+        that the client needs to allocate and the image size.
+      </description>
+      <arg name="size" type="uint" summary="Buffer size"/>
+      <arg name="width" type="int" summary="Captured image width"/>
+      <arg name="height" type="int" summary="Captured image height"/>
+    </event>
 
     <event name="done">
       <description summary="emitted when the buffer is filled">
-        The done event is sent when the buffer is filled and the screenshot has been done.
+        The done event is sent when the buffer is filled.
       </description>
-      <arg name="result" type="int" summary="Result of the capture"/>
     </event>
   </interface>
 </protocol>
