@@ -25,15 +25,18 @@
  ***************************************************************************/
 
 #include <QtGui/QGuiApplication>
-#include <QtQml/QQmlApplicationEngine>
 
 #include "config.h"
+#include "screenshooter.h"
 
 int main(int argc, char *argv[])
 {
+    // Force using the wayland QPA plugin
+    qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("wayland"));
+
     // Setup application
     QGuiApplication app(argc, argv);
-    app.setApplicationName(QStringLiteral("Screenshot"));
+    app.setApplicationName(QStringLiteral("Screenshooter"));
     app.setApplicationVersion(QStringLiteral(HAWAII_BASEAPPS_VERSION));
     app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
@@ -41,8 +44,17 @@ int main(int argc, char *argv[])
     app.setDesktopFileName(QStringLiteral("org.hawaiios.screenshot.desktop"));
 #endif
 
+    // Need to be running with wayland QPA
+    if (!QGuiApplication::platformName().startsWith(QStringLiteral("wayland"))) {
+        qCritical("This application requires a Wayland session");
+        return 1;
+    }
+
     // Run the application
-    QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml"));
+    Screenshooter *screenshooter = new Screenshooter();
+    QGuiApplication::postEvent(screenshooter, new StartupEvent());
+    QObject::connect(&app, &QGuiApplication::aboutToQuit,
+                     screenshooter, &Screenshooter::deleteLater);
 
     return app.exec();
 }

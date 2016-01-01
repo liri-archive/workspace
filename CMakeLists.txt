@@ -38,16 +38,6 @@ include(KDEInstallDirs)
 include(KDECompilerSettings)
 include(KDECMakeSettings)
 
-# Require at least gcc 4.8
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    if ("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS "4.8")
-        message(SEND_ERROR "Version ${CMAKE_CXX_COMPILER_VERSION} of the ${CMAKE_CXX_COMPILER_ID} C++ compiler is not supported. Please use version 4.8 or later.")
-    endif()
-endif()
-
-# Adjusting CMAKE_C_FLAGS to get Wayland protocols to compile
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu90")
-
 # Find pkg-config here so that it can be referenced soon
 find_package(PkgConfig)
 
@@ -66,16 +56,8 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "" FORCE)
 endif()
 
-# Wayland
-set(REQUIRED_WAYLAND_VERSION 1.4.0)
-find_package(Wayland ${REQUIRED_WAYLAND_VERSION} COMPONENTS Client)
-set_package_properties(Wayland PROPERTIES
-    TYPE REQUIRED
-    PURPOSE "Required for Wayland protocols")
-add_feature_info("Wayland-Client" Wayland_Client_FOUND "Required for Wayland protocols")
-
 # Find Green Island
-find_package(GreenIsland 0.7.90 REQUIRED COMPONENTS Server)
+find_package(GreenIsland 0.7.90 REQUIRED COMPONENTS Client Server)
 
 # Minimum version requirements
 set(QT_MIN_VERSION "5.4.0")

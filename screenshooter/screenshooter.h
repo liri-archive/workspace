@@ -1,10 +1,10 @@
 /****************************************************************************
  * This file is part of Hawaii.
  *
- * Copyright (C) 2015 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+ * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
  * Author(s):
- *    Pier Luigi Fiorini
+ *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  *
  * $BEGIN_LICENSE:GPL2+$
  *
@@ -28,27 +28,69 @@
 #define SCREENSHOOTER_H
 
 #include <QtCore/QObject>
+#include <QtCore/QThread>
+#include <QtGui/QImage>
 #include <QtGui/QScreen>
+#include <QtQml/QQmlApplicationEngine>
 
-struct wl_shm;
+#include <GreenIsland/Client/ClientConnection>
+#include <GreenIsland/Client/Registry>
+#include <GreenIsland/Client/Screenshooter>
+#include <GreenIsland/Client/Shm>
 
-class ScreenshooterPrivate;
+using namespace GreenIsland;
+
+class StartupEvent : public QEvent
+{
+public:
+    StartupEvent();
+};
 
 class Screenshooter : public QObject
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(Screenshooter)
-    Q_ENUMS(What Result)
 public:
     enum What {
-        WholeScreen = 1,
-        CurrentWindow,
-        SelectArea
+        Screen = 1,
+        ActiveWindow,
+        Window,
+        Area
     };
+    Q_ENUM(What)
 
     Screenshooter(QObject *parent = Q_NULLPTR);
+    ~Screenshooter();
 
     Q_INVOKABLE void takeScreenshot(What what);
+
+protected:
+    bool event(QEvent *event) Q_DECL_OVERRIDE;
+
+private:
+    struct ScreenshotRequest {
+        Client::Screenshot *screenshot;
+        QScreen *screen;
+        QImage image;
+    };
+
+    bool m_initialized;
+    bool m_inProgress;
+    QQmlApplicationEngine *m_engine;
+    QThread *m_thread;
+    Client::ClientConnection *m_connection;
+    Client::Registry *m_registry;
+    Client::Shm *m_shm;
+    Client::Screenshooter *m_shooter;
+    QVector<ScreenshotRequest> m_pending;
+    QVector<ScreenshotRequest> m_buffers;
+
+    void initialize();
+    void process();
+    void setupScreenshot(Client::Screenshot *screenshot);
+
+private Q_SLOTS:
+    void interfacesAnnounced();
+    void interfaceAnnounced(const QByteArray &interface, quint32 name, quint32 version);
 };
 
 #endif // SCREENSHOOTER_H

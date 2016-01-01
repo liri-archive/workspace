@@ -59,12 +59,16 @@ ApplicationWindow {
                     ExclusiveGroup { id: options }
 
                     RadioButton {
+                        property int what: 1
+
                         text: qsTr("Grab the whole screen")
                         exclusiveGroup: options
                         checked: true
                     }
 
                     RadioButton {
+                        property int what: 2
+
                         text: qsTr("Grab the current window")
                         exclusiveGroup: options
                         checked: false
@@ -72,6 +76,8 @@ ApplicationWindow {
                     }
 
                     RadioButton {
+                        property int what: 3
+
                         text: qsTr("Select area to grab")
                         exclusiveGroup: options
                         checked: false
@@ -109,6 +115,7 @@ ApplicationWindow {
 
             Button {
                 text: qsTr("Take Screenshot")
+                onClicked: Screenshooter.takeScreenshot(options.current.what)
             }
         }
     }
