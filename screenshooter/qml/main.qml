@@ -91,6 +91,8 @@ ApplicationWindow {
 
                         SpinBox {
                             id: grabDelay
+                            minimumValue: 0
+                            maximumValue: 60
                         }
 
                         Label {
@@ -115,8 +117,28 @@ ApplicationWindow {
 
             Button {
                 text: qsTr("Take Screenshot")
-                onClicked: Screenshooter.takeScreenshot(options.current.what)
+                onClicked: {
+                    root.hide();
+                    shootTimer.start();
+                }
             }
         }
+    }
+
+    Timer {
+        id: shootTimer
+        interval: grabDelay.value * 1000
+        onTriggered: Screenshooter.takeScreenshot(options.current.what)
+    }
+
+    Timer {
+        id: showTimer
+        interval: 1000
+        onTriggered: root.show()
+    }
+
+    Connections {
+        target: Screenshooter
+        onScreenshotDone: showTimer.start()
     }
 }

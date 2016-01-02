@@ -63,6 +63,9 @@ public:
 
     Q_INVOKABLE void takeScreenshot(What what);
 
+Q_SIGNALS:
+    void screenshotDone();
+
 protected:
     bool event(QEvent *event) Q_DECL_OVERRIDE;
 

@@ -213,6 +213,7 @@ void Screenshooter::process()
     // Delete data and get ready for another screenshot
     delete []data;
     m_inProgress = false;
+    Q_EMIT screenshotDone();
 }
 
 void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
