@@ -69,7 +69,7 @@ ApplicationWindow {
                     RadioButton {
                         property int what: 2
 
-                        text: qsTr("Grab the current window")
+                        text: qsTr("Grab the active window")
                         exclusiveGroup: options
                         checked: false
                         enabled: false
@@ -77,6 +77,15 @@ ApplicationWindow {
 
                     RadioButton {
                         property int what: 3
+
+                        text: qsTr("Select a window")
+                        exclusiveGroup: options
+                        checked: false
+                        enabled: false
+                    }
+
+                    RadioButton {
+                        property int what: 4
 
                         text: qsTr("Select area to grab")
                         exclusiveGroup: options
