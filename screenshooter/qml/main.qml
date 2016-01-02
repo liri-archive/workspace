@@ -102,6 +102,7 @@ ApplicationWindow {
                             id: grabDelay
                             minimumValue: 0
                             maximumValue: 60
+                            value: 2
                         }
 
                         Label {
