@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     // Setup application
     QGuiApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Screenshooter"));
-    app.setApplicationVersion(QStringLiteral(HAWAII_BASEAPPS_VERSION));
+    app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
     app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
 #if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)

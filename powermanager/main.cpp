@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
 {
     // Setup application
     QCoreApplication app(argc, argv);
-    app.setApplicationName(QStringLiteral("Hawaii Power Manager"));
-    app.setApplicationVersion(QStringLiteral(HAWAII_BASEAPPS_VERSION));
+    app.setApplicationName(QStringLiteral("Power Manager"));
+    app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
     app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
 

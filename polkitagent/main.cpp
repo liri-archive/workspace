@@ -33,9 +33,9 @@ int main(int argc, char *argv[])
 {
     // Setup application
     QGuiApplication app(argc, argv);
-    app.setApplicationName(QStringLiteral("Hawaii PolicyKit Agent"));
-    app.setApplicationVersion(QStringLiteral(HAWAII_BASEAPPS_VERSION));
-    app.setOrganizationDomain(QStringLiteral("hawaii.org"));
+    app.setApplicationName(QStringLiteral("PolicyKit Agent"));
+    app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
+    app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
     app.setQuitOnLastWindowClosed(false);
 
