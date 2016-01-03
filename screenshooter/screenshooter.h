@@ -37,6 +37,8 @@
 #include <GreenIsland/Client/Screenshooter>
 #include <GreenIsland/Client/Shm>
 
+#include "imageprovider.h"
+
 using namespace GreenIsland;
 
 class Screenshooter : public QObject
@@ -88,6 +90,8 @@ private:
         bool border;
         int delay;
     } m_cliOptions;
+
+    ImageProvider *m_imageProvider;
 
     void initialize();
     void process();

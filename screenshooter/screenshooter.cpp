@@ -76,6 +76,7 @@ Screenshooter::Screenshooter(QObject *parent)
     , m_thread(new QThread())
     , m_connection(Client::ClientConnection::fromQt())
     , m_registry(new Client::Registry(this))
+    , m_imageProvider(new ImageProvider())
 {
     // Wayland connection in a separate thread
     Q_ASSERT(m_connection);
@@ -214,6 +215,7 @@ void Screenshooter::process()
 
     // Create an image
     QImage image(data, width, height, stride, QImage::Format_RGB32);
+    m_imageProvider->image = image;
     image.save(screenshotFileName());
 
     // Delete data and get ready for another screenshot
@@ -276,6 +278,7 @@ void Screenshooter::interfacesAnnounced()
         qCritical("Wayland compositor doesn't have screenshooter capabilities");
 
     if (m_interactive) {
+        m_engine->addImageProvider(QLatin1String("screenshooter"), m_imageProvider);
         m_engine->rootContext()->setContextProperty(QLatin1String("Screenshooter"), this);
         m_engine->load(QUrl(QLatin1String("qrc:/qml/main.qml")));
     } else {

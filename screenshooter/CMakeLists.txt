@@ -6,6 +6,7 @@ include_directories(
 
 set(SOURCES
     main.cpp
+    imageprovider.cpp
     screenshooter.cpp
 )
 
