@@ -267,7 +267,6 @@ void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
                 ScreenshotRequest req = m_pending.takeAt(i);
                 req.image = buffer->image();
                 m_buffers.append(req);
-                delete buffer;
                 break;
             }
         }
