@@ -66,9 +66,9 @@ protected:
 
 private:
     struct ScreenshotRequest {
+        QPoint position;
         Client::Screenshot *screenshot;
-        QScreen *screen;
-        QImage image;
+        Client::Buffer *buffer;
     };
 
     bool m_initialized;
@@ -88,7 +88,7 @@ private:
     } m_cliOptions;
     Client::Screenshooter *m_shooter;
     QVector<ScreenshotRequest> m_pending;
-    QVector<ScreenshotRequest> m_buffers;
+    QVector<ScreenshotRequest> m_process;
 
     void initialize();
     void process();

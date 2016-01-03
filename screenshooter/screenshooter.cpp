@@ -131,23 +131,23 @@ void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeB
     case Screen:
         Q_FOREACH (QScreen *screen, QGuiApplication::screens()) {
             ss = m_shooter->captureOutput(Client::Output::fromQt(screen, this), effects);
-            m_pending.append({ss, screen, QImage()});
+            m_pending.append({screen->geometry().topLeft(), ss, Q_NULLPTR});
             setupScreenshot(ss);
         }
         break;
     case ActiveWindow:
         ss = m_shooter->captureActiveWindow(effects);
-        m_pending.append({ss, Q_NULLPTR, QImage()});
+        m_pending.append({QPoint(0, 0), ss, Q_NULLPTR});
         setupScreenshot(ss);
         break;
     case Window:
         ss = m_shooter->captureWindow(effects);
-        m_pending.append({ss, Q_NULLPTR, QImage()});
+        m_pending.append({QPoint(0, 0), ss, Q_NULLPTR});
         setupScreenshot(ss);
         break;
     case Area:
         ss = m_shooter->captureArea(effects);
-        m_pending.append({ss, Q_NULLPTR, QImage()});
+        m_pending.append({QPoint(0, 0), ss, Q_NULLPTR});
         setupScreenshot(ss);
         break;
     }
@@ -179,60 +179,35 @@ void Screenshooter::process()
     int width = 0, height = 0;
 
     // Calculate the final size
-    Q_FOREACH (const ScreenshotRequest &sr, m_buffers) {
-        int imageX = 0, imageY = 0, imageWidth = 0, imageHeight = 0;
-
-        if (sr.screenshot->captureType() == Client::Screenshot::CaptureOutput) {
-            imageX = sr.screen->geometry().x();
-            imageY = sr.screen->geometry().y();
-            imageWidth = sr.screen->size().width();
-            if (sr.screen->size().height() > height)
-                imageHeight = sr.screen->size().height();
-        } else {
-            imageX = sr.image.width();
-            imageY = sr.image.height();
-            imageWidth = imageX;
-            if (sr.image.height() > height)
-                imageHeight = sr.image.height();
-        }
-
-        minX = qMin(minX, imageX);
-        minY = qMin(minY, imageY);
-        width += imageWidth;
-        if (imageHeight > 0)
-            height = imageHeight;
+    Q_FOREACH (const ScreenshotRequest &sr, m_process) {
+        minX = qMin(minX, sr.position.x());
+        minY = qMin(minY, sr.position.y());
+        width += sr.buffer->size().width();
+        if (sr.buffer->size().height() > height)
+            height = sr.buffer->size().height();
     }
 
-    // Calculate the new stride
+    // Calculate the new stride and allocate data
     int stride = width * 4;
-
-    // Compose a new image
     uchar *data = new uchar[stride * height];
     memset(data, 0x00, stride * height);
-    Q_FOREACH (const ScreenshotRequest &sr, m_buffers) {
-        // Determine height and coordinates
-        int imageHeight = sr.image.height();
-        int imageX = 0, imageY = 0;
-        int imageStride = sr.image.bytesPerLine();
-        if (sr.screenshot->captureType() == Client::Screenshot::CaptureOutput) {
-            imageX = sr.screen->geometry().x();
-            imageY = sr.screen->geometry().y();
-        }
 
+    // Compose a new image
+    Q_FOREACH (const ScreenshotRequest &sr, m_process) {
         // Copy buffer data to the image
-        uchar *address = const_cast<uchar *>(sr.image.bits());
-        uchar *newdata = data + (imageY - minY) * imageStride * (imageX - minX) * 4;
-        for (int i = 0; i < imageHeight; i++) {
-            memcpy(newdata, address, imageStride);
-            newdata += imageStride;
-            address += imageStride;
+        uchar *address = sr.buffer->address();
+        uchar *newdata = data + (sr.position.y() - minY) * stride + (sr.position.x() - minX) * 4;
+        for (int i = 0; i < sr.buffer->size().height(); i++) {
+            memcpy(newdata, address, sr.buffer->stride());
+            newdata += stride;
+            address += sr.buffer->stride();
         }
 
         // Fill empty space with black
-        for (int i = imageHeight; i < height; i++) {
-            for (uchar *line = newdata + 3; line < newdata + imageStride; line += 4)
+        for (int i = sr.buffer->size().height(); i < height; ++i) {
+            for (uchar *line = newdata + 3; line < newdata + sr.buffer->stride(); line += 4)
                 *line = 0xff;
-            newdata += imageStride;
+            newdata += stride;
         }
     }
 
@@ -264,9 +239,9 @@ void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
         for (int i = 0; i < m_pending.count(); i++) {
             ScreenshotRequest sr = m_pending.at(i);
             if (sr.screenshot == screenshot) {
-                ScreenshotRequest req = m_pending.takeAt(i);
-                req.image = buffer->image();
-                m_buffers.append(req);
+                m_pending.takeAt(i);
+                sr.buffer = buffer;
+                m_process.append(sr);
                 break;
             }
         }
