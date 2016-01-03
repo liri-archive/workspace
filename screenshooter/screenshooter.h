@@ -29,6 +29,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QThread>
+#include <QtCore/QTimer>
 #include <QtGui/QImage>
 #include <QtGui/QScreen>
 #include <QtQml/QQmlApplicationEngine>
@@ -39,12 +40,6 @@
 #include <GreenIsland/Client/Shm>
 
 using namespace GreenIsland;
-
-class StartupEvent : public QEvent
-{
-public:
-    StartupEvent();
-};
 
 class Screenshooter : public QObject
 {
@@ -77,12 +72,20 @@ private:
     };
 
     bool m_initialized;
+    bool m_interactive;
     bool m_inProgress;
+    QTimer *m_timer;
     QQmlApplicationEngine *m_engine;
     QThread *m_thread;
     Client::ClientConnection *m_connection;
     Client::Registry *m_registry;
     Client::Shm *m_shm;
+    struct {
+        What what;
+        bool pointer;
+        bool border;
+        int delay;
+    } m_cliOptions;
     Client::Screenshooter *m_shooter;
     QVector<ScreenshotRequest> m_pending;
     QVector<ScreenshotRequest> m_buffers;
@@ -94,6 +97,22 @@ private:
 private Q_SLOTS:
     void interfacesAnnounced();
     void interfaceAnnounced(const QByteArray &interface, quint32 name, quint32 version);
+};
+
+class InteractiveStartupEvent : public QEvent
+{
+public:
+    InteractiveStartupEvent();
+};
+
+class StartupEvent : public QEvent
+{
+public:
+    StartupEvent(Screenshooter::What what, Client::Screenshooter::Effects effects, int delay);
+
+    Screenshooter::What what;
+    Client::Screenshooter::Effects effects;
+    int delay;
 };
 
 #endif // SCREENSHOOTER_H

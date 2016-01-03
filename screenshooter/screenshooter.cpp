@@ -34,15 +34,30 @@
 
 #include "screenshooter.h"
 
-static const QEvent::Type StartupEventType =
+/*
+ * InteractiveStartupEvent
+ */
+
+static const QEvent::Type InteractiveStartupEventType =
         static_cast<QEvent::Type>(QEvent::registerEventType());
+
+InteractiveStartupEvent::InteractiveStartupEvent()
+    : QEvent(InteractiveStartupEventType)
+{
+}
 
 /*
  * StartupEvent
  */
 
-StartupEvent::StartupEvent()
+static const QEvent::Type StartupEventType =
+        static_cast<QEvent::Type>(QEvent::registerEventType());
+
+StartupEvent::StartupEvent(Screenshooter::What w, Client::Screenshooter::Effects e, int d)
     : QEvent(StartupEventType)
+    , what(w)
+    , effects(e)
+    , delay(d)
 {
 }
 
@@ -53,7 +68,9 @@ StartupEvent::StartupEvent()
 Screenshooter::Screenshooter(QObject *parent)
     : QObject(parent)
     , m_initialized(false)
+    , m_interactive(false)
     , m_inProgress(false)
+    , m_timer(new QTimer(this))
     , m_engine(new QQmlApplicationEngine(this))
     , m_thread(new QThread())
     , m_connection(Client::ClientConnection::fromQt())
@@ -78,7 +95,16 @@ Screenshooter::~Screenshooter()
 
 bool Screenshooter::event(QEvent *event)
 {
-    if (event->type() == StartupEventType) {
+    if (event->type() == InteractiveStartupEventType) {
+        m_interactive = true;
+        initialize();
+        return true;
+    } else if (event->type() == StartupEventType) {
+        StartupEvent *e = static_cast<StartupEvent *>(event);
+        m_cliOptions.what = e->what;
+        m_cliOptions.pointer = e->effects.testFlag(Client::Screenshooter::EffectPointer);
+        m_cliOptions.border = e->effects.testFlag(Client::Screenshooter::EffectBorder);
+        m_cliOptions.delay = e->delay;
         initialize();
         return true;
     }
@@ -220,6 +246,10 @@ void Screenshooter::process()
     delete []data;
     m_inProgress = false;
     Q_EMIT screenshotDone();
+
+    // Quit in non-interactive mode because we only take one screenshot
+    if (!m_interactive)
+        QGuiApplication::quit();
 }
 
 void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
@@ -265,8 +295,15 @@ void Screenshooter::interfacesAnnounced()
     if (!m_shooter)
         qCritical("Wayland compositor doesn't have screenshooter capabilities");
 
-    m_engine->rootContext()->setContextProperty(QLatin1String("Screenshooter"), this);
-    m_engine->load(QUrl(QLatin1String("qrc:/qml/main.qml")));
+    if (m_interactive) {
+        m_engine->rootContext()->setContextProperty(QLatin1String("Screenshooter"), this);
+        m_engine->load(QUrl(QLatin1String("qrc:/qml/main.qml")));
+    } else {
+        m_timer->singleShot(m_cliOptions.delay * 1000, this, [this] {
+            m_timer->stop();
+            takeScreenshot(m_cliOptions.what, m_cliOptions.pointer, m_cliOptions.border);
+        });
+    }
 }
 
 void Screenshooter::interfaceAnnounced(const QByteArray &interface,
