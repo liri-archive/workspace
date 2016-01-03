@@ -57,6 +57,8 @@ public:
     ~Screenshooter();
 
     Q_INVOKABLE void takeScreenshot(What what, bool includePointer, bool includeBorder);
+    Q_INVOKABLE QString screenshotFileName() const;
+    Q_INVOKABLE void saveScreenshot(const QUrl &fileName);
 
 Q_SIGNALS:
     void screenshotDone();
@@ -96,7 +98,6 @@ private:
     void initialize();
     void process();
     void setupScreenshot(Client::Screenshot *screenshot);
-    QString screenshotFileName() const;
 
 private Q_SLOTS:
     void interfacesAnnounced();

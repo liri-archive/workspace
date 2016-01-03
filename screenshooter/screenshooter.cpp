@@ -157,6 +157,18 @@ void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeB
     m_inProgress = true;
 }
 
+QString Screenshooter::screenshotFileName() const
+{
+    return QStringLiteral("%1/%2.png")
+            .arg(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation))
+            .arg(tr("Screenshot from %1").arg(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss"))));
+}
+
+void Screenshooter::saveScreenshot(const QUrl &fileName)
+{
+    m_imageProvider->image.save(fileName.toLocalFile());
+}
+
 void Screenshooter::initialize()
 {
     if (m_initialized)
@@ -215,8 +227,9 @@ void Screenshooter::process()
 
     // Create an image
     QImage image(data, width, height, stride, QImage::Format_RGB32);
-    m_imageProvider->image = image;
-    image.save(screenshotFileName());
+    m_imageProvider->image = image.copy();
+    if (!m_interactive)
+        image.save(screenshotFileName());
 
     // Delete data and get ready for another screenshot
     delete []data;
@@ -260,13 +273,6 @@ void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
             break;
         }
     });
-}
-
-QString Screenshooter::screenshotFileName() const
-{
-    return QStringLiteral("%1/%2.png")
-            .arg(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation))
-            .arg(tr("Screenshot from %1").arg(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss"))));
 }
 
 void Screenshooter::interfacesAnnounced()

@@ -27,7 +27,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 1.0
 import Hawaii.Components 1.0 as Components
 import Hawaii.Themes 1.0 as Themes
 
@@ -36,14 +36,34 @@ ApplicationWindow {
     visible: true
 
     ColumnLayout {
+        id: mainLayout
         anchors {
             fill: parent
             margins: Themes.Units.largeSpacing
         }
+        states: [
+            State {
+                name: "capture"
+                PropertyChanges { target: captureGroupBox; visible: true }
+                PropertyChanges { target: effectsGroupBox; visible: true }
+                PropertyChanges { target: previewLayout; visible: false }
+                PropertyChanges { target: shootButton; visible: true }
+                PropertyChanges { target: actionButton; visible: false }
+            },
+            State {
+                name: "preview"
+                PropertyChanges { target: captureGroupBox; visible: false }
+                PropertyChanges { target: effectsGroupBox; visible: false }
+                PropertyChanges { target: previewLayout; visible: true }
+                PropertyChanges { target: shootButton; visible: false }
+                PropertyChanges { target: actionButton; visible: true }
+            }
+        ]
 
         Keys.onEscapePressed: Qt.quit()
 
         GroupBox {
+            id: captureGroupBox
             title: qsTr("Take Screenshot")
 
             ColumnLayout {
@@ -116,6 +136,7 @@ ApplicationWindow {
         }
 
         GroupBox {
+            id: effectsGroupBox
             title: qsTr("Effects")
 
             ColumnLayout {
@@ -138,6 +159,55 @@ ApplicationWindow {
             Layout.fillWidth: true
         }
 
+        ColumnLayout {
+            id: previewLayout
+            spacing: Themes.Units.smallSpacing
+
+            GroupBox {
+                title: qsTr("Preview")
+
+                Row {
+                    anchors {
+                        fill: parent
+                        margins: Themes.Units.smallSpacing
+                    }
+
+                    Image {
+                        id: preview
+                        width: height * (sourceSize.width / sourceSize.height)
+                        height: 240
+                        cache: false
+                    }
+                }
+            }
+
+            GroupBox {
+                title: qsTr("Options")
+
+                ColumnLayout {
+                    spacing: Themes.Units.smallSpacing
+
+                    ExclusiveGroup { id: actions }
+
+                    RadioButton {
+                        objectName: "saveAction"
+                        text: qsTr("Save")
+                        exclusiveGroup: actions
+                        checked: true
+                    }
+
+                    RadioButton {
+                        objectName: "copyAction"
+                        text: qsTr("Copy to clipboard")
+                        exclusiveGroup: actions
+                        checked: false
+                    }
+                }
+
+                Layout.fillWidth: true
+            }
+        }
+
         RowLayout {
             spacing: Themes.Units.smallSpacing
 
@@ -151,10 +221,25 @@ ApplicationWindow {
             }
 
             Button {
+                id: shootButton
                 text: qsTr("Take Screenshot")
                 onClicked: {
                     root.hide();
                     shootTimer.start();
+                }
+            }
+
+            Button {
+                id: actionButton
+                text: qsTr("OK")
+                onClicked: {
+                    switch (actions.current.objectName) {
+                    case "saveAction":
+                        fileDialog.open();
+                        break;
+                    case "copyAction":
+                        break;
+                    }
                 }
             }
         }
@@ -173,11 +258,29 @@ ApplicationWindow {
     Timer {
         id: showTimer
         interval: 1000
-        onTriggered: root.show()
+        onTriggered: {
+            preview.source = "image://screenshooter/last";
+            mainLayout.state = "preview";
+            root.show();
+        }
+    }
+
+    FileDialog {
+        id: fileDialog
+        title: qsTr("Save Screenshot As")
+        folder: shortcuts.pictures
+        selectExisting: false
+        nameFilters: [ qsTr("Image files (*.jpg *.jpeg *.png)"), qsTr("All files (*)") ]
+        onAccepted: {
+            Screenshooter.saveScreenshot(fileDialog.fileUrl);
+            Qt.quit();
+        }
     }
 
     Connections {
         target: Screenshooter
         onScreenshotDone: showTimer.start()
     }
+
+    Component.onCompleted: mainLayout.state = "capture"
 }
