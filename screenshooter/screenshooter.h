@@ -29,9 +29,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QThread>
-#include <QtCore/QTimer>
-#include <QtGui/QImage>
-#include <QtGui/QScreen>
+#include <QtCore/QVector>
 #include <QtQml/QQmlApplicationEngine>
 
 #include <GreenIsland/Client/ClientConnection>
@@ -65,30 +63,31 @@ protected:
     bool event(QEvent *event) Q_DECL_OVERRIDE;
 
 private:
+    bool m_initialized;
+    bool m_interactive;
+    bool m_inProgress;
+    QQmlApplicationEngine *m_engine;
+    QThread *m_thread;
+    Client::ClientConnection *m_connection;
+    Client::Registry *m_registry;
+    Client::Shm *m_shm;
+    Client::Screenshooter *m_shooter;
+
     struct ScreenshotRequest {
         QPoint position;
         Client::Screenshot *screenshot;
         Client::Buffer *buffer;
     };
 
-    bool m_initialized;
-    bool m_interactive;
-    bool m_inProgress;
-    QTimer *m_timer;
-    QQmlApplicationEngine *m_engine;
-    QThread *m_thread;
-    Client::ClientConnection *m_connection;
-    Client::Registry *m_registry;
-    Client::Shm *m_shm;
+    QVector<ScreenshotRequest> m_pending;
+    QVector<ScreenshotRequest> m_process;
+
     struct {
         What what;
         bool pointer;
         bool border;
         int delay;
     } m_cliOptions;
-    Client::Screenshooter *m_shooter;
-    QVector<ScreenshotRequest> m_pending;
-    QVector<ScreenshotRequest> m_process;
 
     void initialize();
     void process();

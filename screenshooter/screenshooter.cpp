@@ -26,7 +26,9 @@
 
 #include <QtCore/QDateTime>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QTimer>
 #include <QtGui/QGuiApplication>
+#include <QtGui/QImage>
 #include <QtGui/QScreen>
 #include <QtQml/QQmlContext>
 
@@ -70,7 +72,6 @@ Screenshooter::Screenshooter(QObject *parent)
     , m_initialized(false)
     , m_interactive(false)
     , m_inProgress(false)
-    , m_timer(new QTimer(this))
     , m_engine(new QQmlApplicationEngine(this))
     , m_thread(new QThread())
     , m_connection(Client::ClientConnection::fromQt())
@@ -273,8 +274,7 @@ void Screenshooter::interfacesAnnounced()
         m_engine->rootContext()->setContextProperty(QLatin1String("Screenshooter"), this);
         m_engine->load(QUrl(QLatin1String("qrc:/qml/main.qml")));
     } else {
-        m_timer->singleShot(m_cliOptions.delay * 1000, this, [this] {
-            m_timer->stop();
+        QTimer::singleShot(m_cliOptions.delay * 1000, this, [this] {
             takeScreenshot(m_cliOptions.what, m_cliOptions.pointer, m_cliOptions.border);
         });
     }
