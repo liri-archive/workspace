@@ -92,6 +92,7 @@ private:
     void initialize();
     void process();
     void setupScreenshot(Client::Screenshot *screenshot);
+    QString screenshotFileName() const;
 
 private Q_SLOTS:
     void interfacesAnnounced();
