@@ -111,6 +111,31 @@ ApplicationWindow {
                     }
                 }
             }
+
+            Layout.fillWidth: true
+        }
+
+        GroupBox {
+            title: qsTr("Effects")
+
+            ColumnLayout {
+                spacing: Themes.Units.smallSpacing
+
+                CheckBox {
+                    id: includePointer
+                    text: qsTr("Include pointer")
+                    enabled: options.current.what !== 4
+                    checked: true
+                }
+
+                CheckBox {
+                    id: includeBorder
+                    text: qsTr("Include the window border")
+                    enabled: options.current.what === 2 || options.current.what === 3
+                }
+            }
+
+            Layout.fillWidth: true
         }
 
         RowLayout {
@@ -138,7 +163,11 @@ ApplicationWindow {
     Timer {
         id: shootTimer
         interval: grabDelay.value * 1000
-        onTriggered: Screenshooter.takeScreenshot(options.current.what)
+        onTriggered: {
+            Screenshooter.takeScreenshot(options.current.what,
+                                         includePointer.enabled && includePointer.checked,
+                                         includeBorder.enabled && includeBorder.checked);
+        }
     }
 
     Timer {

@@ -86,35 +86,41 @@ bool Screenshooter::event(QEvent *event)
     return QObject::event(event);
 }
 
-void Screenshooter::takeScreenshot(What what)
+void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeBorder)
 {
     if (m_inProgress) {
         qWarning("Cannot take another screenshot while a previous capture is in progress");
         return;
     }
 
+    Client::Screenshooter::Effects effects;
+    if (includePointer)
+        effects &= Client::Screenshooter::EffectPointer;
+    if (includeBorder)
+        effects &= Client::Screenshooter::EffectBorder;
+
     Client::Screenshot *ss;
 
     switch (what) {
     case Screen:
         Q_FOREACH (QScreen *screen, QGuiApplication::screens()) {
-            ss = m_shooter->captureOutput(Client::Output::fromQt(screen, this));
+            ss = m_shooter->captureOutput(Client::Output::fromQt(screen, this), effects);
             m_pending.append({ss, screen, QImage()});
             setupScreenshot(ss);
         }
         break;
     case ActiveWindow:
-        ss = m_shooter->captureActiveWindow();
+        ss = m_shooter->captureActiveWindow(effects);
         m_pending.append({ss, Q_NULLPTR, QImage()});
         setupScreenshot(ss);
         break;
     case Window:
-        ss = m_shooter->captureWindow();
+        ss = m_shooter->captureWindow(effects);
         m_pending.append({ss, Q_NULLPTR, QImage()});
         setupScreenshot(ss);
         break;
     case Area:
-        ss = m_shooter->captureArea();
+        ss = m_shooter->captureArea(effects);
         m_pending.append({ss, Q_NULLPTR, QImage()});
         setupScreenshot(ss);
         break;

@@ -61,7 +61,7 @@ public:
     Screenshooter(QObject *parent = Q_NULLPTR);
     ~Screenshooter();
 
-    Q_INVOKABLE void takeScreenshot(What what);
+    Q_INVOKABLE void takeScreenshot(What what, bool includePointer, bool includeBorder);
 
 Q_SIGNALS:
     void screenshotDone();
