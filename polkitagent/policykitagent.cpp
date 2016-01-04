@@ -55,7 +55,7 @@ PolicyKitAgentPrivate::PolicyKitAgentPrivate(PolicyKitAgent *self)
     , q_ptr(self)
 {
     // Load QML window
-    engine = new QQmlApplicationEngine(QUrl("qrc:/qml/authdialog.qml"), self);
+    engine = new QQmlApplicationEngine(QUrl(QLatin1String("qrc:/qml/authdialog.qml")), self);
     window = engine->rootObjects().at(0);
 }
 
@@ -99,7 +99,7 @@ PolicyKitAgent::PolicyKitAgent(QObject *parent)
 {
     PolkitQt1::UnixSessionSubject session(
                 QCoreApplication::instance()->applicationPid());
-    if (registerListener(session, "/org/hawaii/PolicyKit1/AuthenticationAgent")) {
+    if (registerListener(session, QLatin1String("/org/hawaii/PolicyKit1/AuthenticationAgent"))) {
         qDebug() << "PolicyKit agent started!";
 #if HAVE_SYSTEMD
         sd_notifyf(0,
@@ -212,7 +212,7 @@ void PolicyKitAgent::initiateAuthentication(const QString &actionId,
 
     // Initiate authentication sequence
     // TODO: Find user icon
-    d->createDialog(actionId, message, iconName, d->realName, "");
+    d->createDialog(actionId, message, iconName, d->realName, QLatin1String(""));
 }
 
 bool PolicyKitAgent::initiateAuthenticationFinish()
