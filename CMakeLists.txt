@@ -66,7 +66,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Find Green Island
-find_package(GreenIsland 0.7.90 REQUIRED COMPONENTS Client Server)
+find_package(GreenIsland 0.7.90 REQUIRED COMPONENTS Client)
 
 # Minimum version requirements
 set(QT_MIN_VERSION "5.4.0")
