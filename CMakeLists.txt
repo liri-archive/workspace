@@ -82,6 +82,9 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
 # Find PolicyKit Qt5
 find_package(PolkitQt5-1 REQUIRED 0.103.0)
 
+# Find Qt5GStreamer for hawaii-screencap
+find_package(Qt5GStreamer)
+
 # Find systemd
 if(ENABLE_SYSTEMD)
     pkg_check_modules(systemd libsystemd-daemon)
@@ -110,6 +113,9 @@ endif()
 add_subdirectory(headers)
 add_subdirectory(polkitagent)
 add_subdirectory(powermanager)
+if(Qt5GStreamer_FOUND)
+    add_subdirectory(screencap)
+endif()
 add_subdirectory(screenshooter)
 
 # Display featute summary
