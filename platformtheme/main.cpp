@@ -46,12 +46,12 @@ HawaiiThemePlugin::HawaiiThemePlugin(QObject *parent)
 
 QStringList HawaiiThemePlugin::keys() const
 {
-    return QStringList() << "Hawaii";
+    return QStringList() << QStringLiteral("Hawaii");
 }
 
 QPlatformTheme *HawaiiThemePlugin::create(const QString &key, const QStringList &paramList)
 {
-    if (key.toLower() == "hawaii")
+    if (key.toLower() == QStringLiteral("hawaii"))
         return new HawaiiTheme();
     return 0;
 }

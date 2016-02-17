@@ -66,7 +66,7 @@ void HawaiiThemePrivate::refresh()
     // Locate color scheme
     QString scheme = settings->value(QStringLiteral("colorScheme")).toString();
     QString schemeFileName = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                                    QString("color-schemes/%1.colors").arg(scheme));
+                                                    QStringLiteral("color-schemes/%1.colors").arg(scheme));
 
     // Palette
     QPalette systemPalette = QPalette();
