@@ -111,6 +111,7 @@ endif()
 
 # Subdirectories
 add_subdirectory(headers)
+add_subdirectory(platformtheme)
 add_subdirectory(polkitagent)
 add_subdirectory(powermanager)
 if(Qt5GStreamer_FOUND)
