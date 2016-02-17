@@ -85,6 +85,9 @@ find_package(PolkitQt5-1 REQUIRED 0.103.0)
 # Find Qt5GStreamer for hawaii-screencap
 find_package(Qt5GStreamer)
 
+# Find libhawaii
+find_package(Hawaii 0.5.90 REQUIRED)
+
 # Find systemd
 if(ENABLE_SYSTEMD)
     pkg_check_modules(systemd libsystemd-daemon)
