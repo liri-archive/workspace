@@ -139,6 +139,7 @@ void PolicyKitAgent::initiateAuthentication(const QString &actionId,
                                             PolkitQt1::Agent::AsyncResult *result)
 {
     Q_D(PolicyKitAgent);
+    Q_UNUSED(details);
 
     // Can't continue if another authorization is in progress
     if (d->progressing) {
