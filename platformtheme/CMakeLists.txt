@@ -1,5 +1,4 @@
 include_directories(
-    ${CMAKE_SOURCE_DIR}/libhawaii
     ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
 )
 
