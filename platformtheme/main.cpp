@@ -51,6 +51,8 @@ QStringList HawaiiThemePlugin::keys() const
 
 QPlatformTheme *HawaiiThemePlugin::create(const QString &key, const QStringList &paramList)
 {
+    Q_UNUSED(paramList);
+
     if (key.toLower() == QStringLiteral("hawaii"))
         return new HawaiiTheme();
     return 0;

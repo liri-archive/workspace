@@ -39,11 +39,13 @@ HawaiiTheme::HawaiiTheme()
 
 bool HawaiiTheme::usePlatformNativeDialog(DialogType type) const
 {
+    Q_UNUSED(type);
     return false;
 }
 
 QPlatformDialogHelper *HawaiiTheme::createPlatformDialogHelper(DialogType type) const
 {
+    Q_UNUSED(type);
     return 0;
 }
 
