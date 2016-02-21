@@ -8,7 +8,7 @@ if(POLICY CMP0063)
 endif()
 
 # Set version
-set(PROJECT_VERSION "0.5.0")
+set(PROJECT_VERSION "0.6.90")
 
 # Set up packaging
 set(CPACK_PACKAGE_NAME "hawaii-workspace")
