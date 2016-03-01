@@ -50,7 +50,7 @@
       </description>
     </key>
     <key name="pinned-launchers" type="as">
-      <default>['org.kde.konsole', 'hawaii-system-preferences']</default>
+      <default>['org.hawaiios.terminal', 'hawaii-system-preferences']</default>
       <summary>Pinned launchers</summary>
       <description>
         Launchers that appear permanently on the panel, regardless of whether they are running or not.
