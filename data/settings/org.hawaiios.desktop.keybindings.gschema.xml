@@ -17,51 +17,51 @@
   </schema>
   <schema id="org.hawaiios.desktop.keybindings.wm" path="/org/hawaiios/desktop/keybindings/wm/">
     <key name="switch-to-workspace-1" type="as">
-      <default>['Meta+Home']</default>
+      <default>['Meta+Home', 'Meta+F1']</default>
       <summary>Switch to workspace 1</summary>
     </key>
     <key name="switch-to-workspace-2" type="as">
-      <default>[]</default>
+      <default>['Meta+F2']</default>
       <summary>Switch to workspace 2</summary>
     </key>
     <key name="switch-to-workspace-3" type="as">
-      <default>[]</default>
+      <default>['Meta+F3']</default>
       <summary>Switch to workspace 3</summary>
     </key>
     <key name="switch-to-workspace-4" type="as">
-      <default>[]</default>
+      <default>['Meta+F4']</default>
       <summary>Switch to workspace 4</summary>
     </key>
     <key name="switch-to-workspace-5" type="as">
-      <default>[]</default>
+      <default>['Meta+F5']</default>
       <summary>Switch to workspace 5</summary>
     </key>
     <key name="switch-to-workspace-6" type="as">
-      <default>[]</default>
+      <default>['Meta+F6']</default>
       <summary>Switch to workspace 6</summary>
     </key>
     <key name="switch-to-workspace-7" type="as">
-      <default>[]</default>
+      <default>['Meta+F7']</default>
       <summary>Switch to workspace 7</summary>
     </key>
     <key name="switch-to-workspace-8" type="as">
-      <default>[]</default>
+      <default>['Meta+F8']</default>
       <summary>Switch to workspace 8</summary>
     </key>
     <key name="switch-to-workspace-9" type="as">
-      <default>[]</default>
+      <default>['Meta+F9']</default>
       <summary>Switch to workspace 9</summary>
     </key>
     <key name="switch-to-workspace-10" type="as">
-      <default>[]</default>
+      <default>['Meta+F10']</default>
       <summary>Switch to workspace 10</summary>
     </key>
     <key name="switch-to-workspace-11" type="as">
-      <default>[]</default>
+      <default>['Meta+F11']</default>
       <summary>Switch to workspace 11</summary>
     </key>
     <key name="switch-to-workspace-12" type="as">
-      <default>[]</default>
+      <default>['Meta+F12']</default>
       <summary>Switch to workspace 12</summary>
     </key>
     <key name="switch-to-workspace-left" type="as">
