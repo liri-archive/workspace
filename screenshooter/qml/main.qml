@@ -28,8 +28,7 @@ import QtQuick 2.1
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.0
-import Hawaii.Components 1.0 as Components
-import Hawaii.Themes 1.0 as Themes
+import Fluid.Ui 1.0 as FluidUi
 
 ApplicationWindow {
     id: root
@@ -39,7 +38,7 @@ ApplicationWindow {
         id: mainLayout
         anchors {
             fill: parent
-            margins: Themes.Units.largeSpacing
+            margins: FluidUi.Units.largeSpacing
         }
         states: [
             State {
@@ -67,14 +66,14 @@ ApplicationWindow {
             title: qsTr("Take Screenshot")
 
             ColumnLayout {
-                spacing: Themes.Units.smallSpacing
+                spacing: FluidUi.Units.smallSpacing
 
-                Components.Icon {
+                FluidUi.Icon {
                     iconName: "applets-screenshooter"
                 }
 
                 ColumnLayout {
-                    spacing: Themes.Units.smallSpacing
+                    spacing: FluidUi.Units.smallSpacing
 
                     ExclusiveGroup { id: options }
 
@@ -140,7 +139,7 @@ ApplicationWindow {
             title: qsTr("Effects")
 
             ColumnLayout {
-                spacing: Themes.Units.smallSpacing
+                spacing: FluidUi.Units.smallSpacing
 
                 CheckBox {
                     id: includePointer
@@ -161,7 +160,7 @@ ApplicationWindow {
 
         ColumnLayout {
             id: previewLayout
-            spacing: Themes.Units.smallSpacing
+            spacing: FluidUi.Units.smallSpacing
 
             GroupBox {
                 title: qsTr("Preview")
@@ -169,7 +168,7 @@ ApplicationWindow {
                 Row {
                     anchors {
                         fill: parent
-                        margins: Themes.Units.smallSpacing
+                        margins: FluidUi.Units.smallSpacing
                     }
 
                     Image {
@@ -185,7 +184,7 @@ ApplicationWindow {
                 title: qsTr("Options")
 
                 ColumnLayout {
-                    spacing: Themes.Units.smallSpacing
+                    spacing: FluidUi.Units.smallSpacing
 
                     ExclusiveGroup { id: actions }
 
@@ -209,7 +208,7 @@ ApplicationWindow {
         }
 
         RowLayout {
-            spacing: Themes.Units.smallSpacing
+            spacing: FluidUi.Units.smallSpacing
 
             Item {
                 Layout.fillWidth: true

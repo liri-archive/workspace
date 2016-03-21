@@ -28,8 +28,7 @@ import QtQuick 2.1
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
-import Hawaii.Components 1.0 as Components
-import Hawaii.Themes 1.0 as Themes
+import Fluid.Ui 1.0 as FluidUi
 
 ApplicationWindow {
     id: authenticationDialog
@@ -52,8 +51,8 @@ ApplicationWindow {
     }
 
     title: qsTr("Authentication required")
-    minimumWidth: Themes.Units.dp(320)
-    minimumHeight: Themes.Units.dp(200)
+    minimumWidth: FluidUi.Units.dp(320)
+    minimumHeight: FluidUi.Units.dp(200)
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
@@ -81,18 +80,18 @@ ApplicationWindow {
     ColumnLayout {
         anchors {
             fill: parent
-            margins: Themes.Units.largeSpacing
+            margins: FluidUi.Units.largeSpacing
         }
-        spacing: Themes.Units.smallSpacing
+        spacing: FluidUi.Units.smallSpacing
 
         Keys.onEscapePressed: cancelButton.clicked()
 
         RowLayout {
-            spacing: Themes.Units.smallSpacing
+            spacing: FluidUi.Units.smallSpacing
 
-            Components.Icon {
+            FluidUi.Icon {
                 iconName: "dialog-password-symbolic"
-                width: Themes.Units.iconSizes.medium
+                width: FluidUi.Units.iconSizes.medium
                 height: width
                 color: palette.text
 
@@ -100,7 +99,7 @@ ApplicationWindow {
             }
 
             ColumnLayout {
-                spacing: Themes.Units.smallSpacing
+                spacing: FluidUi.Units.smallSpacing
 
                 Label {
                     text: qsTr("Authentication required")
@@ -115,7 +114,7 @@ ApplicationWindow {
                 }
 
                 RowLayout {
-                    spacing: Themes.Units.smallSpacing
+                    spacing: FluidUi.Units.smallSpacing
 
                     Image {
                         id: avatarImage
@@ -133,7 +132,7 @@ ApplicationWindow {
                         }
                         sourceSize.width: width
                         sourceSize.height: height
-                        width: Themes.Units.iconSizes.large
+                        width: FluidUi.Units.iconSizes.large
                         height: width
                         smooth: true
                         cache: false
@@ -150,7 +149,7 @@ ApplicationWindow {
                 }
 
                 RowLayout {
-                    spacing: Themes.Units.smallSpacing
+                    spacing: FluidUi.Units.smallSpacing
 
                     Label {
                         id: promptLabel
@@ -196,7 +195,7 @@ ApplicationWindow {
         }
 
         RowLayout {
-            spacing: Themes.Units.smallSpacing
+            spacing: FluidUi.Units.smallSpacing
 
             Button {
                 id: cancelButton
