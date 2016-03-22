@@ -25,13 +25,61 @@
  ***************************************************************************/
 
 import QtQuick 2.1
-import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.0
+import Qt.labs.controls 1.0
+import Qt.labs.controls.material 1.0
 import Fluid.Ui 1.0 as FluidUi
 
 ApplicationWindow {
-    id: root
+    property int selectedOption: 1
+
+    id: window
+    title: qsTr("Screenshot")
+    width: FluidUi.Units.dp(500)
+    height: FluidUi.Units.dp(500)
+    minimumWidth: width
+    minimumHeight: height
+    maximumWidth: width
+    maximumHeight: height
+    header: ToolBar {
+        height: toolBarLayout.implicitHeight
+
+        RowLayout {
+            id: toolBarLayout
+            x: spacing
+            width: parent.width - (2 * spacing)
+            spacing: FluidUi.Units.smallSpacing
+
+            Button {
+                text: qsTr("Cancel")
+                onClicked: Qt.quit()
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            Button {
+                id: shootButton
+                text: qsTr("Take Screenshot")
+                onClicked: {
+                    window.hide();
+                    shootTimer.start();
+                }
+            }
+
+            Button {
+                id: actionButton
+                text: qsTr("OK")
+                onClicked: {
+                    if (saveAction.checked)
+                        fileDialog.open();
+                    //else if (copyAction.checked(
+                }
+            }
+        }
+    }
     visible: true
 
     ColumnLayout {
@@ -40,6 +88,7 @@ ApplicationWindow {
             fill: parent
             margins: FluidUi.Units.largeSpacing
         }
+        state: "capture"
         states: [
             State {
                 name: "capture"
@@ -75,52 +124,52 @@ ApplicationWindow {
                 ColumnLayout {
                     spacing: FluidUi.Units.smallSpacing
 
-                    ExclusiveGroup { id: options }
-
                     RadioButton {
-                        property int what: 1
-
+                        id: wholeScreenOption
                         text: qsTr("Grab the whole screen")
-                        exclusiveGroup: options
                         checked: true
+                        autoExclusive: true
+                        onCheckedChanged: if (checked) selectedOption = 1
                     }
 
                     RadioButton {
-                        property int what: 2
-
+                        id: activeWindowOption
                         text: qsTr("Grab the active window")
-                        exclusiveGroup: options
                         checked: false
                         enabled: false
+                        autoExclusive: true
+                        onCheckedChanged: if (checked) selectedOption = 2
                     }
 
                     RadioButton {
-                        property int what: 3
-
+                        id: selectWindowOption
                         text: qsTr("Select a window")
-                        exclusiveGroup: options
                         checked: false
                         enabled: false
+                        autoExclusive: true
+                        onCheckedChanged: if (checked) selectedOption = 3
                     }
 
                     RadioButton {
-                        property int what: 4
-
+                        id: selectAreaOption
                         text: qsTr("Select area to grab")
-                        exclusiveGroup: options
                         checked: false
                         enabled: false
+                        autoExclusive: true
+                        onCheckedChanged: if (checked) selectedOption = 4
                     }
 
                     RowLayout {
+                        spacing: FluidUi.Units.smallSpacing
+
                         Label {
                             text: qsTr("Grab after a delay of")
                         }
 
                         SpinBox {
                             id: grabDelay
-                            minimumValue: 0
-                            maximumValue: 60
+                            from: 0
+                            to: 60
                             value: 2
                         }
 
@@ -144,14 +193,14 @@ ApplicationWindow {
                 CheckBox {
                     id: includePointer
                     text: qsTr("Include pointer")
-                    enabled: options.current.what !== 4
+                    enabled: !selectAreaOption.checked
                     checked: true
                 }
 
                 CheckBox {
                     id: includeBorder
                     text: qsTr("Include the window border")
-                    enabled: options.current.what === 2 || options.current.what === 3
+                    enabled: activeWindowOption.checked && selectWindowOption.checked
                 }
             }
 
@@ -165,19 +214,16 @@ ApplicationWindow {
             GroupBox {
                 title: qsTr("Preview")
 
-                Row {
-                    anchors {
-                        fill: parent
-                        margins: FluidUi.Units.smallSpacing
-                    }
-
-                    Image {
-                        id: preview
-                        width: height * (sourceSize.width / sourceSize.height)
-                        height: 240
-                        cache: false
-                    }
+                Image {
+                    id: preview
+                    anchors.fill: parent
+                    //width: height * (sourceSize.width / sourceSize.height)
+                    //height: FluidUi.Units.dp(240)
+                    fillMode: Image.Stretch
+                    cache: false
                 }
+
+                Layout.fillWidth: true
             }
 
             GroupBox {
@@ -186,60 +232,23 @@ ApplicationWindow {
                 ColumnLayout {
                     spacing: FluidUi.Units.smallSpacing
 
-                    ExclusiveGroup { id: actions }
-
                     RadioButton {
-                        objectName: "saveAction"
+                        id: saveAction
                         text: qsTr("Save")
-                        exclusiveGroup: actions
+                        autoExclusive: true
                         checked: true
                     }
 
                     RadioButton {
-                        objectName: "copyAction"
+                        id: copyAction
                         text: qsTr("Copy to clipboard")
-                        exclusiveGroup: actions
+                        autoExclusive: true
                         checked: false
                     }
                 }
 
                 Layout.fillWidth: true
-            }
-        }
-
-        RowLayout {
-            spacing: FluidUi.Units.smallSpacing
-
-            Item {
-                Layout.fillWidth: true
-            }
-
-            Button {
-                text: qsTr("Cancel")
-                onClicked: Qt.quit()
-            }
-
-            Button {
-                id: shootButton
-                text: qsTr("Take Screenshot")
-                onClicked: {
-                    root.hide();
-                    shootTimer.start();
-                }
-            }
-
-            Button {
-                id: actionButton
-                text: qsTr("OK")
-                onClicked: {
-                    switch (actions.current.objectName) {
-                    case "saveAction":
-                        fileDialog.open();
-                        break;
-                    case "copyAction":
-                        break;
-                    }
-                }
+                Layout.fillHeight: true
             }
         }
     }
@@ -248,7 +257,7 @@ ApplicationWindow {
         id: shootTimer
         interval: grabDelay.value * 1000
         onTriggered: {
-            Screenshooter.takeScreenshot(options.current.what,
+            Screenshooter.takeScreenshot(selectedOption,
                                          includePointer.enabled && includePointer.checked,
                                          includeBorder.enabled && includeBorder.checked);
         }
@@ -260,7 +269,7 @@ ApplicationWindow {
         onTriggered: {
             preview.source = "image://screenshooter/last";
             mainLayout.state = "preview";
-            root.show();
+            window.show();
         }
     }
 
@@ -281,5 +290,6 @@ ApplicationWindow {
         onScreenshotDone: showTimer.start()
     }
 
-    Component.onCompleted: mainLayout.state = "capture"
+    Material.primary: Material.BlueGrey
+    Material.accent: Material.BlueGrey
 }
