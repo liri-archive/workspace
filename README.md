@@ -10,7 +10,16 @@ Base applications for the Hawaii desktop environment.
 Includes:
 
 * hawaii-polkit-agent, the PolicyKit agent
-* hawaii-screenshooter, screenshot application
+* hawaii-screenshot, screenshot application
+* hawaii-screencap, screencast application
+* Qt platform theme plugin
+* Settings schemas
+* XDG menu definition
+
+## License
+
+Licensed under the terms of the GNU General Public License version 2.0 or,
+at your option, any later version.
 
 ## Dependencies
 
@@ -25,11 +34,17 @@ The following modules from KDE:
 
 * [polkit-qt5](http://quickgit.kde.org/?p=polkit-qt-1.git)
 
-And the follow build requirements:
+The following modules from GStreamer:
+
+* [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
+
+And the following requirements from Hawaii:
 
 * [greenisland](https://github.com/greenisland/greenisland.git)
+* [fluid](https://github.com/hawaii-desktop/fluid.git)
+* [libhawaii](https://github.com/hawaii-desktop/libhawaii.git)
 
-## Build
+## Build and installation
 
 Building this software is a piece of cake.
 
@@ -57,20 +72,21 @@ cmake -DCMAKE_INSTALL_PREFIX=/opt/hawaii -DCMAKE_BUILD_TYPE=Release ..
 If not passed, the `CMAKE_INSTALL_PREFIX` parameter defaults to /usr/local.
 You have to specify a path that fits your needs, /opt/hawaii is just an example.
 
-Package maintainers would pass `-DCMAKE_INSTALL_PREFIX=/usr`.
-
 The `CMAKE_BUILD_TYPE` parameter allows the following values:
 
 * **Debug:** debug build
 * **Release:** release build
 * **RelWithDebInfo:** release build with debugging information
 
-## Installation
+### System-wide installation
 
-It's really easy, it's just a matter of typing:
+Those who want to perform a system-wide installation, such as package
+maintainers, should pass different arguments to cmake:
 
 ```sh
-make install
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DKDE_INSTALL_USE_QT_SYS_PATHS=ON ..
 ```
 
-from the build directory.
+Feel free to choose whatever `CMAKE_BUILD_TYPE` value you desire.
