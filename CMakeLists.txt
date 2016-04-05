@@ -33,8 +33,15 @@ if(CMAKE_BUILD_TYPE MATCHES "[Dd][Ee][Bb]")
     add_definitions(-DQT_QML_DEBUG)
 endif()
 
+# Minimum version requirements
+set(ECM_MIN_VERSION "1.4.0")
+set(QT_MIN_VERSION "5.4.0")
+set(GREENISLAND_MIN_VERSION "0.7.90")
+set(HAWAII_MIN_VERSION "0.5.90")
+set(POLKITQT_MIN_VERSION "0.103.0")
+
 # ECM
-find_package(ECM 1.4.0 REQUIRED NO_MODULE)
+find_package(ECM ${ECM_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} "${CMAKE_SOURCE_DIR}/cmake")
 
 # Macros
@@ -65,12 +72,6 @@ if ("${ECM_VERSION}" VERSION_LESS "1.7.0")
     add_custom_target(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 endif()
 
-# Find Green Island
-find_package(GreenIsland 0.7.90 REQUIRED COMPONENTS Client)
-
-# Minimum version requirements
-set(QT_MIN_VERSION "5.4.0")
-
 # Find Qt5
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
              Core
@@ -80,14 +81,17 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
              Qml
              Quick)
 
+# Find Hawaii
+find_package(Hawaii ${HAWAII_MIN_VERSION} REQUIRED)
+
+# Find Green Island
+find_package(GreenIsland ${GREENISLAND_MIN_VERSION} REQUIRED COMPONENTS Client)
+
 # Find PolicyKit Qt5
-find_package(PolkitQt5-1 REQUIRED 0.103.0)
+find_package(PolkitQt5-1 ${POLKITQT_MIN_VERSION} REQUIRED)
 
 # Find Qt5GStreamer for hawaii-screencap
 find_package(Qt5GStreamer)
-
-# Find libhawaii
-find_package(Hawaii 0.5.90 REQUIRED)
 
 # Find systemd
 if(ENABLE_SYSTEMD)
