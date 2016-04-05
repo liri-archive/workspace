@@ -14,11 +14,12 @@ Includes:
 
 ## Dependencies
 
-Make sure you have Qt 5.4 or better with the following modules:
+Make sure you have Qt >= 5.6.0 with the following modules:
 
 * [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
 * [qtdeclarative](http://code.qt.io/cgit/qt/qtdeclarative.git)
 * [qtquickcontrols](http://code.qt.io/cgit/qt/qtquickcontrols.git)
+* [qtquickcontrols2](http://code.qt.io/cgit/qt/qtquickcontrols2.git)
 
 The following modules from KDE:
 

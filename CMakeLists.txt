@@ -35,7 +35,7 @@ endif()
 
 # Minimum version requirements
 set(ECM_MIN_VERSION "1.4.0")
-set(QT_MIN_VERSION "5.4.0")
+set(QT_MIN_VERSION "5.6.0")
 set(GREENISLAND_MIN_VERSION "0.7.90")
 set(HAWAII_MIN_VERSION "0.5.90")
 set(POLKITQT_MIN_VERSION "0.103.0")
