@@ -1,4 +1,5 @@
 [Desktop Entry]
+Encoding=UTF-8
 Type=Application
 Name=Screenshot
 Comment=Save images of your screen or individual windows
@@ -10,3 +11,10 @@ TryExec=hawaii-screenshot
 Terminal=false
 StartupNotify=true
 OnlyShowIn=X-Hawaii;
+
+#TRANSLATIONS_DIR=translations
+
+
+# Translations
+Comment[it]=Salva immagini dello schermo o di singole finestre
+Name[it]=Schermata

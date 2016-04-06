@@ -1,0 +1,14 @@
+[main]
+host = https://www.transifex.com
+
+[hawaii-workspace.screenshot-desktop]
+type = DESKTOP
+source_lang = en
+source_file = screenshooter/org.hawaiios.screenshot.desktop.in
+file_filter = screenshooter/translations/org.hawaiios.screenshot_<lang>.desktop.in
+
+[hawaii-workspace.screenshot-ts]
+type = QT
+source_lang = en
+source_file = screenshooter/translations/hawaii-screenshot.ts
+file_filter = screenshooter/translations/hawaii-screenshot_<lang>.ts

@@ -10,9 +10,20 @@ set(SOURCES
     screenshooter.cpp
 )
 
+set(QML_SOURCES
+    qml/main.qml
+)
+
 qt5_add_resources(RESOURCES hawaii-screenshot.qrc)
 
-add_executable(hawaii-screenshot ${SOURCES} ${RESOURCES})
+hawaii_translate_ts(QM_FILES
+                    SOURCES ${SOURCES} ${QML_SOURCES}
+                    TEMPLATE hawaii-screenshot
+                    INSTALL_DIR ${DATA_INSTALL_DIR}/hawaii-workspace/translations
+                    COMPONENT "Runtime")
+hawaii_translate_desktop(DESKTOP_FILE SOURCES org.hawaiios.screenshot.desktop.in)
+
+add_executable(hawaii-screenshot ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
 target_link_libraries(hawaii-screenshot
                       Qt5::Core
                       Qt5::Gui
@@ -22,5 +33,5 @@ target_link_libraries(hawaii-screenshot
 
 install(TARGETS hawaii-screenshot
         DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES org.hawaiios.screenshot.desktop
+install(FILES ${DESKTOP_FILE}
         DESTINATION ${XDG_APPS_INSTALL_DIR})
