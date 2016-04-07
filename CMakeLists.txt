@@ -135,7 +135,7 @@ add_subdirectory(powermanager)
 if(Qt5GStreamer_FOUND)
     add_subdirectory(screencast)
 endif()
-add_subdirectory(screenshoot)
+add_subdirectory(screenshot)
 
 # Display featute summary
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
