@@ -1,0 +1,21 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Screenshot
+Comment=Save images of your screen or individual windows
+Keywords=snapshot;capture;print;screenshot;
+Categories=Qt;X-Hawaii;Utility;X-Hawaii-Utilities;
+Icon=applets-screenshooter
+Exec=hawaii-screenshot
+TryExec=hawaii-screenshot
+Terminal=false
+StartupNotify=true
+OnlyShowIn=X-Hawaii;
+
+#TRANSLATIONS_DIR=translations
+
+
+# Translations
+Comment[ca]=Deseu imatges de la pantalla o de finestres individuals
+Name[ca]=Captura de pantalla
+Icon[ca]=miniaplicació-capturador_de_pantalla
