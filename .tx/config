@@ -16,8 +16,8 @@ file_filter = polkitagent/translations/hawaii-polkit-agent_<lang>.ts
 [hawaii-workspace.screenshot-desktop]
 type = DESKTOP
 source_lang = en
-source_file = screenshooter/org.hawaiios.screenshot.desktop.in
-file_filter = screenshooter/translations/org.hawaiios.screenshot_<lang>.desktop.in
+source_file = screenshooter/org.hawaiios.Screenshot.desktop.in
+file_filter = screenshooter/translations/org.hawaiios.Screenshot_<lang>.desktop.in
 
 [hawaii-workspace.screenshot-ts]
 type = QT

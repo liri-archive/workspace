@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
     // Setup application
     QGuiApplication app(argc, argv);
-    app.setApplicationName(QStringLiteral("Screenshooter"));
+    app.setApplicationName(QStringLiteral("Screenshot"));
     app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
     app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     app.setFallbackSessionManagementEnabled(false);
 #endif
 #if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
-    app.setDesktopFileName(QStringLiteral("org.hawaiios.screenshot.desktop"));
+    app.setDesktopFileName(QStringLiteral("org.hawaiios.Screenshot.desktop"));
 #endif
 
     // Command line parser

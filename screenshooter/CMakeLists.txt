@@ -21,7 +21,7 @@ hawaii_translate_ts(QM_FILES
                     TEMPLATE hawaii-screenshot
                     INSTALL_DIR ${DATA_INSTALL_DIR}/hawaii-workspace/translations
                     COMPONENT "Runtime")
-hawaii_translate_desktop(DESKTOP_FILE SOURCES org.hawaiios.screenshot.desktop.in)
+hawaii_translate_desktop(DESKTOP_FILE SOURCES org.hawaiios.Screenshot.desktop.in)
 
 add_executable(hawaii-screenshot ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
 target_link_libraries(hawaii-screenshot
