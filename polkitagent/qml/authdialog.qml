@@ -26,13 +26,11 @@
 
 import QtQuick 2.1
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
+import Qt.labs.controls 1.0
 import Fluid.Ui 1.0 as FluidUi
 
 ApplicationWindow {
-    id: authenticationDialog
-
     property string actionId
     property alias message: messageLabel.text
     property string iconName
@@ -46,13 +44,10 @@ ApplicationWindow {
     signal authenticationReady(string response)
     signal authenticationCanceled()
 
-    SystemPalette {
-        id: palette
-    }
-
+    id: authenticationDialog
     title: qsTr("Authentication required")
-    minimumWidth: FluidUi.Units.dp(320)
-    minimumHeight: FluidUi.Units.dp(200)
+    minimumWidth: mainLayout.implicitWidth
+    minimumHeight: mainLayout.implicitHeight
     maximumWidth: minimumWidth
     maximumHeight: minimumHeight
 
@@ -78,11 +73,8 @@ ApplicationWindow {
     }
 
     ColumnLayout {
-        anchors {
-            fill: parent
-            margins: FluidUi.Units.largeSpacing
-        }
-        spacing: FluidUi.Units.smallSpacing
+        id: mainLayout
+        spacing: FluidUi.Units.largeSpacing
 
         Keys.onEscapePressed: cancelButton.clicked()
 
@@ -91,9 +83,9 @@ ApplicationWindow {
 
             FluidUi.Icon {
                 iconName: "dialog-password-symbolic"
-                width: FluidUi.Units.iconSizes.medium
+                width: FluidUi.Units.iconSizes.large
                 height: width
-                color: palette.text
+                color: messageLabel.color
 
                 Layout.alignment: Qt.AlignTop
             }
