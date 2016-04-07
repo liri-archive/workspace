@@ -133,7 +133,7 @@ add_subdirectory(platformtheme)
 add_subdirectory(polkitagent)
 add_subdirectory(powermanager)
 if(Qt5GStreamer_FOUND)
-    add_subdirectory(screencap)
+    add_subdirectory(screencast)
 endif()
 add_subdirectory(screenshoot)
 
