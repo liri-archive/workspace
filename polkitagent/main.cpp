@@ -37,6 +37,9 @@ int main(int argc, char *argv[])
     app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
     app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+    app.setDesktopFileName(QStringLiteral("org.hawaiios.PolkitAgent.desktop"));
+#endif
     app.setQuitOnLastWindowClosed(false);
 
     // Create the agent instance

@@ -29,5 +29,5 @@ endif()
 
 install(TARGETS hawaii-polkit-agent
         DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES hawaii-polkit-agent.desktop
+install(FILES org.hawaiios.PolkitAgent.desktop
         DESTINATION ${AUTOSTART_INSTALL_DIR})
