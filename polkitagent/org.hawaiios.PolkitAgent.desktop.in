@@ -9,3 +9,5 @@ Terminal=false
 StartupNotify=false
 OnlyShowIn=X-Hawaii;
 NoDisplay=true
+
+#TRANSLATIONS_DIR=translations

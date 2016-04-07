@@ -13,9 +13,20 @@ set(SOURCES
     policykitagent.cpp
 )
 
+set(QML_SOURCES
+    qml/authdialog.qml
+)
+
 qt5_add_resources(RESOURCES polkitagent.qrc)
 
-add_executable(hawaii-polkit-agent ${SOURCES} ${RESOURCES})
+hawaii_translate_ts(QM_FILES
+                    SOURCES ${SOURCES} ${QML_SOURCES}
+                    TEMPLATE hawaii-polkit-agent
+                    INSTALL_DIR ${DATA_INSTALL_DIR}/hawaii-workspace/translations
+                    COMPONENT "Runtime")
+hawaii_translate_desktop(DESKTOP_FILE SOURCES org.hawaiios.PolkitAgent.desktop.in)
+
+add_executable(hawaii-polkit-agent ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
 target_link_libraries(hawaii-polkit-agent
                       Qt5::Core
                       Qt5::Gui
@@ -29,5 +40,5 @@ endif()
 
 install(TARGETS hawaii-polkit-agent
         DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES org.hawaiios.PolkitAgent.desktop
+install(FILES ${DESKTOP_FILE}
         DESTINATION ${AUTOSTART_INSTALL_DIR})
