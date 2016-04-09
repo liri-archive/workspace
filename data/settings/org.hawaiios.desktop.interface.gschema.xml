@@ -123,5 +123,13 @@
         Mini font size for applications.
       </description>
     </key>
+    <key name="input-method" type="s">
+      <default>''</default>
+      <summary>Input Method</summary>
+      <description>
+        Qt Input method module. Set to 'qtvirtualkeyboard' to enable
+        the virtual keyboard.
+      </description>
+    </key>
   </schema>
 </schemalist>
