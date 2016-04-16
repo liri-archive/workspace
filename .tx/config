@@ -13,6 +13,12 @@ source_lang = en
 source_file = polkitagent/translations/hawaii-polkit-agent.ts
 file_filter = polkitagent/translations/hawaii-polkit-agent_<lang>.ts
 
+[hawaii-workspace.screencast-ts]
+type = QT
+source_lang = en
+source_file = screencast/translations/hawaii-screencast.ts
+file_filter = screencast/translations/hawaii-screencast_<lang>.ts
+
 [hawaii-workspace.screenshot-desktop]
 type = DESKTOP
 source_lang = en
