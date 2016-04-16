@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="it">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="it" version="2.1">
 <context>
     <name>Screenshooter</name>
     <message>
         <location filename="../screenshooter.cpp" line="164"/>
         <source>Screenshot from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Schermata del %1</translation>
     </message>
 </context>
 <context>
@@ -25,7 +23,7 @@
         <location filename="../qml/main.qml" line="65"/>
         <location filename="../qml/main.qml" line="115"/>
         <source>Take Screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Cattura schermata</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="74"/>
@@ -35,27 +33,27 @@
     <message>
         <location filename="../qml/main.qml" line="129"/>
         <source>Grab the whole screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Cattura l&apos;intero schermo</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="137"/>
         <source>Grab the active window</source>
-        <translation type="unfinished"></translation>
+        <translation>Cattura la finestra corrente</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="146"/>
         <source>Select a window</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona una finestra</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="155"/>
         <source>Select area to grab</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona l&apos;area da catturare</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="166"/>
         <source>Grab after a delay of</source>
-        <translation type="unfinished"></translation>
+        <translation>Cattura dopo un ritardo di</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="177"/>
@@ -70,12 +68,12 @@
     <message>
         <location filename="../qml/main.qml" line="195"/>
         <source>Include pointer</source>
-        <translation type="unfinished"></translation>
+        <translation>Includi puntatore</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="202"/>
         <source>Include the window border</source>
-        <translation type="unfinished"></translation>
+        <translation>Includi il bordo della finestra</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="215"/>
@@ -95,22 +93,22 @@
     <message>
         <location filename="../qml/main.qml" line="244"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia negli appunti</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="278"/>
         <source>Save Screenshot As</source>
-        <translation type="unfinished"></translation>
+        <translation>Salva schermata con nome</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="281"/>
         <source>Image files (*.jpg *.jpeg *.png)</source>
-        <translation type="unfinished"></translation>
+        <translation>Immagini (*.jpg *.jpeg *.png)</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="281"/>
         <source>All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutti i file (*)</translation>
     </message>
 </context>
 </TS>
