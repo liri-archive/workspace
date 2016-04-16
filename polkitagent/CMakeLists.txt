@@ -25,6 +25,9 @@ hawaii_translate_ts(QM_FILES
                     INSTALL_DIR ${DATA_INSTALL_DIR}/hawaii-workspace/translations
                     COMPONENT "Runtime")
 hawaii_translate_desktop(DESKTOP_FILE SOURCES org.hawaiios.PolkitAgent.desktop.in)
+hawaii_translation_loader(SOURCES
+                          TRANSLATIONS_DIR hawaii-workspace/translations
+                          CATALOG_NAME hawaii-polkit-agent)
 
 add_executable(hawaii-polkit-agent ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
 target_link_libraries(hawaii-polkit-agent
