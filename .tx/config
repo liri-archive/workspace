@@ -22,11 +22,11 @@ file_filter = screencast/translations/hawaii-screencast_<lang>.ts
 [hawaii-workspace.screenshot-desktop]
 type = DESKTOP
 source_lang = en
-source_file = screenshoot/org.hawaiios.Screenshot.desktop.in
-file_filter = screenshoot/translations/org.hawaiios.Screenshot_<lang>.desktop.in
+source_file = screenshot/org.hawaiios.Screenshot.desktop.in
+file_filter = screenshot/translations/org.hawaiios.Screenshot_<lang>.desktop.in
 
 [hawaii-workspace.screenshot-ts]
 type = QT
 source_lang = en
-source_file = screenshoot/translations/hawaii-screenshot.ts
-file_filter = screenshoot/translations/hawaii-screenshot_<lang>.ts
+source_file = screenshot/translations/hawaii-screenshot.ts
+file_filter = screenshot/translations/hawaii-screenshot_<lang>.ts
