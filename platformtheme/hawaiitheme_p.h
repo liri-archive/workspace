@@ -29,7 +29,7 @@
 
 #include <qpa/qplatformtheme_p.h>
 
-#include <Hawaii/QGSettings>
+#include <Hawaii/GSettings/QGSettings>
 
 #include "hawaiitheme.h"
 #include "resourcehelper.h"

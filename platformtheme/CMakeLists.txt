@@ -12,7 +12,7 @@ set(SOURCES
 
 add_library(HawaiiPlatformTheme SHARED ${SOURCES})
 set_target_properties(HawaiiPlatformTheme PROPERTIES PREFIX "")
-target_link_libraries(HawaiiPlatformTheme Qt5::Widgets Hawaii::Hawaii)
+target_link_libraries(HawaiiPlatformTheme Qt5::Widgets Hawaii::GSettings)
 
 install(TARGETS HawaiiPlatformTheme LIBRARY
     DESTINATION ${QT_PLUGIN_INSTALL_DIR}/platformthemes)
