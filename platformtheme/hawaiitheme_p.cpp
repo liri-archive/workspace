@@ -36,6 +36,8 @@
 // Default fonts
 static const char defaultSystemFontName[] = "Droid Sans";
 static int defaultSystemFontSize = 11;
+static const char defaultMonospaceFontName[] = "Droid Sans Mono";
+static int defaultMonospaceFontSize = 11;
 
 HawaiiThemePrivate::HawaiiThemePrivate()
 {
@@ -76,6 +78,8 @@ void HawaiiThemePrivate::refresh()
     // Fonts
     QString fontFamily = settings->value(QStringLiteral("fontName")).toString();
     int fontSize = settings->value(QStringLiteral("fontSize")).toInt();
+    QString monospaceFontFamily = settings->value(QStringLiteral("monospaceFontName")).toString();
+    int monospaceFontSize = settings->value(QStringLiteral("monospaceFontSize")).toInt();
     QString smallFontFamily = settings->value(QStringLiteral("smallFontName")).toString();
     int smallFontSize = settings->value(QStringLiteral("smallFontSize")).toInt();
     QString miniFontFamily = settings->value(QStringLiteral("miniFontName")).toString();
@@ -86,6 +90,12 @@ void HawaiiThemePrivate::refresh()
         resources.fonts[QPlatformTheme::SystemFont] = systemFont;
     else
         resources.fonts[QPlatformTheme::SystemFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+
+    // Monospace font
+    if (QFont *monospaceFont = readFont(monospaceFontFamily, monospaceFontSize))
+        resources.fonts[QPlatformTheme::FixedFont] = monospaceFont;
+    else
+        resources.fonts[QPlatformTheme::FixedFont] = new QFont(QLatin1String(defaultMonospaceFontName), defaultMonospaceFontSize);
 
     // Small font
     if (QFont *smallFont = readFont(smallFontFamily, smallFontSize))

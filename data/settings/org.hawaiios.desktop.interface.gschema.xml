@@ -95,6 +95,22 @@
         Font size for applications.
       </description>
     </key>
+    <key name="monospace-font-name" type="s">
+      <default>'Droid Sans Mono'</default>
+      <summary>Monospace Font Name</summary>
+      <description>
+        Name of monospaced (fixed-width) font for use in locations
+        like terminals.
+      </description>
+    </key>
+    <key name="monospace-font-size" type="i">
+      <default>11</default>
+      <summary>Monospace Font Size</summary>
+      <description>
+        Size of monospaced (fixed-width) font for use in locations
+        like terminals.
+      </description>
+    </key>
     <key name="small-font-name" type="s">
       <default>'Noto Sans'</default>
       <summary>Small Font Family</summary>
