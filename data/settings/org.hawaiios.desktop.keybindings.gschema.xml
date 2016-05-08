@@ -362,6 +362,11 @@
     </key>
   </schema>
   <schema id="org.hawaiios.desktop.keybindings.desktop" path="/org/hawaiios/desktop/keybindings/desktop/">
+    <key name="run-command" type="as">
+      <default>['Alt+F2']</default>
+      <summary>Run a command</summary>
+      <description>Run an arbitrary shell command</description>
+    </key>
     <key name="screenshot" type="as">
       <default>['Print']</default>
       <summary>Take a screenshot</summary>
