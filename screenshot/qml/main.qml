@@ -64,6 +64,7 @@ ApplicationWindow {
                 id: shootButton
                 text: qsTr("Take Screenshot")
                 enabled: Screenshooter.enabled
+                visible: captureLayout.visible
                 onClicked: {
                     window.hide();
                     shootTimer.start();
@@ -73,6 +74,7 @@ ApplicationWindow {
             Button {
                 id: actionButton
                 text: qsTr("OK")
+                visible: previewLayout.visible
                 onClicked: {
                     if (saveAction.checked)
                         fileDialog.open();
@@ -84,32 +86,11 @@ ApplicationWindow {
     visible: true
 
     ColumnLayout {
-        id: mainLayout
+        id: captureLayout
         anchors {
             fill: parent
             margins: FluidUi.Units.largeSpacing
         }
-        state: "capture"
-        states: [
-            State {
-                name: "capture"
-                PropertyChanges { target: captureGroupBox; visible: true }
-                PropertyChanges { target: effectsGroupBox; visible: true }
-                PropertyChanges { target: previewLayout; visible: false }
-                PropertyChanges { target: shootButton; visible: true }
-                PropertyChanges { target: actionButton; visible: false }
-            },
-            State {
-                name: "preview"
-                PropertyChanges { target: captureGroupBox; visible: false }
-                PropertyChanges { target: effectsGroupBox; visible: false }
-                PropertyChanges { target: previewLayout; visible: true }
-                PropertyChanges { target: shootButton; visible: false }
-                PropertyChanges { target: actionButton; visible: true }
-            }
-        ]
-
-        Keys.onEscapePressed: Qt.quit()
 
         GroupBox {
             id: captureGroupBox
@@ -207,50 +188,54 @@ ApplicationWindow {
 
             Layout.fillWidth: true
         }
+    }
 
-        ColumnLayout {
-            id: previewLayout
-            spacing: FluidUi.Units.smallSpacing
+    ColumnLayout {
+        id: previewLayout
+        anchors {
+            fill: parent
+            margins: FluidUi.Units.largeSpacing
+        }
+        visible: !captureLayout.visible
 
-            GroupBox {
-                title: qsTr("Preview")
+        Image {
+            property real ratio: sourceSize.width / sourceSize.height
 
-                Image {
-                    id: preview
-                    anchors.fill: parent
-                    //width: height * (sourceSize.width / sourceSize.height)
-                    //height: FluidUi.Units.dp(240)
-                    fillMode: Image.Stretch
-                    cache: false
+            id: preview
+            fillMode: Image.Stretch
+            cache: false
+
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.preferredWidth: parent.width
+            Layout.preferredHeight: Layout.preferredWidth / ratio
+        }
+
+        GroupBox {
+            title: qsTr("Options")
+
+            ColumnLayout {
+                spacing: FluidUi.Units.smallSpacing
+
+                RadioButton {
+                    id: saveAction
+                    text: qsTr("Save")
+                    autoExclusive: true
+                    checked: true
                 }
 
-                Layout.fillWidth: true
-            }
-
-            GroupBox {
-                title: qsTr("Options")
-
-                ColumnLayout {
-                    spacing: FluidUi.Units.smallSpacing
-
-                    RadioButton {
-                        id: saveAction
-                        text: qsTr("Save")
-                        autoExclusive: true
-                        checked: true
-                    }
-
-                    RadioButton {
-                        id: copyAction
-                        text: qsTr("Copy to clipboard")
-                        autoExclusive: true
-                        checked: false
-                    }
+                RadioButton {
+                    id: copyAction
+                    text: qsTr("Copy to clipboard")
+                    autoExclusive: true
+                    checked: false
                 }
-
-                Layout.fillWidth: true
-                Layout.fillHeight: true
             }
+
+            Layout.fillWidth: true
+        }
+
+        Item {
+            Layout.fillHeight: true
         }
     }
 
@@ -269,7 +254,7 @@ ApplicationWindow {
         interval: 1000
         onTriggered: {
             preview.source = "image://screenshooter/last";
-            mainLayout.state = "preview";
+            captureLayout.visible = false;
             window.show();
         }
     }
