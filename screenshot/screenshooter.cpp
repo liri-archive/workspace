@@ -76,6 +76,8 @@ Screenshooter::Screenshooter(QObject *parent)
     , m_thread(new QThread())
     , m_connection(Client::ClientConnection::fromQt())
     , m_registry(new Client::Registry(this))
+    , m_shm(Q_NULLPTR)
+    , m_shooter(Q_NULLPTR)
     , m_imageProvider(new ImageProvider())
 {
     // Wayland connection in a separate thread
