@@ -81,6 +81,12 @@ private:
     Client::Shm *m_shm;
     Client::Screenshooter *m_shooter;
 
+    struct {
+        bool initialized;
+        quint32 name;
+        quint32 version;
+    } m_deferredShooter;
+
     struct ScreenshotRequest {
         QPoint position;
         Client::Screenshot *screenshot;
