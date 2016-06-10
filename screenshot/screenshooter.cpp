@@ -97,6 +97,11 @@ Screenshooter::~Screenshooter()
     m_thread->wait();
 }
 
+bool Screenshooter::isEnabled() const
+{
+    return m_shm && m_shooter;
+}
+
 bool Screenshooter::event(QEvent *event)
 {
     if (event->type() == InteractiveStartupEventType) {
@@ -118,6 +123,11 @@ bool Screenshooter::event(QEvent *event)
 
 void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeBorder)
 {
+    if (!isEnabled()) {
+        qWarning("Cannot take screenshots until we bound to the interfaces");
+        return;
+    }
+
     if (m_inProgress) {
         qWarning("Cannot take another screenshot while a previous capture is in progress");
         return;
@@ -303,6 +313,9 @@ void Screenshooter::interfaceAnnounced(const QByteArray &interface,
         m_shm = m_registry->createShm(name, version);
     else if (interface == Client::Screenshooter::interfaceName())
         m_shooter = m_registry->createScreenshooter(m_shm, name, version);
+
+    if (m_shm && m_shooter)
+        Q_EMIT enabledChanged();
 }
 
 #include "moc_screenshooter.cpp"

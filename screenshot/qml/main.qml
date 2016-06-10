@@ -63,6 +63,7 @@ ApplicationWindow {
             Button {
                 id: shootButton
                 text: qsTr("Take Screenshot")
+                enabled: Screenshooter.enabled
                 onClicked: {
                     window.hide();
                     shootTimer.start();

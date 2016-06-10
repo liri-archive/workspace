@@ -44,6 +44,7 @@ using namespace GreenIsland;
 class Screenshooter : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool enabled READ isEnabled NOTIFY enabledChanged)
 public:
     enum What {
         Screen = 1,
@@ -56,11 +57,14 @@ public:
     Screenshooter(QObject *parent = Q_NULLPTR);
     ~Screenshooter();
 
+    bool isEnabled() const;
+
     Q_INVOKABLE void takeScreenshot(What what, bool includePointer, bool includeBorder);
     Q_INVOKABLE QString screenshotFileName() const;
     Q_INVOKABLE void saveScreenshot(const QUrl &fileName);
 
 Q_SIGNALS:
+    void enabledChanged();
     void screenshotDone();
 
 protected:
