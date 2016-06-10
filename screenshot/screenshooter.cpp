@@ -81,6 +81,8 @@ Screenshooter::Screenshooter(QObject *parent)
     , m_imageProvider(new ImageProvider())
 {
     m_deferredShooter.initialized = false;
+    m_deferredShooter.name = 0;
+    m_deferredShooter.version = 0;
 
     // Wayland connection in a separate thread
     Q_ASSERT(m_connection);
@@ -316,7 +318,8 @@ void Screenshooter::interfaceAnnounced(const QByteArray &interface,
         m_shm = m_registry->createShm(name, version);
 
         // Also create shooter if it was deferred
-        m_shooter = m_registry->createScreenshooter(m_shm, m_deferredShooter.name, m_deferredShooter.version);
+        if (!m_shooter && m_deferredShooter.initialized)
+            m_shooter = m_registry->createScreenshooter(m_shm, m_deferredShooter.name, m_deferredShooter.version);
     } else if (interface == Client::Screenshooter::interfaceName()) {
         // Create shooter right away if we already bound to Shm,
         // otherwise defer the creation
