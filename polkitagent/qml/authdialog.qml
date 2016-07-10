@@ -27,8 +27,8 @@
 import QtQuick 2.1
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.0
-import Qt.labs.controls 1.0
-import Fluid.Ui 1.0 as FluidUi
+import QtQuick.Controls 2.0
+import Fluid.UI 1.0 as FluidUi
 
 ApplicationWindow {
     property string actionId
@@ -82,7 +82,7 @@ ApplicationWindow {
             spacing: FluidUi.Units.smallSpacing
 
             FluidUi.Icon {
-                iconName: "dialog-password-symbolic"
+                name: "dialog-password-symbolic"
                 width: FluidUi.Units.iconSizes.large
                 height: width
                 color: messageLabel.color

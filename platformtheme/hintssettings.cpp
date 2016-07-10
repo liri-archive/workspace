@@ -34,7 +34,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
 
-#include <Hawaii/GSettings/QGSettings>
+#include <Hawaii/Settings/QGSettings>
 
 #include "hintssettings.h"
 
