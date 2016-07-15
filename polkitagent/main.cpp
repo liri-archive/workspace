@@ -25,26 +25,31 @@
  ***************************************************************************/
 
 #include <QtGui/QGuiApplication>
+#include <QtQuick/QQuickWindow>
+#include <QtQuickControls2/QQuickStyle>
 
 #include "config.h"
 #include "policykitagent.h"
 
 int main(int argc, char *argv[])
 {
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     // Setup application
     QGuiApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("PolicyKit Agent"));
     app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
     app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
     app.setOrganizationName(QStringLiteral("Hawaii"));
-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
-    app.setAttribute(Qt::AA_EnableHighDpiScaling);
     app.setFallbackSessionManagementEnabled(false);
-#endif
-#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
     app.setDesktopFileName(QStringLiteral("org.hawaiios.PolkitAgent.desktop"));
-#endif
     app.setQuitOnLastWindowClosed(false);
+
+    // Set the style
+    QQuickStyle::setStyle(QLatin1String("Material"));
+
+    // For transparent windows
+    QQuickWindow::setDefaultAlphaBuffer(true);
 
     // Create the agent instance
     PolicyKitAgent::instance();

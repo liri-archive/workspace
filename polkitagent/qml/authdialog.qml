@@ -25,12 +25,15 @@
  ***************************************************************************/
 
 import QtQuick 2.1
+import QtQuick.Window 2.1
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
-import Fluid.UI 1.0 as FluidUi
+import Fluid.UI 1.0
 
 ApplicationWindow {
+    id: authenticationDialog
+
     property string actionId
     property alias message: messageLabel.text
     property string iconName
@@ -44,19 +47,154 @@ ApplicationWindow {
     signal authenticationReady(string response)
     signal authenticationCanceled()
 
-    id: authenticationDialog
     title: qsTr("Authentication required")
-    minimumWidth: mainLayout.implicitWidth
-    minimumHeight: mainLayout.implicitHeight
-    maximumWidth: minimumWidth
-    maximumHeight: minimumHeight
+    color: "transparent"
+    onAvatarChanged: {
+        // Load the image from the disk if it's an absolute path
+        if (avatar.indexOf("/") == 0) {
+            avatarImage.name = "";
+            avatarImage.source = avatar;
+        }
+
+        // Otherwise use a standard icon
+        avatarImage.source = "";
+        avatarImage.name = "action/verified_user";
+    }
+
+    Popup {
+        id: popup
+        x: (parent.width - popup.width) / 2
+        y: (parent.height - popup.height) / 2
+        width: 300
+        height: 300
+        modal: true
+        focus: true
+
+        ColumnLayout {
+            id: mainLayout
+            anchors.fill: parent
+            anchors.margins: 8
+            spacing: 8
+
+            Keys.onEscapePressed: cancelButton.clicked()
+
+            RowLayout {
+                spacing: 8
+
+                Icon {
+                    name: "action/lock"
+                    size: 48
+
+                    Layout.alignment: Qt.AlignTop
+                }
+
+                ColumnLayout {
+                    spacing: 8
+
+                    TitleLabel {
+                        text: qsTr("Authentication required")
+                    }
+
+                    Label {
+                        id: messageLabel
+                        wrapMode: Text.WordWrap
+
+                        Layout.fillWidth: true
+                    }
+
+                    RowLayout {
+                        spacing: 8
+
+                        Icon {
+                            id: avatarImage
+                            size: 64
+                        }
+
+                        Label {
+                            id: avatarName
+
+                            Layout.alignment: Qt.AlignVCenter
+                        }
+
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.fillWidth: true
+                    }
+
+                    RowLayout {
+                        spacing: 8
+
+                        Label {
+                            id: promptLabel
+                        }
+
+                        TextField {
+                            id: passwordInput
+                            echoMode: echo ? TextInput.Normal : TextInput.Password
+                            focus: true
+                            onAccepted: okButton.clicked()
+
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    Label {
+                        id: infoLabel
+                        color: "green"
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        visible: text != ""
+
+                        Layout.fillWidth: true
+                    }
+
+                    Label {
+                        id: errorLabel
+                        color: "red"
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        visible: text != ""
+
+                        Layout.fillWidth: true
+                    }
+                }
+
+                Layout.fillHeight: true
+            }
+
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+
+            RowLayout {
+                spacing: 8
+
+                Button {
+                    id: cancelButton
+                    text: qsTr("Cancel")
+                    onClicked: authenticationDialog.authenticationCanceled()
+                }
+
+                Button {
+                    id: okButton
+                    text: qsTr("Authenticate")
+                    onClicked: authenticationDialog.authenticationReady(passwordInput.text)
+                }
+
+                Layout.alignment: Qt.AlignRight
+                Layout.fillWidth: true
+            }
+        }
+    }
 
     function open() {
-        visible = true;
+        visibility = Window.FullScreen;
+        popup.open();
     }
 
     function close() {
-        visible = false;
+        visibility = Window.Hidden;
+        popup.close();
         cleanup();
     }
 
@@ -70,139 +208,5 @@ ApplicationWindow {
         passwordInput.text = "";
         infoMessage = "";
         errorMessage = "";
-    }
-
-    ColumnLayout {
-        id: mainLayout
-        spacing: FluidUi.Units.largeSpacing
-
-        Keys.onEscapePressed: cancelButton.clicked()
-
-        RowLayout {
-            spacing: FluidUi.Units.smallSpacing
-
-            FluidUi.Icon {
-                name: "dialog-password-symbolic"
-                width: FluidUi.Units.iconSizes.large
-                height: width
-                color: messageLabel.color
-
-                Layout.alignment: Qt.AlignTop
-            }
-
-            ColumnLayout {
-                spacing: FluidUi.Units.smallSpacing
-
-                Label {
-                    text: qsTr("Authentication required")
-                    font.bold: true
-                }
-
-                Label {
-                    id: messageLabel
-                    wrapMode: Text.WordWrap
-
-                    Layout.fillWidth: true
-                }
-
-                RowLayout {
-                    spacing: FluidUi.Units.smallSpacing
-
-                    Image {
-                        id: avatarImage
-                        source: {
-                            // Fallback to a default icon
-                            if (avatar == "")
-                                return "image://desktoptheme/avatar-default";
-
-                            // Load the image from the disk if it's an absolute path
-                            if (avatar.indexOf("/") == 0)
-                                return avatar;
-
-                            // Load from the icon theme
-                            return "image://desktoptheme/" + avatar;
-                        }
-                        sourceSize.width: width
-                        sourceSize.height: height
-                        width: FluidUi.Units.iconSizes.large
-                        height: width
-                        smooth: true
-                        cache: false
-                    }
-
-                    Label {
-                        id: avatarName
-
-                        Layout.alignment: Qt.AlignVCenter
-                    }
-
-                    Layout.alignment: Qt.AlignCenter
-                    Layout.fillWidth: true
-                }
-
-                RowLayout {
-                    spacing: FluidUi.Units.smallSpacing
-
-                    Label {
-                        id: promptLabel
-                    }
-
-                    TextField {
-                        id: passwordInput
-                        echoMode: echo ? TextInput.Normal : TextInput.Password
-                        focus: true
-                        onAccepted: okButton.clicked()
-
-                        Layout.fillWidth: true
-                    }
-                }
-
-                Label {
-                    id: infoLabel
-                    color: "green"
-                    font.bold: true
-                    wrapMode: Text.WordWrap
-                    visible: text != ""
-
-                    Layout.fillWidth: true
-                }
-
-                Label {
-                    id: errorLabel
-                    color: "red"
-                    font.bold: true
-                    wrapMode: Text.WordWrap
-                    visible: text != ""
-
-                    Layout.fillWidth: true
-                }
-            }
-
-            Layout.fillHeight: true
-        }
-
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-        RowLayout {
-            spacing: FluidUi.Units.smallSpacing
-
-            Button {
-                id: cancelButton
-                text: qsTr("Cancel")
-                onClicked: authenticationDialog.authenticationCanceled()
-            }
-
-            Button {
-                id: okButton
-                text: qsTr("Authenticate")
-                onClicked: authenticationDialog.authenticationReady(passwordInput.text)
-            }
-
-            Layout.alignment: Qt.AlignRight
-            Layout.fillWidth: true
-        }
     }
 }

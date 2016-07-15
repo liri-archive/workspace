@@ -35,6 +35,7 @@ target_link_libraries(hawaii-polkit-agent
                       Qt5::Gui
                       Qt5::DBus
                       Qt5::Quick
+                      Qt5::QuickControls2
                       ${POLKITQT-1_CORE_LIBRARY}
                       ${POLKITQT-1_AGENT_LIBRARY})
 if(systemd_FOUND)

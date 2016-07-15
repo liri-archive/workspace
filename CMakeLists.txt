@@ -69,7 +69,7 @@ find_package(PkgConfig)
 # Find Qt5
 set(REQUIRED_QT_VERSION "5.7.0")
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
-             DBus Widgets Qml Quick)
+             DBus Widgets Qml Quick QuickControls2)
 
 # Find Hawaii
 set(REQUIRED_LIBQMLOS_VERSION "0.8.90")
