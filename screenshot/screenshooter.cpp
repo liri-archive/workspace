@@ -168,6 +168,8 @@ void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeB
         m_pending.append({QPoint(0, 0), ss, Q_NULLPTR});
         setupScreenshot(ss);
         break;
+    default:
+        break;
     }
 
     m_inProgress = true;
@@ -286,6 +288,8 @@ void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
         case Client::Screenshot::ErrorBadBuffer:
             qCritical("Failed to record a frame: bad buffer");
             QGuiApplication::quit();
+            break;
+        default:
             break;
         }
     });
