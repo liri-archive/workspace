@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(APPLE_SUPPRESS_X11_WARNING ON)
 
 # Set version
-set(PROJECT_VERSION "0.7.0")
+set(PROJECT_VERSION "0.8.90")
 
 # Set up packaging
 set(CPACK_PACKAGE_NAME "qmlos-workspace")
