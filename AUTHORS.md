@@ -1,5 +1,5 @@
-Hawaii Workspace
-================
+Workspace
+=========
 
 # Authors
 
