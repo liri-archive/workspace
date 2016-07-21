@@ -15,6 +15,7 @@ set(FILES
     org.hawaiios.desktop.panel.gschema.xml
     org.hawaiios.desktop.keybindings.gschema.xml
     org.hawaiios.desktop.session.gschema.xml
+    org.hawaiios.system.gschema.xml
 )
 
 install(FILES ${FILES} DESTINATION ${GSETTINGS_SCHEMA_DIR})
