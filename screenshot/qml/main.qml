@@ -28,13 +28,14 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.0
 import QtQuick.Controls 2.0
-import Qt.labs.controls.material 1.0
-import Fluid.UI 1.0 as FluidUi
+import QtQuick.Controls.Material 2.0
+import Fluid.Controls 1.0
 
 ApplicationWindow {
+    id: window
+
     property int selectedOption: 1
 
-    id: window
     title: qsTr("Screenshot")
     width: FluidUi.Units.dp(500)
     height: FluidUi.Units.dp(500)
@@ -42,6 +43,10 @@ ApplicationWindow {
     minimumHeight: height
     maximumWidth: width
     maximumHeight: height
+
+    Material.primary: Material.BlueGrey
+    Material.accent: Material.BlueGrey
+
     header: ToolBar {
         height: toolBarLayout.implicitHeight
 
@@ -99,8 +104,8 @@ ApplicationWindow {
             ColumnLayout {
                 spacing: FluidUi.Units.smallSpacing
 
-                FluidUi.Icon {
-                    iconName: "applets-screenshooter"
+                Icon {
+                    name: "applets-screenshooter"
                 }
 
                 ColumnLayout {
@@ -275,7 +280,4 @@ ApplicationWindow {
         target: Screenshooter
         onScreenshotDone: showTimer.start()
     }
-
-    Material.primary: Material.BlueGrey
-    Material.accent: Material.BlueGrey
 }
