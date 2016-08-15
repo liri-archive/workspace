@@ -37,8 +37,8 @@ ApplicationWindow {
     property int selectedOption: 1
 
     title: qsTr("Screenshot")
-    width: Units.dp(500)
-    height: Units.dp(500)
+    width: 500
+    height: 500
     minimumWidth: width
     minimumHeight: height
     maximumWidth: width
