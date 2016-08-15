@@ -31,10 +31,7 @@ hawaii_translation_loader(SOURCES
 
 add_executable(hawaii-polkit-agent ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
 target_link_libraries(hawaii-polkit-agent
-                      Qt5::Core
-                      Qt5::Gui
                       Qt5::DBus
-                      Qt5::Quick
                       Qt5::QuickControls2
                       ${POLKITQT-1_CORE_LIBRARY}
                       ${POLKITQT-1_AGENT_LIBRARY})
