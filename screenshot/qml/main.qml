@@ -37,8 +37,8 @@ ApplicationWindow {
     property int selectedOption: 1
 
     title: qsTr("Screenshot")
-    width: FluidUi.Units.dp(500)
-    height: FluidUi.Units.dp(500)
+    width: Units.dp(500)
+    height: Units.dp(500)
     minimumWidth: width
     minimumHeight: height
     maximumWidth: width
@@ -54,7 +54,7 @@ ApplicationWindow {
             id: toolBarLayout
             x: spacing
             width: parent.width - (2 * spacing)
-            spacing: FluidUi.Units.smallSpacing
+            spacing: Units.smallSpacing
 
             Button {
                 text: qsTr("Cancel")
@@ -94,7 +94,7 @@ ApplicationWindow {
         id: captureLayout
         anchors {
             fill: parent
-            margins: FluidUi.Units.largeSpacing
+            margins: Units.largeSpacing
         }
 
         GroupBox {
@@ -102,14 +102,14 @@ ApplicationWindow {
             title: qsTr("Take Screenshot")
 
             ColumnLayout {
-                spacing: FluidUi.Units.smallSpacing
+                spacing: Units.smallSpacing
 
                 Icon {
                     name: "applets-screenshooter"
                 }
 
                 ColumnLayout {
-                    spacing: FluidUi.Units.smallSpacing
+                    spacing: Units.smallSpacing
 
                     RadioButton {
                         id: wholeScreenOption
@@ -147,7 +147,7 @@ ApplicationWindow {
                     }
 
                     RowLayout {
-                        spacing: FluidUi.Units.smallSpacing
+                        spacing: Units.smallSpacing
 
                         Label {
                             text: qsTr("Grab after a delay of")
@@ -175,7 +175,7 @@ ApplicationWindow {
             title: qsTr("Effects")
 
             ColumnLayout {
-                spacing: FluidUi.Units.smallSpacing
+                spacing: Units.smallSpacing
 
                 CheckBox {
                     id: includePointer
@@ -199,7 +199,7 @@ ApplicationWindow {
         id: previewLayout
         anchors {
             fill: parent
-            margins: FluidUi.Units.largeSpacing
+            margins: Units.largeSpacing
         }
         visible: !captureLayout.visible
 
@@ -219,7 +219,7 @@ ApplicationWindow {
             title: qsTr("Options")
 
             ColumnLayout {
-                spacing: FluidUi.Units.smallSpacing
+                spacing: Units.smallSpacing
 
                 RadioButton {
                     id: saveAction
