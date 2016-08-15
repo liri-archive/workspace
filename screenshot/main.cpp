@@ -39,6 +39,9 @@ int main(int argc, char *argv[])
     // Force using the wayland QPA plugin
     qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("wayland"));
 
+    // HighDpi scaling
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     // Setup application
     QGuiApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Screenshot"));

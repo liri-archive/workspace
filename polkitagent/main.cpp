@@ -33,6 +33,7 @@
 
 int main(int argc, char *argv[])
 {
+    // HighDpi scaling
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     // Setup application
