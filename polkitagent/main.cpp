@@ -45,8 +45,9 @@ int main(int argc, char *argv[])
     app.setDesktopFileName(QStringLiteral("org.hawaiios.PolkitAgent.desktop"));
     app.setQuitOnLastWindowClosed(false);
 
-    // Set the style
-    QQuickStyle::setStyle(QLatin1String("Material"));
+    // Set default style
+    if (QQuickStyle::name().isEmpty())
+        QQuickStyle::setStyle(QLatin1String("Material"));
 
     // For transparent windows
     QQuickWindow::setDefaultAlphaBuffer(true);
