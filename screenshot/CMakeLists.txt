@@ -28,10 +28,7 @@ hawaii_translation_loader(SOURCES
 
 add_executable(hawaii-screenshot ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
 target_link_libraries(hawaii-screenshot
-                      Qt5::Core
-                      Qt5::Gui
-                      Qt5::Qml
-                      Qt5::Quick
+                      Qt5::QuickControls2
                       GreenIsland::Client)
 
 install(TARGETS hawaii-screenshot

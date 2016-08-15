@@ -27,6 +27,7 @@
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QCommandLineOption>
 #include <QtGui/QGuiApplication>
+#include <QtQuickControls2/QQuickStyle>
 
 #include "config.h"
 #include "screenshooter.h"
@@ -116,6 +117,10 @@ int main(int argc, char *argv[])
         qCritical("This application requires a Wayland session");
         return 1;
     }
+
+    // Set default style
+    if (QQuickStyle::name().isEmpty())
+        QQuickStyle::setStyle(QLatin1String("Material"));
 
     // Run the application
     Screenshooter *screenshooter = new Screenshooter();
