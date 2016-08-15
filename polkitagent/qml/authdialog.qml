@@ -64,6 +64,7 @@ ApplicationWindow {
         avatarImage.source = "";
         avatarImage.name = "action/verified_user";
     }
+    visibility: Window.Hidden
 
     Popup {
         id: popup
