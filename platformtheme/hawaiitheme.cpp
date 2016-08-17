@@ -25,6 +25,7 @@
  ***************************************************************************/
 
 #include <QtGui/QFont>
+#include <QtQuickControls2/QQuickStyle>
 
 #include "hawaiitheme.h"
 #include "hawaiitheme_p.h"
@@ -35,6 +36,10 @@ HawaiiTheme::HawaiiTheme()
 {
     Q_D(HawaiiTheme);
     d->refresh();
+
+    // Set Material style by default
+    if (QQuickStyle::name().isEmpty())
+        QQuickStyle::setStyle(QLatin1String("Material"));
 }
 
 bool HawaiiTheme::usePlatformNativeDialog(DialogType type) const
