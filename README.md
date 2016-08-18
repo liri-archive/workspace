@@ -34,7 +34,7 @@ And the following modules:
  * [polkit-qt5](http://quickgit.kde.org/?p=polkit-qt-1.git)
  * [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
  * [greenisland](https://github.com/greenisland/greenisland.git)
- * [libhawaii](https://github.com/hawaii-desktop/libhawaii.git)
+ * [libqmlos](https://github.com/qmlos/libqmlos.git)
 
 ## Installation
 
