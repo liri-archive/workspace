@@ -45,6 +45,7 @@ mkdir build; cd build
 cmake .. -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 make
 make install # use sudo if necessary
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 ```
 
 On the `cmake` line, you can specify additional configuration parameters:
