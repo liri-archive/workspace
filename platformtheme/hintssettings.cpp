@@ -103,7 +103,7 @@ void HintsSettings::collectHints()
 #endif
     QList<int> pixmapSizes;
     pixmapSizes
-            << 512 << 256 << 128 << 64 << 48
+            << 512 << 256 << 128 << 96 << 64 << 48
             << 32 << 24 << 22 << 16;
     m_hints.insert(QPlatformTheme::IconPixmapSizes, QVariant::fromValue(pixmapSizes));
 }
