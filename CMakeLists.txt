@@ -79,10 +79,6 @@ find_package(Hawaii ${REQUIRED_LIBQMLOS_VERSION} REQUIRED)
 set(REQUIRED_GREENISLAND_VERSION "0.8.0")
 find_package(GreenIsland ${REQUIRED_GREENISLAND_VERSION} REQUIRED COMPONENTS Client)
 
-# Find PolicyKit Qt5
-set(REQUIRED_POLKITQT_VERSION "0.103.0")
-find_package(PolkitQt5-1 ${REQUIRED_POLKITQT_VERSION} REQUIRED)
-
 # Find Qt5GStreamer for hawaii-screencap
 find_package(Qt5GStreamer)
 
@@ -123,7 +119,6 @@ message(STATUS "GSettings schemas directory: ${GSETTINGS_SCHEMA_DIR}")
 add_subdirectory(data)
 add_subdirectory(headers)
 add_subdirectory(platformtheme)
-add_subdirectory(polkitagent)
 add_subdirectory(powermanager)
 if(Qt5GStreamer_FOUND)
     add_subdirectory(screencast)

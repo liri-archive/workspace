@@ -13,7 +13,6 @@ Base applications and settings for the qmlOS workspace.
 
 Includes:
 
-* hawaii-polkit-agent, the PolicyKit agent
 * hawaii-screenshot, screenshot application
 * hawaii-screencap, screencast application
 * Qt platform theme plugin
@@ -31,7 +30,6 @@ Make sure you have Qt >= 5.7.0 with the following modules:
 
 And the following modules:
 
- * [polkit-qt5](http://quickgit.kde.org/?p=polkit-qt-1.git)
  * [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
  * [greenisland](https://github.com/greenisland/greenisland.git)
  * [libqmlos](https://github.com/qmlos/libqmlos.git)
