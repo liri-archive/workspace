@@ -50,7 +50,7 @@
       </description>
     </key>
     <key name="pinned-launchers" type="as">
-      <default>['org.hawaiios.terminal', 'org.hawaiios.SystemPreferences']</default>
+      <default>['org.hawaiios.terminal', 'org.hawaiios.Settings']</default>
       <summary>Pinned launchers</summary>
       <description>
         Launchers that appear permanently on the panel, regardless of whether they are running or not.
