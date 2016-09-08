@@ -24,19 +24,58 @@
  * $END_LICENSE$
  ***************************************************************************/
 
+#include <QtCore/QDir>
 #include <QtCore/QEvent>
 #include <QtCore/QFileInfo>
-#include <QtCore/QStandardPaths>
 #include <QtGui/QTextCharFormat>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
+#include <QDebug>
 
 #include <Hawaii/Settings/QGSettings>
 
 #include "hintssettings.h"
+
+/*!
+ * Returns a list of XDG compliant paths for icon themes.
+ * See https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+ */
+static QStringList xdgIconThemePaths()
+{
+    QStringList paths;
+    QStringList xdgPaths;
+
+    // Add ~/.icons for backwards compatibility
+    paths.append(QDir::home().absoluteFilePath(QLatin1String(".icons")));
+
+    // Add XDG_DATA_HOME
+    QString xdgDataHome = QFile::decodeName(qgetenv("XDG_DATA_HOME"));
+    if (xdgDataHome.isEmpty())
+        xdgDataHome = QDir::home().absoluteFilePath(QLatin1String(".local/share"));
+    xdgPaths.append(xdgDataHome);
+
+    // Add XDG_DATA_DIRS
+    QString xdgDataDirs = QFile::decodeName(qgetenv("XDG_DATA_DIRS"));
+    if (xdgDataDirs.isEmpty())
+        xdgDataDirs = QLatin1String("/usr/local/share/:/usr/share/");
+
+    // Split ':' path separator from XDG data directories
+    xdgPaths += xdgDataDirs.split(QLatin1Char(':'), QString::SkipEmptyParts);
+
+    // Append the icons directory to all XDG data directories
+    Q_FOREACH (const QString &xdgPath, xdgPaths) {
+        QDir iconDir = QDir(xdgPath).filePath(QLatin1String("icons"));
+        paths.append(iconDir.absolutePath());
+    }
+
+    // Remove duplicates
+    paths.removeDuplicates();
+
+    return paths;
+}
 
 HintsSettings::HintsSettings(Hawaii::QGSettings *settings, QObject *parent)
     : QObject(parent)
@@ -73,11 +112,7 @@ void HintsSettings::collectHints()
     m_hints.insert(QPlatformTheme::SystemIconThemeName,
                    m_settings->value(QStringLiteral("iconTheme")));
     m_hints.insert(QPlatformTheme::SystemIconFallbackThemeName, QStringLiteral("hicolor"));
-    m_hints.insert(QPlatformTheme::IconThemeSearchPaths,
-                   QStandardPaths::locateAll(
-                       QStandardPaths::GenericDataLocation,
-                       QStringLiteral("icons"),
-                       QStandardPaths::LocateDirectory));
+    m_hints.insert(QPlatformTheme::IconThemeSearchPaths, xdgIconThemePaths());
     m_hints.insert(QPlatformTheme::StyleNames,
                    QStringList() << m_settings->value(QStringLiteral("widgetsStyle")).toString());
     m_hints.insert(QPlatformTheme::WindowAutoPlacement, true);
