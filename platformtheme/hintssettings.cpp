@@ -33,7 +33,6 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
-#include <QDebug>
 
 #include <Hawaii/Settings/QGSettings>
 
