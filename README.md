@@ -3,7 +3,7 @@ Workspace
 
 [![ZenHub.io](https://img.shields.io/badge/supercharged%20by-zenhub.io-blue.svg)](https://zenhub.io)
 
-[![License](https://img.shields.io/badge/license-GPLv2.0%2B-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+[![License](https://img.shields.io/badge/license-GPLv3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/qmlos/workspace.svg)](https://github.com/qmlos/workspace)
 [![Build Status](https://travis-ci.org/qmlos/workspace.svg?branch=develop)](https://travis-ci.org/qmlos/workspace)
 [![GitHub issues](https://img.shields.io/github/issues/qmlos/workspace.svg)](https://github.com/qmlos/workspace/issues)
@@ -56,5 +56,5 @@ On the `cmake` line, you can specify additional configuration parameters:
 
 ## Licensing
 
-Licensed under the terms of the GNU General Public License version 2.0 or,
+Licensed under the terms of the GNU General Public License version 3.0 or,
 at your option, any later version.
