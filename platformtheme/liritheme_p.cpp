@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
@@ -30,7 +30,7 @@
 #include <QtGui/QPalette>
 #include <qpa/qplatformtheme.h>
 
-#include "hawaiitheme_p.h"
+#include "liritheme_p.h"
 #include "hintssettings.h"
 
 // Default fonts
@@ -39,14 +39,14 @@ static int defaultSystemFontSize = 11;
 static const char defaultMonospaceFontName[] = "Droid Sans Mono";
 static int defaultMonospaceFontSize = 11;
 
-HawaiiThemePrivate::HawaiiThemePrivate()
+LiriThemePrivate::LiriThemePrivate()
 {
-    settings = new Hawaii::QGSettings(QStringLiteral("org.hawaiios.desktop.interface"),
-                                      QStringLiteral("/org/hawaiios/desktop/interface/"));
+    settings = new Vibe::QGSettings(QStringLiteral("io.liri.desktop.interface"),
+                                      QStringLiteral("/io/liri/desktop/interface/"));
     hints = new HintsSettings(settings);
 }
 
-HawaiiThemePrivate::~HawaiiThemePrivate()
+LiriThemePrivate::~LiriThemePrivate()
 {
     hints->deleteLater();
     settings->deleteLater();
@@ -58,7 +58,7 @@ static QFont *readFont(const QString &family, int size)
     return new QFont(font);
 }
 
-void HawaiiThemePrivate::refresh()
+void LiriThemePrivate::refresh()
 {
     resources.clear();
 

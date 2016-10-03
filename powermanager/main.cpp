@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
@@ -34,12 +34,12 @@ int main(int argc, char *argv[])
     // Setup application
     QCoreApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Power Manager"));
-    app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
-    app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
-    app.setOrganizationName(QStringLiteral("Hawaii"));
+    app.setApplicationVersion(QStringLiteral(LIRI_WORKSPACE_VERSION));
+    app.setOrganizationDomain(QStringLiteral("liri.io"));
+    app.setOrganizationName(QStringLiteral("Liri"));
 
     // Register
-    if (!QDBusConnection::sessionBus().registerService(QStringLiteral("org.hawaiios.powermanager"))) {
+    if (!QDBusConnection::sessionBus().registerService(QStringLiteral("io.liri.powermanager"))) {
         qWarning("Unable to register D-Bus service");
         return 1;
     }

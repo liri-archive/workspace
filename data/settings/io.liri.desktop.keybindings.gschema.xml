@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- This file is part of Hawaii.
+ This file is part of Liri.
 
  Copyright (C) 2015-2016 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
 
@@ -9,13 +9,13 @@
  the Free Software Foundation; either version 2.1 of the License, or
  (at your option) any later version.
 -->
-<schemalist gettext-domain="hawaii">
-  <schema id="org.hawaiios.desktop.keybindings" path="/org/hawaiios/desktop/keybindings/">
-    <child name="window-manager" schema="org.hawaiios.desktop.keybindings.wm"/>
-    <child name="session-manager" schema="org.hawaiios.desktop.keybindings.sm"/>
-    <child name="multimedia" schema="org.hawaiios.desktop.keybindings.multimedia"/>
+<schemalist gettext-domain="liri">
+  <schema id="io.liri.desktop.keybindings" path="/io/liri/desktop/keybindings/">
+    <child name="window-manager" schema="io.liri.desktop.keybindings.wm"/>
+    <child name="session-manager" schema="io.liri.desktop.keybindings.sm"/>
+    <child name="multimedia" schema="io.liri.desktop.keybindings.multimedia"/>
   </schema>
-  <schema id="org.hawaiios.desktop.keybindings.wm" path="/org/hawaiios/desktop/keybindings/wm/">
+  <schema id="io.liri.desktop.keybindings.wm" path="/io/liri/desktop/keybindings/wm/">
     <key name="switch-to-workspace-1" type="as">
       <default>['Meta+Home', 'Meta+F1']</default>
       <summary>Switch to workspace 1</summary>
@@ -298,7 +298,7 @@
       <description>Set or unset window to appear always on top.</description>
     </key>
   </schema>
-  <schema id="org.hawaiios.desktop.keybindings.sm" path="/org/hawaiios/desktop/keybindings/sm/">
+  <schema id="io.liri.desktop.keybindings.sm" path="/io/liri/desktop/keybindings/sm/">
     <key name="abort-session" type="as">
       <default>['Ctrl+Alt+Backspace']</default>
       <summary>Abort session</summary>
@@ -361,7 +361,7 @@
       <summary>Activate session 12</summary>
     </key>
   </schema>
-  <schema id="org.hawaiios.desktop.keybindings.desktop" path="/org/hawaiios/desktop/keybindings/desktop/">
+  <schema id="io.liri.desktop.keybindings.desktop" path="/io/liri/desktop/keybindings/desktop/">
     <key name="run-command" type="as">
       <default>['Alt+F2']</default>
       <summary>Run a command</summary>
@@ -413,7 +413,7 @@
       <description>Record a short video of the screen and save into a file</description>
     </key>
   </schema>
-  <schema id="org.hawaiios.desktop.keybindings.multimedia" path="/org/hawaiios/desktop/keybindings/multimedia/">
+  <schema id="io.liri.desktop.keybindings.multimedia" path="/io/liri/desktop/keybindings/multimedia/">
     <key name="volume-mute" type="as">
       <default>['Volume Mute']</default>
       <summary>Mute volume</summary>

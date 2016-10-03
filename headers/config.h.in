@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
@@ -24,11 +24,8 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#ifndef HAWAII_CONFIG_H
-#define HAWAII_CONFIG_H
+#pragma once
 
-#define HAWAII_WORKSPACE_VERSION "@PROJECT_VERSION@"
+#define LIRI_WORKSPACE_VERSION "@PROJECT_VERSION@"
 
 #cmakedefine01 HAVE_SYSTEMD
-
-#endif // HAWAII_CONFIG_H

@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  * Copyright (C) 2015 The Qt Company Ltd.
@@ -24,8 +24,7 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#ifndef RESOURCEHELPER_H
-#define RESOURCEHELPER_H
+#pragma once
 
 #include <QtGui/QPalette>
 #include <qpa/qplatformtheme.h>
@@ -44,5 +43,3 @@ public:
     QPalette *palettes[QPlatformTheme::NPalettes];
     QFont *fonts[QPlatformTheme::NFonts];
 };
-
-#endif // RESOURCEHELPER_H

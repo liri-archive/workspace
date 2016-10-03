@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- This file is part of Hawaii.
+ This file is part of Liri.
 
  Copyright (C) 2015-2016 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
 
@@ -9,8 +9,8 @@
  the Free Software Foundation; either version 2.1 of the License, or
  (at your option) any later version.
 -->
-<schemalist gettext-domain="hawaii">
-  <schema id="org.hawaiios.desktop.interface" path="/org/hawaiios/desktop/interface/">
+<schemalist gettext-domain="liri">
+  <schema id="io.liri.desktop.interface" path="/io/liri/desktop/interface/">
     <key name="cursor-blink" type="b">
       <default>true</default>
       <summary>Cursor Blink</summary>
@@ -35,14 +35,14 @@
       </description>
     </key>
     <key name="color-scheme" type="s">
-      <default>'Hawaii'</default>
+      <default>'Liri'</default>
       <summary>Color Scheme</summary>
       <description>
         Color scheme for applications.
       </description>
     </key>
     <key name="icon-theme" type="s">
-      <default>'Hawaii'</default>
+      <default>'Paper'</default>
       <summary>Icon Theme</summary>
       <description>
         Icon theme for applications.

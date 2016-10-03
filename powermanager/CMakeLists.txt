@@ -11,15 +11,15 @@ set(SOURCES
     main.cpp
 )
 
-add_executable(hawaii-powermanager ${SOURCES})
-target_link_libraries(hawaii-powermanager
+add_executable(liri-powermanager ${SOURCES})
+target_link_libraries(liri-powermanager
                       Qt5::Core
                       Qt5::DBus)
 if(systemd_FOUND)
-    target_link_libraries(hawaii-powermanager ${systemd_LIBRARIES})
+    target_link_libraries(liri-powermanager ${systemd_LIBRARIES})
 endif()
 
-install(TARGETS hawaii-powermanager
+install(TARGETS liri-powermanager
         DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES hawaii-powermanager.desktop
+install(FILES liri-powermanager.desktop
         DESTINATION ${AUTOSTART_INSTALL_DIR})

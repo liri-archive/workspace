@@ -2,9 +2,9 @@
 Type=Application
 Name=Power Manager
 Comment=Power Manager
-Exec=hawaii-powermanager
-TryExec=hawaii-powermanager
+Exec=liri-powermanager
+TryExec=liri-powermanager
 Terminal=false
 StartupNotify=false
-OnlyShowIn=X-Hawaii;
+OnlyShowIn=X-Liri;
 NoDisplay=true

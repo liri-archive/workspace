@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2010-2016 Pier Luigi Fiorini
  *
@@ -26,35 +26,35 @@
 
 #include <qpa/qplatformthemeplugin.h>
 
-#include "hawaiitheme.h"
+#include "liritheme.h"
 
-class HawaiiThemePlugin : public QPlatformThemePlugin
+class LiriThemePlugin : public QPlatformThemePlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QPA.QPlatformThemeFactoryInterface.5.1" FILE "hawaiitheme.json")
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QPA.QPlatformThemeFactoryInterface.5.1" FILE "liritheme.json")
 public:
-    explicit HawaiiThemePlugin(QObject *parent = 0);
+    explicit LiriThemePlugin(QObject *parent = 0);
 
     QStringList keys() const;
     QPlatformTheme *create(const QString &key, const QStringList &paramList);
 };
 
-HawaiiThemePlugin::HawaiiThemePlugin(QObject *parent)
+LiriThemePlugin::LiriThemePlugin(QObject *parent)
     : QPlatformThemePlugin(parent)
 {
 }
 
-QStringList HawaiiThemePlugin::keys() const
+QStringList LiriThemePlugin::keys() const
 {
-    return QStringList() << QStringLiteral("Hawaii");
+    return QStringList() << QStringLiteral("Liri");
 }
 
-QPlatformTheme *HawaiiThemePlugin::create(const QString &key, const QStringList &paramList)
+QPlatformTheme *LiriThemePlugin::create(const QString &key, const QStringList &paramList)
 {
     Q_UNUSED(paramList);
 
-    if (key.toLower() == QStringLiteral("hawaii"))
-        return new HawaiiTheme();
+    if (key.toLower() == QStringLiteral("liri"))
+        return new LiriTheme();
     return 0;
 }
 

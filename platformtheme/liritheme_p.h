@@ -1,7 +1,7 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
- * Copyright (C) 2010-2016 Pier Luigi Fiorini
+ * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
  * Author(s):
  *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
@@ -24,28 +24,26 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#ifndef HAWAIITHEME_H
-#define HAWAIITHEME_H
+#pragma once
 
-#include <QtCore/QHash>
-#include <QtCore/QVariant>
-#include <qpa/qplatformtheme.h>
+#include <qpa/qplatformtheme_p.h>
 
-class HawaiiThemePrivate;
+#include <Vibe/Settings/QGSettings>
 
-class Q_GUI_EXPORT HawaiiTheme : public QPlatformTheme
+#include "liritheme.h"
+#include "resourcehelper.h"
+
+class HintsSettings;
+
+class LiriThemePrivate : public QPlatformThemePrivate
 {
-    Q_DECLARE_PRIVATE(HawaiiTheme)
 public:
-    HawaiiTheme();
+    LiriThemePrivate();
+    ~LiriThemePrivate();
 
-    bool usePlatformNativeDialog(DialogType type) const;
-    QPlatformDialogHelper *createPlatformDialogHelper(DialogType type) const;
+    void refresh();
 
-    const QPalette *palette(Palette type = SystemPalette) const;
-    const QFont *font(Font type = SystemFont) const;
-
-    QVariant themeHint(ThemeHint hint) const;
+    ResourceHelper resources;
+    Vibe::QGSettings *settings;
+    HintsSettings *hints;
 };
-
-#endif // HAWAIITHEME_H

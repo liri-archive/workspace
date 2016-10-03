@@ -2,7 +2,7 @@
 <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 <Menu>
 	<Name>Applications</Name>
-	<Directory>hawaii-main.directory</Directory>
+	<Directory>liri-main.directory</Directory>
 
 	<!-- Search the default locations -->
 	<KDELegacyDirs/>
@@ -16,7 +16,7 @@
 	<!-- Menus -->
 	<Menu>
 		<Name>Work</Name>
-		<Directory>hawaii-work.directory</Directory>
+		<Directory>liri-work.directory</Directory>
 		<Include>
 			<Category>Development</Category>
 			<Category>WebDevelopment</Category>
@@ -44,7 +44,7 @@
 	</Menu>
 	<Menu>
 		<Name>Internet</Name>
-		<Directory>hawaii-internet.directory</Directory>
+		<Directory>liri-internet.directory</Directory>
 		<Include>
 			<Category>Network</Category>
 		</Include>
@@ -54,7 +54,7 @@
 	</Menu>
 	<Menu>
 		<Name>Entertainment</Name>
-		<Directory>hawaii-entertainment.directory</Directory>
+		<Directory>liri-entertainment.directory</Directory>
 		<Include>
 			<Category>Game</Category>
 			<Category>ArcadeGame</Category>
@@ -69,7 +69,7 @@
 	</Menu>
 	<Menu>
 		<Name>System</Name>
-		<Directory>hawaii-system.directory</Directory>
+		<Directory>liri-system.directory</Directory>
 		<Include>
 			<Category>System</Category>
 			<Category>Utility</Category>

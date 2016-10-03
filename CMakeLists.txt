@@ -15,7 +15,7 @@ set(PROJECT_VERSION "0.8.90")
 
 if(NOT USE_SUPERBUILD)
     # Set up packaging
-    set(CPACK_PACKAGE_NAME "qmlos-workspace")
+    set(CPACK_PACKAGE_NAME "liri-workspace")
     set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
     set(CPACK_GENERATOR "TGZ")
     set(CPACK_SET_DESTDIR FALSE)
@@ -76,9 +76,9 @@ set(REQUIRED_QT_VERSION "5.7.0")
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
              DBus Widgets Qml Quick QuickControls2)
 
-# Find Hawaii
-set(REQUIRED_LIBQMLOS_VERSION "0.8.90")
-find_package(Hawaii ${REQUIRED_LIBQMLOS_VERSION} REQUIRED)
+# Find Vibe
+set(REQUIRED_VIBE_VERSION "0.8.90")
+find_package(Vibe ${REQUIRED_VIBE_VERSION} REQUIRED)
 
 # Find Green Island
 set(REQUIRED_GREENISLAND_VERSION "0.8.0")

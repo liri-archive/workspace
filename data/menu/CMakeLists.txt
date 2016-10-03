@@ -1,12 +1,12 @@
 set(DIRECTORIES
-    hawaii-entertainment.directory
-    hawaii-internet.directory
-    hawaii-main.directory
-    hawaii-system.directory
-    hawaii-work.directory
+    liri-entertainment.directory
+    liri-internet.directory
+    liri-main.directory
+    liri-system.directory
+    liri-work.directory
 )
 install(FILES ${DIRECTORIES}
         DESTINATION ${XDG_DIRECTORY_INSTALL_DIR})
 
-install(FILES hawaii-applications.menu
+install(FILES liri-applications.menu
         DESTINATION ${SYSCONF_INSTALL_DIR}/xdg/menus)

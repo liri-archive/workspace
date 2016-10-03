@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
@@ -45,10 +45,10 @@ int main(int argc, char *argv[])
     // Setup application
     QGuiApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Screenshot"));
-    app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
-    app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
-    app.setOrganizationName(QStringLiteral("Hawaii"));
-    app.setDesktopFileName(QStringLiteral("org.hawaiios.Screenshot.desktop"));
+    app.setApplicationVersion(QStringLiteral(LIRI_WORKSPACE_VERSION));
+    app.setOrganizationDomain(QStringLiteral("liri.io"));
+    app.setOrganizationName(QStringLiteral("Liri"));
+    app.setDesktopFileName(QStringLiteral("io.liri.Screenshot.desktop"));
 
     // Command line parser
     QCommandLineParser parser;

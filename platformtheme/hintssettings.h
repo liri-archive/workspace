@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2010-2016 Pier Luigi Fiorini
  *
@@ -24,14 +24,13 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#ifndef HINTSSETTINGS_H
-#define HINTSSETTINGS_H
+#pragma once
 
 #include <QtCore/QObject>
 
-#include "hawaiitheme.h"
+#include "liritheme.h"
 
-namespace Hawaii {
+namespace Vibe {
 class QGSettings;
 }
 
@@ -39,7 +38,7 @@ class HintsSettings : public QObject
 {
     Q_OBJECT
 public:
-    HintsSettings(Hawaii::QGSettings *settings, QObject *parent = 0);
+    HintsSettings(Vibe::QGSettings *settings, QObject *parent = 0);
 
     inline QVariant themeHint(QPlatformTheme::ThemeHint hint) const {
         if (m_hints.contains(hint))
@@ -50,7 +49,7 @@ public:
     void collectHints();
 
 private:
-    Hawaii::QGSettings *m_settings;
+    Vibe::QGSettings *m_settings;
     QHash<QPlatformTheme::ThemeHint, QVariant> m_hints;
 
     Qt::ToolButtonStyle toolButtonStyle(const QVariant &value);
@@ -61,5 +60,3 @@ private:
     void iconChanged();
     void styleChanged();
 };
-
-#endif // HINTSSETTINGS_H

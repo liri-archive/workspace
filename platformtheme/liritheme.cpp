@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2010-2016 Pier Luigi Fiorini
  *
@@ -27,14 +27,14 @@
 #include <QtGui/QFont>
 #include <QtQuickControls2/QQuickStyle>
 
-#include "hawaiitheme.h"
-#include "hawaiitheme_p.h"
+#include "liritheme.h"
+#include "liritheme_p.h"
 #include "hintssettings.h"
 
-HawaiiTheme::HawaiiTheme()
-    : QPlatformTheme(new HawaiiThemePrivate())
+LiriTheme::LiriTheme()
+    : QPlatformTheme(new LiriThemePrivate())
 {
-    Q_D(HawaiiTheme);
+    Q_D(LiriTheme);
     d->refresh();
 
     // Set Material style by default
@@ -42,33 +42,33 @@ HawaiiTheme::HawaiiTheme()
         QQuickStyle::setStyle(QLatin1String("Material"));
 }
 
-bool HawaiiTheme::usePlatformNativeDialog(DialogType type) const
+bool LiriTheme::usePlatformNativeDialog(DialogType type) const
 {
     Q_UNUSED(type);
     return false;
 }
 
-QPlatformDialogHelper *HawaiiTheme::createPlatformDialogHelper(DialogType type) const
+QPlatformDialogHelper *LiriTheme::createPlatformDialogHelper(DialogType type) const
 {
     Q_UNUSED(type);
     return 0;
 }
 
-const QPalette *HawaiiTheme::palette(Palette type) const
+const QPalette *LiriTheme::palette(Palette type) const
 {
-    Q_D(const HawaiiTheme);
+    Q_D(const LiriTheme);
     return d->resources.palettes[type];
 }
 
-const QFont *HawaiiTheme::font(Font type) const
+const QFont *LiriTheme::font(Font type) const
 {
-    Q_D(const HawaiiTheme);
+    Q_D(const LiriTheme);
     return d->resources.fonts[type];
 }
 
-QVariant HawaiiTheme::themeHint(ThemeHint hint) const
+QVariant LiriTheme::themeHint(ThemeHint hint) const
 {
-    Q_D(const HawaiiTheme);
+    Q_D(const LiriTheme);
 
     QVariant value = d->hints->themeHint(hint);
     if (value.isValid())

@@ -1,5 +1,5 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2010-2016 Pier Luigi Fiorini
  *
@@ -34,7 +34,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
 
-#include <Hawaii/Settings/QGSettings>
+#include <Vibe/Settings/QGSettings>
 
 #include "hintssettings.h"
 
@@ -76,13 +76,13 @@ static QStringList xdgIconThemePaths()
     return paths;
 }
 
-HintsSettings::HintsSettings(Hawaii::QGSettings *settings, QObject *parent)
+HintsSettings::HintsSettings(Vibe::QGSettings *settings, QObject *parent)
     : QObject(parent)
     , m_settings(settings)
 {
     // Change only the few hints involved, for some of these settings
     // we need to take actions to refresh applications
-    connect(m_settings, &Hawaii::QGSettings::settingChanged, this,
+    connect(m_settings, &Vibe::QGSettings::settingChanged, this,
             [this](const QString &key) {
         if (key == QStringLiteral("cursorBlinkTime"))
             qtSettingsChanged();

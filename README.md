@@ -4,17 +4,17 @@ Workspace
 [![ZenHub.io](https://img.shields.io/badge/supercharged%20by-zenhub.io-blue.svg)](https://zenhub.io)
 
 [![License](https://img.shields.io/badge/license-GPLv3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
-[![GitHub release](https://img.shields.io/github/release/qmlos/workspace.svg)](https://github.com/qmlos/workspace)
-[![Build Status](https://travis-ci.org/qmlos/workspace.svg?branch=develop)](https://travis-ci.org/qmlos/workspace)
-[![GitHub issues](https://img.shields.io/github/issues/qmlos/workspace.svg)](https://github.com/qmlos/workspace/issues)
-[![Maintained](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/qmlos/workspace/commits/develop)
+[![GitHub release](https://img.shields.io/github/release/lirios/workspace.svg)](https://github.com/lirios/workspace)
+[![Build Status](https://travis-ci.org/lirios/workspace.svg?branch=develop)](https://travis-ci.org/lirios/workspace)
+[![GitHub issues](https://img.shields.io/github/issues/lirios/workspace.svg)](https://github.com/lirios/workspace/issues)
+[![Maintained](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/lirios/workspace/commits/develop)
 
-Base applications and settings for the qmlOS workspace.
+Base applications and settings for the Liri OS workspace.
 
 Includes:
 
-* hawaii-screenshot, screenshot application
-* hawaii-screencap, screencast application
+* liri-screenshot, screenshot application
+* liri-screencap, screencast application
 * Qt platform theme plugin
 * Settings schemas
 * XDG menu definition
@@ -32,7 +32,7 @@ And the following modules:
 
  * [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
  * [greenisland](https://github.com/greenisland/greenisland.git)
- * [libqmlos](https://github.com/qmlos/libqmlos.git)
+ * [vibe](https://github.com/lirios/vibe.git)
 
 ## Installation
 
@@ -48,7 +48,7 @@ sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 
 On the `cmake` line, you can specify additional configuration parameters:
 
- * `-DCMAKE_INSTALL_PREFIX=/path/to/install` (for example, `/opt/qmlos` or `/usr`)
+ * `-DCMAKE_INSTALL_PREFIX=/path/to/install` (for example, `/opt/liri` or `/usr`)
  * `-DCMAKE_BUILD_TYPE=<build_type>`, where `<build_type>` is one of:
    * **Debug:** debug build
    * **Release:** release build
