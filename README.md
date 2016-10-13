@@ -14,7 +14,7 @@ Base applications and settings for the Liri OS workspace.
 Includes:
 
 * liri-screenshot, screenshot application
-* liri-screencap, screencast application
+* liri-screencast, screencast application
 * Qt platform theme plugin
 * Settings schemas
 * XDG menu definition
