@@ -34,6 +34,11 @@ And the following modules:
  * [greenisland](https://github.com/greenisland/greenisland.git)
  * [vibe](https://github.com/lirios/vibe.git)
 
+Themes and wallpapers to honor default settings:
+
+ * [paper-icon-themes](https://github.com/snwh/paper-icon-theme)
+ * [hawaii-wallpapers](https://github.com/hawaii-desktop/hawaii-wallpapers)
+
 ## Installation
 
 From the root of the repository, run:
