@@ -3,7 +3,7 @@ Workspace
 
 [![ZenHub.io](https://img.shields.io/badge/supercharged%20by-zenhub.io-blue.svg)](https://zenhub.io)
 
-[![License](https://img.shields.io/badge/license-GPLv3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![License](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/lirios/workspace.svg)](https://github.com/lirios/workspace)
 [![Build Status](https://travis-ci.org/lirios/workspace.svg?branch=develop)](https://travis-ci.org/lirios/workspace)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/workspace.svg)](https://github.com/lirios/workspace/issues)
