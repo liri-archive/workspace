@@ -39,6 +39,9 @@ Themes and wallpapers to honor default settings:
  * [paper-icon-themes](https://github.com/snwh/paper-icon-theme)
  * [hawaii-wallpapers](https://github.com/hawaii-desktop/hawaii-wallpapers)
 
+If you do not install those dependencies, please configure the desktop with an
+alternative icon theme and wallpaper.
+
 ## Installation
 
 From the root of the repository, run:
