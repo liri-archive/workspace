@@ -132,11 +132,11 @@ int main(int argc, char *argv[])
         else if (parser.isSet(areaOption))
             what = Screenshooter::Area;
 
-        Client::Screenshooter::Effects effects = 0;
+        WaylandClient::Screenshooter::Effects effects = 0;
         if (parser.isSet(pointerOption))
-            effects &= Client::Screenshooter::EffectPointer;
+            effects &= WaylandClient::Screenshooter::EffectPointer;
         if (parser.isSet(borderOption))
-            effects &= Client::Screenshooter::EffectBorder;
+            effects &= WaylandClient::Screenshooter::EffectBorder;
 
         bool ok = false;
         int delay = parser.value(delayOption).toInt(&ok);

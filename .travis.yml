@@ -8,7 +8,7 @@ sudo: required
 
 arch:
   repos:
-    - greenisland=https://dl.bintray.com/greenisland/archlinux-develop/$arch/
+    - liri-wayland=https://dl.bintray.com/liri/archlinux-develop/$arch/
     - fluid=https://dl.bintray.com/liri/archlinux-develop/$arch/
     - vibe=https://dl.bintray.com/liri/archlinux-develop/$arch/
   packages:
@@ -17,7 +17,7 @@ arch:
     - polkit-qt5
     - qt5-gstreamer
     - boost
-    - greenisland-git
+    - liri-wayland-git
     - vibe-git
     - xorg-server-xvfb
     - clang

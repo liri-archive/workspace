@@ -72,7 +72,7 @@ endif()
 find_package(PkgConfig)
 
 # Find Qt5
-set(REQUIRED_QT_VERSION "5.7.0")
+set(REQUIRED_QT_VERSION "5.8.0")
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
              DBus Widgets Qml Quick QuickControls2)
 
@@ -80,9 +80,9 @@ find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
 set(REQUIRED_VIBE_VERSION "0.8.90")
 find_package(Vibe ${REQUIRED_VIBE_VERSION} REQUIRED)
 
-# Find Green Island
-set(REQUIRED_GREENISLAND_VERSION "0.8.0")
-find_package(GreenIsland ${REQUIRED_GREENISLAND_VERSION} REQUIRED COMPONENTS Client)
+# Find Liri Wayland
+set(REQUIRED_LIRIWAYLAND_VERSION "0.8.0")
+find_package(LiriWaylandClient ${REQUIRED_LIRIWAYLAND_VERSION} REQUIRED COMPONENTS Client)
 
 # Find Qt5GStreamer for hawaii-screencap
 find_package(Qt5GStreamer)

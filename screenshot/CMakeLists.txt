@@ -29,7 +29,7 @@ vibe_translation_loader(SOURCES
 add_executable(liri-screenshot ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
 target_link_libraries(liri-screenshot
                       Qt5::QuickControls2
-                      GreenIsland::Client)
+                      Liri::WaylandClient)
 
 install(TARGETS liri-screenshot
         DESTINATION ${CMAKE_INSTALL_BINDIR})

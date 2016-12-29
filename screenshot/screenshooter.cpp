@@ -32,7 +32,7 @@
 #include <QtGui/QScreen>
 #include <QtQml/QQmlContext>
 
-#include <GreenIsland/Client/Output>
+#include <Liri/WaylandClient/Output>
 
 #include "screenshooter.h"
 
@@ -55,7 +55,7 @@ InteractiveStartupEvent::InteractiveStartupEvent()
 static const QEvent::Type StartupEventType =
         static_cast<QEvent::Type>(QEvent::registerEventType());
 
-StartupEvent::StartupEvent(Screenshooter::What w, Client::Screenshooter::Effects e, int d)
+StartupEvent::StartupEvent(Screenshooter::What w, WaylandClient::Screenshooter::Effects e, int d)
     : QEvent(StartupEventType)
     , what(w)
     , effects(e)
@@ -74,8 +74,8 @@ Screenshooter::Screenshooter(QObject *parent)
     , m_inProgress(false)
     , m_engine(new QQmlApplicationEngine(this))
     , m_thread(new QThread())
-    , m_connection(Client::ClientConnection::fromQt())
-    , m_registry(new Client::Registry(this))
+    , m_connection(WaylandClient::ClientConnection::fromQt())
+    , m_registry(new WaylandClient::Registry(this))
     , m_shm(Q_NULLPTR)
     , m_shooter(Q_NULLPTR)
     , m_imageProvider(new ImageProvider())
@@ -115,8 +115,8 @@ bool Screenshooter::event(QEvent *event)
     } else if (event->type() == StartupEventType) {
         StartupEvent *e = static_cast<StartupEvent *>(event);
         m_cliOptions.what = e->what;
-        m_cliOptions.pointer = e->effects.testFlag(Client::Screenshooter::EffectPointer);
-        m_cliOptions.border = e->effects.testFlag(Client::Screenshooter::EffectBorder);
+        m_cliOptions.pointer = e->effects.testFlag(WaylandClient::Screenshooter::EffectPointer);
+        m_cliOptions.border = e->effects.testFlag(WaylandClient::Screenshooter::EffectBorder);
         m_cliOptions.delay = e->delay;
         initialize();
         return true;
@@ -137,18 +137,18 @@ void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeB
         return;
     }
 
-    Client::Screenshooter::Effects effects;
+    WaylandClient::Screenshooter::Effects effects;
     if (includePointer)
-        effects &= Client::Screenshooter::EffectPointer;
+        effects &= WaylandClient::Screenshooter::EffectPointer;
     if (includeBorder)
-        effects &= Client::Screenshooter::EffectBorder;
+        effects &= WaylandClient::Screenshooter::EffectBorder;
 
-    Client::Screenshot *ss;
+    WaylandClient::Screenshot *ss;
 
     switch (what) {
     case Screen:
         Q_FOREACH (QScreen *screen, QGuiApplication::screens()) {
-            ss = m_shooter->captureOutput(Client::Output::fromQt(screen, this), effects);
+            ss = m_shooter->captureOutput(WaylandClient::Output::fromQt(screen, this), effects);
             m_pending.append({screen->geometry().topLeft(), ss, Q_NULLPTR});
             setupScreenshot(ss);
         }
@@ -193,9 +193,9 @@ void Screenshooter::initialize()
         return;
 
     // Interfaces
-    connect(m_registry, &Client::Registry::interfacesAnnounced,
+    connect(m_registry, &WaylandClient::Registry::interfacesAnnounced,
             this, &Screenshooter::interfacesAnnounced);
-    connect(m_registry, &Client::Registry::interfaceAnnounced,
+    connect(m_registry, &WaylandClient::Registry::interfaceAnnounced,
             this, &Screenshooter::interfaceAnnounced);
 
     // Setup registry
@@ -259,14 +259,14 @@ void Screenshooter::process()
         QGuiApplication::quit();
 }
 
-void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
+void Screenshooter::setupScreenshot(WaylandClient::Screenshot *screenshot)
 {
-    connect(screenshot, &Client::Screenshot::setupFailed, this, [this] {
+    connect(screenshot, &WaylandClient::Screenshot::setupFailed, this, [this] {
         qCritical("Failed to setup buffer for recording");
         QGuiApplication::quit();
     });
-    connect(screenshot, &Client::Screenshot::done, this,
-            [this, screenshot](Client::Buffer *buffer) {
+    connect(screenshot, &WaylandClient::Screenshot::done, this,
+            [this, screenshot](WaylandClient::Buffer *buffer) {
         // Move to the buffers vector for processing
         for (int i = 0; i < m_pending.count(); i++) {
             ScreenshotRequest sr = m_pending.at(i);
@@ -282,10 +282,10 @@ void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
         if (m_pending.isEmpty())
             process();
     });
-    connect(screenshot, &Client::Screenshot::failed, this,
-            [this](Client::Screenshot::Error error) {
+    connect(screenshot, &WaylandClient::Screenshot::failed, this,
+            [this](WaylandClient::Screenshot::Error error) {
         switch (error) {
-        case Client::Screenshot::ErrorBadBuffer:
+        case WaylandClient::Screenshot::ErrorBadBuffer:
             qCritical("Failed to record a frame: bad buffer");
             QGuiApplication::quit();
             break;
@@ -317,14 +317,14 @@ void Screenshooter::interfacesAnnounced()
 void Screenshooter::interfaceAnnounced(const QByteArray &interface,
                                        quint32 name, quint32 version)
 {
-    if (interface == Client::Shm::interfaceName()) {
+    if (interface == WaylandClient::Shm::interfaceName()) {
         // Create shm
         m_shm = m_registry->createShm(name, version);
 
         // Also create shooter if it was deferred
         if (!m_shooter && m_deferredShooter.initialized)
             m_shooter = m_registry->createScreenshooter(m_shm, m_deferredShooter.name, m_deferredShooter.version);
-    } else if (interface == Client::Screenshooter::interfaceName()) {
+    } else if (interface == WaylandClient::Screenshooter::interfaceName()) {
         // Create shooter right away if we already bound to Shm,
         // otherwise defer the creation
         if (m_shm) {

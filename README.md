@@ -21,7 +21,7 @@ Includes:
 
 ## Dependencies
 
-Make sure you have Qt >= 5.7.0 with the following modules:
+Make sure you have Qt >= 5.8.0 with the following modules:
 
  * [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
  * [qtdeclarative](http://code.qt.io/cgit/qt/qtdeclarative.git)
@@ -31,7 +31,7 @@ Make sure you have Qt >= 5.7.0 with the following modules:
 And the following modules:
 
  * [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
- * [greenisland](https://github.com/greenisland/greenisland.git)
+ * [liri-wayland](https://github.com/lirios/wayland.git)
  * [vibe](https://github.com/lirios/vibe.git)
 
 Themes and wallpapers to honor default settings:

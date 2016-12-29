@@ -32,14 +32,14 @@
 #include <QtCore/QVector>
 #include <QtQml/QQmlApplicationEngine>
 
-#include <GreenIsland/Client/ClientConnection>
-#include <GreenIsland/Client/Registry>
-#include <GreenIsland/Client/Screenshooter>
-#include <GreenIsland/Client/Shm>
+#include <Liri/WaylandClient/ClientConnection>
+#include <Liri/WaylandClient/Registry>
+#include <Liri/WaylandClient/Screenshooter>
+#include <Liri/WaylandClient/Shm>
 
 #include "imageprovider.h"
 
-using namespace GreenIsland;
+using namespace Liri;
 
 class Screenshooter : public QObject
 {
@@ -76,10 +76,10 @@ private:
     bool m_inProgress;
     QQmlApplicationEngine *m_engine;
     QThread *m_thread;
-    Client::ClientConnection *m_connection;
-    Client::Registry *m_registry;
-    Client::Shm *m_shm;
-    Client::Screenshooter *m_shooter;
+    WaylandClient::ClientConnection *m_connection;
+    WaylandClient::Registry *m_registry;
+    WaylandClient::Shm *m_shm;
+    WaylandClient::Screenshooter *m_shooter;
 
     struct {
         bool initialized;
@@ -89,8 +89,8 @@ private:
 
     struct ScreenshotRequest {
         QPoint position;
-        Client::Screenshot *screenshot;
-        Client::Buffer *buffer;
+        WaylandClient::Screenshot *screenshot;
+        WaylandClient::Buffer *buffer;
     };
 
     QVector<ScreenshotRequest> m_pending;
@@ -107,7 +107,7 @@ private:
 
     void initialize();
     void process();
-    void setupScreenshot(Client::Screenshot *screenshot);
+    void setupScreenshot(WaylandClient::Screenshot *screenshot);
 
 private Q_SLOTS:
     void interfacesAnnounced();
@@ -123,10 +123,10 @@ public:
 class StartupEvent : public QEvent
 {
 public:
-    StartupEvent(Screenshooter::What what, Client::Screenshooter::Effects effects, int delay);
+    StartupEvent(Screenshooter::What what, WaylandClient::Screenshooter::Effects effects, int delay);
 
     Screenshooter::What what;
-    Client::Screenshooter::Effects effects;
+    WaylandClient::Screenshooter::Effects effects;
     int delay;
 };
 
