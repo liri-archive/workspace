@@ -36,7 +36,7 @@ And the following modules:
 Themes and wallpapers to honor default settings:
 
  * [paper-icon-themes](https://github.com/snwh/paper-icon-theme)
- * [hawaii-wallpapers](https://github.com/hawaii-desktop/hawaii-wallpapers)
+ * [liri-wallpapers](https://github.com/lirios/wallpapers)
 
 If you do not install those dependencies, please configure the desktop with an
 alternative icon theme and wallpaper.
