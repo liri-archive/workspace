@@ -25,7 +25,6 @@ Make sure you have Qt >= 5.7.0 with the following modules:
 
  * [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
  * [qtdeclarative](http://code.qt.io/cgit/qt/qtdeclarative.git)
- * [qtquickcontrols](http://code.qt.io/cgit/qt/qtquickcontrols.git)
  * [qtquickcontrols2](http://code.qt.io/cgit/qt/qtquickcontrols2.git)
 
 And the following modules:
