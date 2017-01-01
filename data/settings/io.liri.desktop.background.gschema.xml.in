@@ -40,7 +40,7 @@
       </description>
     </key>
     <key name="picture-url" type="s">
-      <default>'file://@KDE_INSTALL_FULL_DATADIR@/backgrounds/liri/Also_Calm.png'</default>
+      <default>'file://@KDE_INSTALL_FULL_DATADIR@/backgrounds/liri/background_02.png'</default>
       <summary>Picture URL</summary>
       <description>
         URL to use for the background image.
