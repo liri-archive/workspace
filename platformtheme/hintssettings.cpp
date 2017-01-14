@@ -1,32 +1,32 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2010-2016 Pier Luigi Fiorini
  *
  * Author(s):
  *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  *
- * $BEGIN_LICENSE:LGPL2.1+$
+ * $BEGIN_LICENSE:GPL3+$
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 2.1 of the License, or
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License
+ * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * $END_LICENSE$
  ***************************************************************************/
 
+#include <QtCore/QDir>
 #include <QtCore/QEvent>
 #include <QtCore/QFileInfo>
-#include <QtCore/QStandardPaths>
 #include <QtGui/QTextCharFormat>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
@@ -34,17 +34,55 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
 
-#include <Hawaii/GSettings/QGSettings>
+#include <Vibe/Settings/QGSettings>
 
 #include "hintssettings.h"
 
-HintsSettings::HintsSettings(Hawaii::QGSettings *settings, QObject *parent)
+/*!
+ * Returns a list of XDG compliant paths for icon themes.
+ * See https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+ */
+static QStringList xdgIconThemePaths()
+{
+    QStringList paths;
+    QStringList xdgPaths;
+
+    // Add ~/.icons for backwards compatibility
+    paths.append(QDir::home().absoluteFilePath(QLatin1String(".icons")));
+
+    // Add XDG_DATA_HOME
+    QString xdgDataHome = QFile::decodeName(qgetenv("XDG_DATA_HOME"));
+    if (xdgDataHome.isEmpty())
+        xdgDataHome = QDir::home().absoluteFilePath(QLatin1String(".local/share"));
+    xdgPaths.append(xdgDataHome);
+
+    // Add XDG_DATA_DIRS
+    QString xdgDataDirs = QFile::decodeName(qgetenv("XDG_DATA_DIRS"));
+    if (xdgDataDirs.isEmpty())
+        xdgDataDirs = QLatin1String("/usr/local/share/:/usr/share/");
+
+    // Split ':' path separator from XDG data directories
+    xdgPaths += xdgDataDirs.split(QLatin1Char(':'), QString::SkipEmptyParts);
+
+    // Append the icons directory to all XDG data directories
+    Q_FOREACH (const QString &xdgPath, xdgPaths) {
+        QDir iconDir = QDir(xdgPath).filePath(QLatin1String("icons"));
+        paths.append(iconDir.absolutePath());
+    }
+
+    // Remove duplicates
+    paths.removeDuplicates();
+
+    return paths;
+}
+
+HintsSettings::HintsSettings(Vibe::QGSettings *settings, QObject *parent)
     : QObject(parent)
     , m_settings(settings)
 {
     // Change only the few hints involved, for some of these settings
     // we need to take actions to refresh applications
-    connect(m_settings, &Hawaii::QGSettings::settingChanged, this,
+    connect(m_settings, &Vibe::QGSettings::settingChanged, this,
             [this](const QString &key) {
         if (key == QStringLiteral("cursorBlinkTime"))
             qtSettingsChanged();
@@ -73,11 +111,7 @@ void HintsSettings::collectHints()
     m_hints.insert(QPlatformTheme::SystemIconThemeName,
                    m_settings->value(QStringLiteral("iconTheme")));
     m_hints.insert(QPlatformTheme::SystemIconFallbackThemeName, QStringLiteral("hicolor"));
-    m_hints.insert(QPlatformTheme::IconThemeSearchPaths,
-                   QStandardPaths::locateAll(
-                       QStandardPaths::GenericDataLocation,
-                       QStringLiteral("icons"),
-                       QStandardPaths::LocateDirectory));
+    m_hints.insert(QPlatformTheme::IconThemeSearchPaths, xdgIconThemePaths());
     m_hints.insert(QPlatformTheme::StyleNames,
                    QStringList() << m_settings->value(QStringLiteral("widgetsStyle")).toString());
     m_hints.insert(QPlatformTheme::WindowAutoPlacement, true);
@@ -103,7 +137,7 @@ void HintsSettings::collectHints()
 #endif
     QList<int> pixmapSizes;
     pixmapSizes
-            << 512 << 256 << 128 << 64 << 48
+            << 512 << 256 << 128 << 96 << 64 << 48
             << 32 << 24 << 22 << 16;
     m_hints.insert(QPlatformTheme::IconPixmapSizes, QVariant::fromValue(pixmapSizes));
 }

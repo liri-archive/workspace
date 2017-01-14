@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- This file is part of Hawaii.
+ This file is part of Liri.
 
  Copyright (C) 2015-2016 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
 
@@ -9,8 +9,8 @@
  the Free Software Foundation; either version 2.1 of the License, or
  (at your option) any later version.
 -->
-<schemalist gettext-domain="hawaii">
-  <schema id="org.hawaiios.desktop.panel" path="/org/hawaiios/desktop/panel/">
+<schemalist gettext-domain="liri">
+  <schema id="io.liri.desktop.panel" path="/io/liri/desktop/panel/">
     <key name="location" type="s">
       <choices>
         <choice value='top'/>
@@ -50,7 +50,7 @@
       </description>
     </key>
     <key name="pinned-launchers" type="as">
-      <default>['org.hawaiios.terminal', 'org.hawaiios.SystemPreferences']</default>
+      <default>['io.liri.Terminal', 'io.liri.Settings']</default>
       <summary>Pinned launchers</summary>
       <description>
         Launchers that appear permanently on the panel, regardless of whether they are running or not.

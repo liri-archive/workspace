@@ -1,16 +1,16 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
  * Author(s):
  *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  *
- * $BEGIN_LICENSE:GPL2+$
+ * $BEGIN_LICENSE:GPL3+$
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,21 +27,26 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.0
-import Qt.labs.controls 1.0
-import Qt.labs.controls.material 1.0
-import Fluid.Ui 1.0 as FluidUi
+import QtQuick.Controls 2.0
+import QtQuick.Controls.Material 2.0
+import Fluid.Controls 1.0
 
 ApplicationWindow {
+    id: window
+
     property int selectedOption: 1
 
-    id: window
     title: qsTr("Screenshot")
-    width: FluidUi.Units.dp(500)
-    height: FluidUi.Units.dp(500)
+    width: 500
+    height: 500
     minimumWidth: width
     minimumHeight: height
     maximumWidth: width
     maximumHeight: height
+
+    Material.primary: Material.BlueGrey
+    Material.accent: Material.BlueGrey
+
     header: ToolBar {
         height: toolBarLayout.implicitHeight
 
@@ -49,7 +54,7 @@ ApplicationWindow {
             id: toolBarLayout
             x: spacing
             width: parent.width - (2 * spacing)
-            spacing: FluidUi.Units.smallSpacing
+            spacing: Units.smallSpacing
 
             Button {
                 text: qsTr("Cancel")
@@ -89,7 +94,7 @@ ApplicationWindow {
         id: captureLayout
         anchors {
             fill: parent
-            margins: FluidUi.Units.largeSpacing
+            margins: Units.largeSpacing
         }
 
         GroupBox {
@@ -97,14 +102,14 @@ ApplicationWindow {
             title: qsTr("Take Screenshot")
 
             ColumnLayout {
-                spacing: FluidUi.Units.smallSpacing
+                spacing: Units.smallSpacing
 
-                FluidUi.Icon {
-                    iconName: "applets-screenshooter"
+                Icon {
+                    name: "applets-screenshooter"
                 }
 
                 ColumnLayout {
-                    spacing: FluidUi.Units.smallSpacing
+                    spacing: Units.smallSpacing
 
                     RadioButton {
                         id: wholeScreenOption
@@ -142,7 +147,7 @@ ApplicationWindow {
                     }
 
                     RowLayout {
-                        spacing: FluidUi.Units.smallSpacing
+                        spacing: Units.smallSpacing
 
                         Label {
                             text: qsTr("Grab after a delay of")
@@ -170,7 +175,7 @@ ApplicationWindow {
             title: qsTr("Effects")
 
             ColumnLayout {
-                spacing: FluidUi.Units.smallSpacing
+                spacing: Units.smallSpacing
 
                 CheckBox {
                     id: includePointer
@@ -194,7 +199,7 @@ ApplicationWindow {
         id: previewLayout
         anchors {
             fill: parent
-            margins: FluidUi.Units.largeSpacing
+            margins: Units.largeSpacing
         }
         visible: !captureLayout.visible
 
@@ -214,7 +219,7 @@ ApplicationWindow {
             title: qsTr("Options")
 
             ColumnLayout {
-                spacing: FluidUi.Units.smallSpacing
+                spacing: Units.smallSpacing
 
                 RadioButton {
                     id: saveAction
@@ -275,7 +280,4 @@ ApplicationWindow {
         target: Screenshooter
         onScreenshotDone: showTimer.start()
     }
-
-    Material.primary: Material.BlueGrey
-    Material.accent: Material.BlueGrey
 }

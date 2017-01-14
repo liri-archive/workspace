@@ -1,43 +1,42 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2010-2016 Pier Luigi Fiorini
  *
  * Author(s):
  *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  *
- * $BEGIN_LICENSE:LGPL2.1+$
+ * $BEGIN_LICENSE:GPL3+$
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 2.1 of the License, or
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License
+ * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * $END_LICENSE$
  ***************************************************************************/
 
-#ifndef HAWAIITHEME_H
-#define HAWAIITHEME_H
+#pragma once
 
 #include <QtCore/QHash>
 #include <QtCore/QVariant>
 #include <qpa/qplatformtheme.h>
 
-class HawaiiThemePrivate;
+class LiriThemePrivate;
 
-class Q_GUI_EXPORT HawaiiTheme : public QPlatformTheme
+class Q_GUI_EXPORT LiriTheme : public QPlatformTheme
 {
-    Q_DECLARE_PRIVATE(HawaiiTheme)
+    Q_DECLARE_PRIVATE(LiriTheme)
 public:
-    HawaiiTheme();
+    LiriTheme();
 
     bool usePlatformNativeDialog(DialogType type) const;
     QPlatformDialogHelper *createPlatformDialogHelper(DialogType type) const;
@@ -47,5 +46,3 @@ public:
 
     QVariant themeHint(ThemeHint hint) const;
 };
-
-#endif // HAWAIITHEME_H

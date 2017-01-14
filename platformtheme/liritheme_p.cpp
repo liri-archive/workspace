@@ -1,24 +1,24 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
  * Author(s):
  *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  *
- * $BEGIN_LICENSE:LGPL2.1+$
+ * $BEGIN_LICENSE:GPL3+$
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 2.1 of the License, or
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License
+ * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * $END_LICENSE$
@@ -30,7 +30,7 @@
 #include <QtGui/QPalette>
 #include <qpa/qplatformtheme.h>
 
-#include "hawaiitheme_p.h"
+#include "liritheme_p.h"
 #include "hintssettings.h"
 
 // Default fonts
@@ -39,14 +39,14 @@ static int defaultSystemFontSize = 11;
 static const char defaultMonospaceFontName[] = "Droid Sans Mono";
 static int defaultMonospaceFontSize = 11;
 
-HawaiiThemePrivate::HawaiiThemePrivate()
+LiriThemePrivate::LiriThemePrivate()
 {
-    settings = new Hawaii::QGSettings(QStringLiteral("org.hawaiios.desktop.interface"),
-                                      QStringLiteral("/org/hawaiios/desktop/interface/"));
+    settings = new Vibe::QGSettings(QStringLiteral("io.liri.desktop.interface"),
+                                      QStringLiteral("/io/liri/desktop/interface/"));
     hints = new HintsSettings(settings);
 }
 
-HawaiiThemePrivate::~HawaiiThemePrivate()
+LiriThemePrivate::~LiriThemePrivate()
 {
     hints->deleteLater();
     settings->deleteLater();
@@ -58,7 +58,7 @@ static QFont *readFont(const QString &family, int size)
     return new QFont(font);
 }
 
-void HawaiiThemePrivate::refresh()
+void LiriThemePrivate::refresh()
 {
     resources.clear();
 

@@ -4,15 +4,18 @@ include_directories(
 
 set(SOURCES
     main.cpp
-    hawaiitheme.cpp
-    hawaiitheme_p.cpp
+    liritheme.cpp
+    liritheme_p.cpp
     hintssettings.cpp
     resourcehelper.cpp
 )
 
-add_library(HawaiiPlatformTheme SHARED ${SOURCES})
-set_target_properties(HawaiiPlatformTheme PROPERTIES PREFIX "")
-target_link_libraries(HawaiiPlatformTheme Qt5::Widgets Hawaii::GSettings)
+add_library(liriplatformtheme SHARED ${SOURCES})
+set_target_properties(liriplatformtheme PROPERTIES PREFIX "")
+target_link_libraries(liriplatformtheme
+                      Qt5::Widgets
+                      Qt5::QuickControls2
+                      Vibe::Settings)
 
-install(TARGETS HawaiiPlatformTheme LIBRARY
+install(TARGETS liriplatformtheme LIBRARY
     DESTINATION ${QT_PLUGIN_INSTALL_DIR}/platformthemes)

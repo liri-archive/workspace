@@ -14,27 +14,24 @@ set(QML_SOURCES
     qml/main.qml
 )
 
-qt5_add_resources(RESOURCES hawaii-screenshot.qrc)
+qt5_add_resources(RESOURCES screenshot.qrc)
 
-hawaii_translate_ts(QM_FILES
-                    SOURCES ${SOURCES} ${QML_SOURCES}
-                    TEMPLATE hawaii-screenshot
-                    INSTALL_DIR ${DATA_INSTALL_DIR}/hawaii-workspace/translations
-                    COMPONENT "Runtime")
-hawaii_translate_desktop(DESKTOP_FILE SOURCES org.hawaiios.Screenshot.desktop.in)
-hawaii_translation_loader(SOURCES
-                          TRANSLATIONS_DIR hawaii-workspace/translations
-                          CATALOG_NAME hawaii-screenshot)
+vibe_translate_ts(QM_FILES
+                  SOURCES ${SOURCES} ${QML_SOURCES}
+                  TEMPLATE liri-screenshot
+                  INSTALL_DIR ${DATA_INSTALL_DIR}/liri-workspace/translations
+                  COMPONENT "Runtime")
+vibe_translate_desktop(DESKTOP_FILE SOURCES io.liri.Screenshot.desktop.in)
+vibe_translation_loader(SOURCES
+                        TRANSLATIONS_DIR liri-workspace/translations
+                        CATALOG_NAME liri-screenshot)
 
-add_executable(hawaii-screenshot ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
-target_link_libraries(hawaii-screenshot
-                      Qt5::Core
-                      Qt5::Gui
-                      Qt5::Qml
-                      Qt5::Quick
+add_executable(liri-screenshot ${SOURCES} ${RESOURCES} ${QM_FILES} ${DESKTOP_FILE})
+target_link_libraries(liri-screenshot
+                      Qt5::QuickControls2
                       GreenIsland::Client)
 
-install(TARGETS hawaii-screenshot
+install(TARGETS liri-screenshot
         DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES ${DESKTOP_FILE}
         DESTINATION ${XDG_APPS_INSTALL_DIR})

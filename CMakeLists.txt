@@ -1,24 +1,42 @@
-project(HawaiiWorkspace)
+project(Workspace)
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
+cmake_policy(VERSION 3.4.1)
 
-# Silence CMake warnings
-if(POLICY CMP0063)
-    cmake_policy(SET CMP0063 NEW)
-endif()
+# Instruct CMake to run moc and rrc automatically when needed
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+# Apple-specific configuration
+set(APPLE_SUPPRESS_X11_WARNING ON)
 
 # Set version
-set(PROJECT_VERSION "0.7.0")
+set(PROJECT_VERSION "0.9.0")
 
-# Set up packaging
-set(CPACK_PACKAGE_NAME "hawaii-workspace")
-set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
-set(CPACK_GENERATOR "TGZ")
-set(CPACK_SET_DESTDIR FALSE)
-set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
-set(CPACK_SOURCE_IGNORE_FILES "/build/;/.git;/*.user;/.tx/;~$;${CPACK_SOURCE_IGNORE_FILES}")
-include(CPack)
-add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
+if(NOT USE_SUPERBUILD)
+    # Set up packaging
+    set(CPACK_PACKAGE_NAME "liri-workspace")
+    set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+    set(CPACK_GENERATOR "TGZ")
+    set(CPACK_SET_DESTDIR FALSE)
+    set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
+    set(CPACK_SOURCE_IGNORE_FILES "/build/;/.git;/*.user;/.tx/;~$;${CPACK_SOURCE_IGNORE_FILES}")
+    include(CPack)
+    add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
+endif()
+
+# ECM
+find_package(ECM 1.7.0 REQUIRED NO_MODULE)
+list(APPEND CMAKE_MODULE_PATH
+    "${ECM_MODULE_PATH}"
+    "${ECM_KDE_MODULE_DIR}"
+)
+
+# Macros
+include(FeatureSummary)
+include(KDEInstallDirs)
+include(KDECompilerSettings)
+include(KDECMakeSettings)
 
 # Options
 option(ENABLE_SYSTEMD "Enables systemd support" ON)
@@ -33,22 +51,8 @@ if(CMAKE_BUILD_TYPE MATCHES "[Dd][Ee][Bb]")
     add_definitions(-DQT_QML_DEBUG)
 endif()
 
-# Minimum version requirements
-set(ECM_MIN_VERSION "1.4.0")
-set(QT_MIN_VERSION "5.6.0")
-set(GREENISLAND_MIN_VERSION "0.7.90")
-set(HAWAII_MIN_VERSION "0.6.90")
-set(POLKITQT_MIN_VERSION "0.103.0")
-
-# ECM
-find_package(ECM ${ECM_MIN_VERSION} REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} "${CMAKE_SOURCE_DIR}/cmake")
-
-# Macros
-include(FeatureSummary)
-include(KDEInstallDirs)
-include(KDECompilerSettings)
-include(KDECMakeSettings)
+# Build flags
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -Werror -Wall -Wextra -Wformat -Wswitch-default -Wunused-parameter -pedantic -std=c++11")
 
 # Don't cast QString from/to ascii
 add_definitions(
@@ -59,36 +63,26 @@ add_definitions(
     -DQT_USE_QSTRINGBUILDER
 )
 
+# Assume release build by default
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "" FORCE)
+endif()
+
 # Find pkg-config here so that it can be referenced soon
 find_package(PkgConfig)
 
-# Add custom uninstall target
-if ("${ECM_VERSION}" VERSION_LESS "1.7.0")
-    # ECM 1.7.0 provides this target, so we can't roll our own (see issue #172)
-    configure_file(
-        "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-        IMMEDIATE @ONLY)
-    add_custom_target(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
-endif()
-
 # Find Qt5
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
-             Core
-             DBus
-             Gui
-             Widgets
-             Qml
-             Quick)
+set(REQUIRED_QT_VERSION "5.7.0")
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
+             DBus Widgets Qml Quick QuickControls2)
 
-# Find Hawaii
-find_package(Hawaii ${HAWAII_MIN_VERSION} REQUIRED)
+# Find Vibe
+set(REQUIRED_VIBE_VERSION "0.8.90")
+find_package(Vibe ${REQUIRED_VIBE_VERSION} REQUIRED)
 
 # Find Green Island
-find_package(GreenIsland ${GREENISLAND_MIN_VERSION} REQUIRED COMPONENTS Client)
-
-# Find PolicyKit Qt5
-find_package(PolkitQt5-1 ${POLKITQT_MIN_VERSION} REQUIRED)
+set(REQUIRED_GREENISLAND_VERSION "0.8.0")
+find_package(GreenIsland ${REQUIRED_GREENISLAND_VERSION} REQUIRED COMPONENTS Client)
 
 # Find Qt5GStreamer for hawaii-screencap
 find_package(Qt5GStreamer)
@@ -130,7 +124,6 @@ message(STATUS "GSettings schemas directory: ${GSETTINGS_SCHEMA_DIR}")
 add_subdirectory(data)
 add_subdirectory(headers)
 add_subdirectory(platformtheme)
-add_subdirectory(polkitagent)
 add_subdirectory(powermanager)
 if(Qt5GStreamer_FOUND)
     add_subdirectory(screencast)

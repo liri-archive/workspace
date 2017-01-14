@@ -1,16 +1,16 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
  * Author(s):
  *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  *
- * $BEGIN_LICENSE:GPL2+$
+ * $BEGIN_LICENSE:GPL3+$
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -168,6 +168,8 @@ void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeB
         m_pending.append({QPoint(0, 0), ss, Q_NULLPTR});
         setupScreenshot(ss);
         break;
+    default:
+        break;
     }
 
     m_inProgress = true;
@@ -286,6 +288,8 @@ void Screenshooter::setupScreenshot(Client::Screenshot *screenshot)
         case Client::Screenshot::ErrorBadBuffer:
             qCritical("Failed to record a frame: bad buffer");
             QGuiApplication::quit();
+            break;
+        default:
             break;
         }
     });

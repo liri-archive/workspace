@@ -1,16 +1,16 @@
 /****************************************************************************
- * This file is part of Hawaii.
+ * This file is part of Liri.
  *
  * Copyright (C) 2015-2016 Pier Luigi Fiorini
  *
  * Author(s):
  *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  *
- * $BEGIN_LICENSE:GPL2+$
+ * $BEGIN_LICENSE:GPL3+$
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,6 +27,7 @@
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QCommandLineOption>
 #include <QtGui/QGuiApplication>
+#include <QtQuickControls2/QQuickStyle>
 
 #include "config.h"
 #include "screenshooter.h"
@@ -38,19 +39,16 @@ int main(int argc, char *argv[])
     // Force using the wayland QPA plugin
     qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("wayland"));
 
+    // HighDpi scaling
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     // Setup application
     QGuiApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Screenshot"));
-    app.setApplicationVersion(QStringLiteral(HAWAII_WORKSPACE_VERSION));
-    app.setOrganizationDomain(QStringLiteral("hawaiios.org"));
-    app.setOrganizationName(QStringLiteral("Hawaii"));
-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
-    app.setAttribute(Qt::AA_EnableHighDpiScaling);
-    app.setFallbackSessionManagementEnabled(false);
-#endif
-#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
-    app.setDesktopFileName(QStringLiteral("org.hawaiios.Screenshot.desktop"));
-#endif
+    app.setApplicationVersion(QStringLiteral(LIRI_WORKSPACE_VERSION));
+    app.setOrganizationDomain(QStringLiteral("liri.io"));
+    app.setOrganizationName(QStringLiteral("Liri"));
+    app.setDesktopFileName(QStringLiteral("io.liri.Screenshot.desktop"));
 
     // Command line parser
     QCommandLineParser parser;
@@ -116,6 +114,10 @@ int main(int argc, char *argv[])
         qCritical("This application requires a Wayland session");
         return 1;
     }
+
+    // Set default style
+    if (QQuickStyle::name().isEmpty())
+        QQuickStyle::setStyle(QLatin1String("Material"));
 
     // Run the application
     Screenshooter *screenshooter = new Screenshooter();

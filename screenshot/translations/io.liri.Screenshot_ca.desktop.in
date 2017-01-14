@@ -4,13 +4,13 @@ Type=Application
 Name=Screenshot
 Comment=Save images of your screen or individual windows
 Keywords=snapshot;capture;print;screenshot;
-Categories=Qt;X-Hawaii;Utility;X-Hawaii-Utilities;
+Categories=Qt;X-Liri;Utility;X-Liri-Utilities;
 Icon=applets-screenshooter
-Exec=hawaii-screenshot
-TryExec=hawaii-screenshot
+Exec=liri-screenshot
+TryExec=liri-screenshot
 Terminal=false
 StartupNotify=true
-OnlyShowIn=X-Hawaii;
+OnlyShowIn=X-Liri;
 
 #TRANSLATIONS_DIR=translations
 
