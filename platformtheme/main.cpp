@@ -46,7 +46,7 @@ LiriThemePlugin::LiriThemePlugin(QObject *parent)
 
 QStringList LiriThemePlugin::keys() const
 {
-    return QStringList() << QStringLiteral("Liri");
+    return QStringList() << QStringLiteral("liri");
 }
 
 QPlatformTheme *LiriThemePlugin::create(const QString &key, const QStringList &paramList)
