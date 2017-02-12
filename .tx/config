@@ -1,32 +1,20 @@
 [main]
 host = https://www.transifex.com
 
-[hawaii-workspace.polkitagent-desktop]
+[liri-workspace.screencast-ts]
+type = QT
+source_lang = en
+source_file = screencast/translations/liri-screencast.ts
+file_filter = screencast/translations/liri-screencast_<lang>.ts
+
+[liri-workspace.screenshot-desktop]
 type = DESKTOP
 source_lang = en
-source_file = polkitagent/org.hawaiios.PolkitAgent.desktop.in
-file_filter = polkitagent/translations/org.hawaiios.PolkitAgent_<lang>.desktop.in
+source_file = screenshot/io.liri.Screenshot.desktop.in
+file_filter = screenshot/translations/io.liri.Screenshot_<lang>.desktop.in
 
-[hawaii-workspace.polkitagent-ts]
+[liri-workspace.screenshot-ts]
 type = QT
 source_lang = en
-source_file = polkitagent/translations/hawaii-polkit-agent.ts
-file_filter = polkitagent/translations/hawaii-polkit-agent_<lang>.ts
-
-[hawaii-workspace.screencast-ts]
-type = QT
-source_lang = en
-source_file = screencast/translations/hawaii-screencast.ts
-file_filter = screencast/translations/hawaii-screencast_<lang>.ts
-
-[hawaii-workspace.screenshot-desktop]
-type = DESKTOP
-source_lang = en
-source_file = screenshot/org.hawaiios.Screenshot.desktop.in
-file_filter = screenshot/translations/org.hawaiios.Screenshot_<lang>.desktop.in
-
-[hawaii-workspace.screenshot-ts]
-type = QT
-source_lang = en
-source_file = screenshot/translations/hawaii-screenshot.ts
-file_filter = screenshot/translations/hawaii-screenshot_<lang>.ts
+source_file = screenshot/translations/liri-screenshot.ts
+file_filter = screenshot/translations/liri-screenshot_<lang>.ts
