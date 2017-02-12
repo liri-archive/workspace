@@ -29,6 +29,7 @@
 #include <QtCore/QFileInfo>
 #include <QtGui/QTextCharFormat>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QToolBar>
@@ -115,7 +116,7 @@ void HintsSettings::collectHints()
     m_hints.insert(QPlatformTheme::StyleNames,
                    QStringList() << m_settings->value(QStringLiteral("widgetsStyle")).toString());
     m_hints.insert(QPlatformTheme::WindowAutoPlacement, true);
-    m_hints.insert(QPlatformTheme::DialogButtonBoxLayout, 1); // QDialogButtonBox::MacLayout
+    m_hints.insert(QPlatformTheme::DialogButtonBoxLayout, QDialogButtonBox::MacLayout);
     m_hints.insert(QPlatformTheme::DialogButtonBoxButtonsHaveIcons, false);
     m_hints.insert(QPlatformTheme::UseFullScreenForPopupMenu, true);
     // TODO: Use the Mac keyboard scheme only if an Apple keyboard is detected
