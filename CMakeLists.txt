@@ -37,6 +37,7 @@ include(FeatureSummary)
 include(KDEInstallDirs)
 include(KDECompilerSettings)
 include(KDECMakeSettings)
+include(ECMQtDeclareLoggingCategory)
 
 # Options
 option(ENABLE_SYSTEMD "Enables systemd support" ON)

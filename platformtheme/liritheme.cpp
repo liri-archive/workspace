@@ -30,10 +30,13 @@
 #include "liritheme.h"
 #include "liritheme_p.h"
 #include "hintssettings.h"
+#include "logging_p.h"
 
 LiriTheme::LiriTheme()
     : QPlatformTheme(new LiriThemePrivate())
 {
+    qCDebug(gLcPlatformTheme) << "Initializing Liri platform theme";
+
     Q_D(LiriTheme);
     d->refresh();
 
