@@ -35,7 +35,7 @@
 LiriTheme::LiriTheme()
     : QPlatformTheme(new LiriThemePrivate())
 {
-    qCDebug(gLcPlatformTheme) << "Initializing Liri platform theme";
+    qCDebug(gLcPlatformTheme, "Initializing Liri platform theme");
 
     Q_D(LiriTheme);
     d->refresh();
