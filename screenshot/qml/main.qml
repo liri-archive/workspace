@@ -38,7 +38,7 @@ ApplicationWindow {
 
     title: qsTr("Screenshot")
     width: 500
-    height: 500
+    height: 600
     minimumWidth: width
     minimumHeight: height
     maximumWidth: width
