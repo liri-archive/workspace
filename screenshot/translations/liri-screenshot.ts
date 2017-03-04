@@ -12,98 +12,83 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="39"/>
+        <location filename="../qml/main.qml" line="37"/>
         <source>Screenshot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="60"/>
-        <source>Cancel</source>
+        <location filename="../qml/main.qml" line="56"/>
+        <location filename="../qml/main.qml" line="125"/>
+        <source>Screen capture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="70"/>
-        <location filename="../qml/main.qml" line="102"/>
-        <source>Take Screenshot</source>
+        <location filename="../qml/main.qml" line="60"/>
+        <source>Capture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/main.qml" line="74"/>
+        <source>Grab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/main.qml" line="80"/>
+        <source>This screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="81"/>
-        <source>OK</source>
+        <source>Active window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="116"/>
-        <source>Grab the whole screen</source>
+        <location filename="../qml/main.qml" line="82"/>
+        <source>Specific window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="124"/>
-        <source>Grab the active window</source>
+        <location filename="../qml/main.qml" line="83"/>
+        <source>Area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="133"/>
-        <source>Select a window</source>
+        <location filename="../qml/main.qml" line="90"/>
+        <source>Delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="142"/>
-        <source>Select area to grab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/main.qml" line="153"/>
-        <source>Grab after a delay of</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/main.qml" line="164"/>
-        <source>seconds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/main.qml" line="175"/>
-        <source>Effects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/main.qml" line="182"/>
+        <location filename="../qml/main.qml" line="101"/>
         <source>Include pointer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="189"/>
+        <location filename="../qml/main.qml" line="111"/>
         <source>Include the window border</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="219"/>
-        <source>Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/main.qml" line="226"/>
+        <location filename="../qml/main.qml" line="129"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="233"/>
+        <location filename="../qml/main.qml" line="137"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="269"/>
+        <location filename="../qml/main.qml" line="186"/>
         <source>Save Screenshot As</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="272"/>
+        <location filename="../qml/main.qml" line="189"/>
         <source>Image files (*.jpg *.jpeg *.png)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="272"/>
+        <location filename="../qml/main.qml" line="189"/>
         <source>All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
