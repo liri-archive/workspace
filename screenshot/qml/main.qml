@@ -25,222 +25,140 @@
  ***************************************************************************/
 
 import QtQuick 2.1
-import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.0
-import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
-import Fluid.Controls 1.0
+import QtQuick.Controls 2.1
+import QtQuick.Controls.Material 2.1
+import Fluid.Controls 1.0 as FluidControls
+import Fluid.Material 1.0 as FluidMaterial
 
-ApplicationWindow {
+FluidControls.ApplicationWindow {
     id: window
 
-    property int selectedOption: 1
-
     title: qsTr("Screenshot")
+
     width: 500
-    height: 600
+    height: 350
     minimumWidth: width
     minimumHeight: height
     maximumWidth: width
     maximumHeight: height
 
+    visible: true
+
     Material.primary: Material.BlueGrey
     Material.accent: Material.BlueGrey
 
-    header: ToolBar {
-        height: toolBarLayout.implicitHeight
+    initialPage: capturePage
 
-        RowLayout {
-            id: toolBarLayout
-            x: spacing
-            width: parent.width - (2 * spacing)
-            spacing: Units.smallSpacing
+    FluidControls.Page {
+        id: capturePage
 
+        title: qsTr("Screen capture")
+
+        footer: DialogButtonBox {
             Button {
-                text: qsTr("Cancel")
-                onClicked: Qt.quit()
-            }
-
-            Item {
-                Layout.fillWidth: true
-            }
-
-            Button {
-                id: shootButton
-                text: qsTr("Take Screenshot")
+                text: qsTr("Capture")
                 enabled: Screenshooter.enabled
-                visible: captureLayout.visible
+                flat: true
                 onClicked: {
                     window.hide();
                     shootTimer.start();
                 }
             }
-
-            Button {
-                id: actionButton
-                text: qsTr("OK")
-                visible: previewLayout.visible
-                onClicked: {
-                    if (saveAction.checked)
-                        fileDialog.open();
-                    //else if (copyAction.checked(
-                }
-            }
-        }
-    }
-    visible: true
-
-    ColumnLayout {
-        id: captureLayout
-        anchors {
-            fill: parent
-            margins: Units.largeSpacing
         }
 
-        GroupBox {
-            id: captureGroupBox
-            title: qsTr("Take Screenshot")
+        Column {
+            anchors.fill: parent
 
-            ColumnLayout {
-                spacing: Units.smallSpacing
-
-                Icon {
-                    name: "applets-screenshooter"
-                }
-
-                ColumnLayout {
-                    spacing: Units.smallSpacing
-
-                    RadioButton {
-                        id: wholeScreenOption
-                        text: qsTr("Grab the whole screen")
-                        checked: true
-                        autoExclusive: true
-                        onCheckedChanged: if (checked) selectedOption = 1
+            FluidControls.ListItem {
+                text: qsTr("Grab")
+                rightItem: ComboBox {
+                    id: optionCombo
+                    anchors.verticalCenter: parent.verticalCenter
+                    textRole: "key"
+                    model: ListModel {
+                        ListElement { key: qsTr("This screen"); value: "screen" }
+                        ListElement { key: qsTr("Active window"); value: "active-window" }
+                        ListElement { key: qsTr("Specific window"); value: "select-window" }
+                        ListElement { key: qsTr("Area"); value: "select-area" }
                     }
-
-                    RadioButton {
-                        id: activeWindowOption
-                        text: qsTr("Grab the active window")
-                        checked: false
-                        enabled: false
-                        autoExclusive: true
-                        onCheckedChanged: if (checked) selectedOption = 2
-                    }
-
-                    RadioButton {
-                        id: selectWindowOption
-                        text: qsTr("Select a window")
-                        checked: false
-                        enabled: false
-                        autoExclusive: true
-                        onCheckedChanged: if (checked) selectedOption = 3
-                    }
-
-                    RadioButton {
-                        id: selectAreaOption
-                        text: qsTr("Select area to grab")
-                        checked: false
-                        enabled: false
-                        autoExclusive: true
-                        onCheckedChanged: if (checked) selectedOption = 4
-                    }
-
-                    RowLayout {
-                        spacing: Units.smallSpacing
-
-                        Label {
-                            text: qsTr("Grab after a delay of")
-                        }
-
-                        SpinBox {
-                            id: grabDelay
-                            from: 0
-                            to: 60
-                            value: 2
-                        }
-
-                        Label {
-                            text: qsTr("seconds")
-                        }
-                    }
+                    implicitWidth: 200
                 }
             }
 
-            Layout.fillWidth: true
-        }
+            FluidControls.ListItem {
+                text: qsTr("Delay")
+                rightItem: SpinBox {
+                    id: grabDelay
+                    anchors.verticalCenter: parent.verticalCenter
+                    from: 0
+                    to: 60
+                    value: 2
+                }
+            }
 
-        GroupBox {
-            id: effectsGroupBox
-            title: qsTr("Effects")
-
-            ColumnLayout {
-                spacing: Units.smallSpacing
-
-                CheckBox {
+            FluidControls.ListItem {
+                text: qsTr("Include pointer")
+                rightItem: Switch {
                     id: includePointer
-                    text: qsTr("Include pointer")
-                    enabled: !selectAreaOption.checked
+                    anchors.verticalCenter: parent.verticalCenter
+                    enabled: optionCombo.currentIndex != 3
                     checked: true
-                }
-
-                CheckBox {
-                    id: includeBorder
-                    text: qsTr("Include the window border")
-                    enabled: activeWindowOption.checked && selectWindowOption.checked
                 }
             }
 
-            Layout.fillWidth: true
+            FluidControls.ListItem {
+                text: qsTr("Include the window border")
+                rightItem: Switch {
+                    id: includeBorder
+                    anchors.verticalCenter: parent.verticalCenter
+                    enabled: optionCombo.currentIndex >= 1 && optionCombo.currentIndex <= 2
+                }
+            }
         }
     }
 
-    ColumnLayout {
-        id: previewLayout
-        anchors {
-            fill: parent
-            margins: Units.largeSpacing
-        }
-        visible: !captureLayout.visible
+    Component {
+        id: previewPage
 
-        Image {
-            property real ratio: sourceSize.width / sourceSize.height
+        FluidControls.Page {
+            title: qsTr("Screen capture")
 
-            id: preview
-            fillMode: Image.Stretch
-            cache: false
-
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.preferredWidth: parent.width
-            Layout.preferredHeight: Layout.preferredWidth / ratio
-        }
-
-        GroupBox {
-            title: qsTr("Options")
-
-            ColumnLayout {
-                spacing: Units.smallSpacing
-
-                RadioButton {
-                    id: saveAction
+            footer: DialogButtonBox {
+                Button {
                     text: qsTr("Save")
-                    autoExclusive: true
-                    checked: true
+                    flat: true
+                    onClicked: fileDialog.open()
+
+                    DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
                 }
 
-                RadioButton {
-                    id: copyAction
+                Button {
                     text: qsTr("Copy to clipboard")
-                    autoExclusive: true
-                    checked: false
+                    flat: true
+
+                    DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
                 }
             }
 
-            Layout.fillWidth: true
-        }
+            Image {
+                id: preview
 
-        Item {
-            Layout.fillHeight: true
+                property real ratio: sourceSize.width / sourceSize.height
+
+                anchors.centerIn: parent
+                width: parent.width * 0.8
+                height: width / ratio
+
+                source: "image://screenshooter/last"
+                fillMode: Image.Stretch
+                cache: false
+
+                layer.enabled: true
+                layer.effect: FluidMaterial.ElevationEffect {
+                    elevation: 2
+                }
+            }
         }
     }
 
@@ -248,7 +166,7 @@ ApplicationWindow {
         id: shootTimer
         interval: grabDelay.value * 1000
         onTriggered: {
-            Screenshooter.takeScreenshot(selectedOption,
+            Screenshooter.takeScreenshot(optionCombo.currentIndex + 1,
                                          includePointer.enabled && includePointer.checked,
                                          includeBorder.enabled && includeBorder.checked);
         }
@@ -258,8 +176,7 @@ ApplicationWindow {
         id: showTimer
         interval: 1000
         onTriggered: {
-            preview.source = "image://screenshooter/last";
-            captureLayout.visible = false;
+            window.pageStack.push(previewPage);
             window.show();
         }
     }
