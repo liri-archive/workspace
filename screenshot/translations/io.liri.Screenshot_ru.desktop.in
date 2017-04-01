@@ -1,0 +1,21 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Screenshot
+Comment=Save images of your screen or individual windows
+Keywords=snapshot;capture;print;screenshot;
+Categories=Qt;X-Liri;Utility;X-Liri-Utilities;
+Icon=applets-screenshooter
+Exec=liri-screenshot --interactive
+TryExec=liri-screenshot
+Terminal=false
+StartupNotify=true
+OnlyShowIn=X-Liri;
+
+#TRANSLATIONS_DIR=translations
+
+
+# Translations
+Comment[ru]=Cохраняйте снимки экрана и отдельных окон
+Name[ru]=Снимок экрана
+Icon[ru]=applets-screenshooter
