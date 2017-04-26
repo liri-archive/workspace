@@ -178,8 +178,8 @@ void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeB
 QString Screenshooter::screenshotFileName() const
 {
     return QStringLiteral("%1/%2.png")
-            .arg(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation))
-            .arg(tr("Screenshot from %1").arg(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss"))));
+            .arg(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation),
+                 tr("Screenshot from %1").arg(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss"))));
 }
 
 void Screenshooter::saveScreenshot(const QUrl &fileName)
