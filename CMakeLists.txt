@@ -124,7 +124,6 @@ message(STATUS "GSettings schemas directory: ${GSETTINGS_SCHEMA_DIR}")
 # Subdirectories
 add_subdirectory(data)
 add_subdirectory(headers)
-add_subdirectory(platformtheme)
 add_subdirectory(powermanager)
 if(Qt5GStreamer_FOUND)
     add_subdirectory(screencast)
