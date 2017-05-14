@@ -11,6 +11,7 @@ arch:
     - wayland=https://dl.bintray.com/liri/archlinux-develop/$arch/
   packages:
     - qbs
+    - qt5-quickcontrols2
     - qt5-tools
     - qt-gstreamer
     - boost
