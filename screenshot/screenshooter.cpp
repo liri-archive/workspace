@@ -32,7 +32,7 @@
 #include <QtGui/QScreen>
 #include <QtQml/QQmlContext>
 
-#include <Liri/WaylandClient/Output>
+#include <LiriWaylandClient/Output>
 
 #include "screenshooter.h"
 

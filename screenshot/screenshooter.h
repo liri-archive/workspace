@@ -32,10 +32,10 @@
 #include <QtCore/QVector>
 #include <QtQml/QQmlApplicationEngine>
 
-#include <Liri/WaylandClient/ClientConnection>
-#include <Liri/WaylandClient/Registry>
-#include <Liri/WaylandClient/Screenshooter>
-#include <Liri/WaylandClient/Shm>
+#include <LiriWaylandClient/ClientConnection>
+#include <LiriWaylandClient/Registry>
+#include <LiriWaylandClient/Screenshooter>
+#include <LiriWaylandClient/Shm>
 
 #include "imageprovider.h"
 

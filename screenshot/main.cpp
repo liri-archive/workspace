@@ -29,7 +29,6 @@
 #include <QtGui/QGuiApplication>
 #include <QtQuickControls2/QQuickStyle>
 
-#include "config.h"
 #include "screenshooter.h"
 
 #define TR(x) QT_TRANSLATE_NOOP("Command line parser", QStringLiteral(x))
@@ -45,7 +44,7 @@ int main(int argc, char *argv[])
     // Setup application
     QGuiApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Screenshot"));
-    app.setApplicationVersion(QStringLiteral(LIRI_WORKSPACE_VERSION));
+    app.setApplicationVersion(QStringLiteral(LIRIWORKSPACE_VERSION));
     app.setOrganizationDomain(QStringLiteral("liri.io"));
     app.setOrganizationName(QStringLiteral("Liri"));
     app.setDesktopFileName(QStringLiteral("io.liri.Screenshot.desktop"));

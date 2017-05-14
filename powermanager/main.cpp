@@ -27,14 +27,12 @@
 #include <QtCore/QCoreApplication>
 #include <QtDBus/QDBusConnection>
 
-#include "config.h"
-
 int main(int argc, char *argv[])
 {
     // Setup application
     QCoreApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Power Manager"));
-    app.setApplicationVersion(QStringLiteral(LIRI_WORKSPACE_VERSION));
+    app.setApplicationVersion(QStringLiteral(LIRIWORKSPACE_VERSION));
     app.setOrganizationDomain(QStringLiteral("liri.io"));
     app.setOrganizationName(QStringLiteral("Liri"));
 
