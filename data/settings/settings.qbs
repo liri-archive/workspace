@@ -36,19 +36,19 @@ Product {
             cmd.description = "creating " + output.fileName;
             cmd.highlight = "filegen";
             cmd.vars = {
-                DATA_DIR: FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
-                                             product.moduleProperty("lirideployment", "dataDir")),
+                DATADIR: FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                            product.moduleProperty("lirideployment", "dataDir")),
             };
             cmd.sourceCode = function() {
                 File.copy(input.filePath, output.filePath);
 
-                var inFile = new TextFile(output.filePath, TextFile.ReadWrite);
-                var contents = inFile.readAll();
+                var file = new TextFile(output.filePath, TextFile.ReadWrite);
+                var contents = file.readAll();
                 for (var i in vars)
                     contents = contents.replace(new RegExp('@' + i + '@(?!\w)', 'g'), vars[i]);
-                inFile.truncate();
-                inFile.write(contents);
-                inFile.close();
+                file.truncate();
+                file.write(contents);
+                file.close();
             };
             return [cmd];
         }
