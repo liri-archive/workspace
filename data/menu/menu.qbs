@@ -17,5 +17,6 @@ Product {
         files: ["*.menu"]
         qbs.install: true
         qbs.installDir: lirideployment.etcDir + "/xdg/menus"
+        qbs.installPrefix: ""
     }
 }

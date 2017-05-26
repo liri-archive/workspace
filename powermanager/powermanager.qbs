@@ -20,6 +20,7 @@ QtGuiApplication {
         files: ["*.desktop"]
         qbs.install: true
         qbs.installDir: lirideployment.etcDir + "/xdg/autostart"
+        qbs.installPrefix: ""
     }
 
     Group {
