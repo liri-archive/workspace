@@ -26,7 +26,7 @@
 
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QCommandLineOption>
-#include <QtGui/QGuiApplication>
+#include <QtWidgets/QApplication>
 #include <QtQuickControls2/QQuickStyle>
 
 #include "screenshooter.h"
@@ -39,10 +39,10 @@ int main(int argc, char *argv[])
     qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("wayland"));
 
     // HighDpi scaling
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     // Setup application
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Screenshot"));
     app.setApplicationVersion(QStringLiteral(LIRIWORKSPACE_VERSION));
     app.setOrganizationDomain(QStringLiteral("liri.io"));

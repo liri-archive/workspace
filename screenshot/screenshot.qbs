@@ -5,7 +5,7 @@ QtGuiApplication {
     targetName: "liri-screenshot"
 
     Depends { name: "lirideployment" }
-    Depends { name: "Qt"; submodules: ["core", "core-private", "gui", "quickcontrols2"] }
+    Depends { name: "Qt"; submodules: ["core", "core-private", "gui", "widgets", "quickcontrols2"]; versionAtLeast: "5.8" }
     Depends { name: "LiriWaylandClient" }
 
     cpp.defines: [

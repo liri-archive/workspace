@@ -25,9 +25,9 @@
  ***************************************************************************/
 
 import QtQuick 2.1
-import QtQuick.Dialogs 1.0
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
+import Qt.labs.platform 1.0
 import Fluid.Controls 1.0 as FluidControls
 import Fluid.Material 1.0 as FluidMaterial
 
@@ -184,8 +184,8 @@ FluidControls.ApplicationWindow {
     FileDialog {
         id: fileDialog
         title: qsTr("Save Screenshot As")
-        folder: shortcuts.pictures
-        selectExisting: false
+        fileMode: FileDialog.SaveFile
+        folder: StandardPaths.writableLocation(StandardPaths.PicturesLocation)
         nameFilters: [ qsTr("Image files (*.jpg *.jpeg *.png)"), qsTr("All files (*)") ]
         onAccepted: {
             Screenshooter.saveScreenshot(fileDialog.fileUrl);
