@@ -1,7 +1,7 @@
 import qbs 1.0
 
 Project {
-    name: "Liri Workspace"
+    name: "Workspace"
 
     readonly property string version: "0.9.0"
 
