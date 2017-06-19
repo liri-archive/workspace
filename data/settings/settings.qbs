@@ -37,6 +37,7 @@ Product {
             cmd.highlight = "filegen";
             cmd.vars = {
                 DATADIR: FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                            product.moduleProperty("qbs", "installPrefix"),
                                             product.moduleProperty("lirideployment", "dataDir")),
             };
             cmd.sourceCode = function() {
