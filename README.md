@@ -28,6 +28,7 @@ Make sure you have Qt >= 5.8.0 with the following modules:
 
 And the following modules:
 
+ * [qbs-shared](https://github.com/lirios/qbs-shared.git)
  * [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
  * [liri-wayland](https://github.com/lirios/wayland.git)
 
@@ -67,7 +68,8 @@ and the default value doesn't suit your needs. All are relative to `qbs.installR
  * `lirideployment.libDir:path/to/lib` where libraries are installed (default: `lib`)
  * `lirideployment.qmlDir:path/to/qml` where QML plugins are installed (default: `lib/qml`)
 
-See `qbs-shared/modules/lirideployment/lirideployment.qbs` for more deployment-related parameters.
+See [lirideployment.qbs](https://github.com/lirios/qbs-shared/blob/develop/modules/lirideployment/lirideployment.qbs)
+for more deployment-related parameters.
 
 You can also specify the following options:
 

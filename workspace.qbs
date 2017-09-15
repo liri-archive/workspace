@@ -9,8 +9,6 @@ Project {
 
     minimumQbsVersion: "1.6"
 
-    qbsSearchPaths: "qbs/shared"
-
     references: [
         "data/menu/menu.qbs",
         "data/settings/settings.qbs",
