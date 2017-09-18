@@ -29,7 +29,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import Qt.labs.platform 1.0
 import Fluid.Controls 1.0 as FluidControls
-import Fluid.Material 1.0 as FluidMaterial
+import Fluid.Effects 1.0 as FluidEffects
 
 FluidControls.ApplicationWindow {
     id: window
@@ -155,7 +155,7 @@ FluidControls.ApplicationWindow {
                 cache: false
 
                 layer.enabled: true
-                layer.effect: FluidMaterial.ElevationEffect {
+                layer.effect: FluidEffects.Elevation {
                     elevation: 2
                 }
             }
