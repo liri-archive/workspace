@@ -1,10 +1,7 @@
 /****************************************************************************
  * This file is part of Liri.
  *
- * Copyright (C) 2015-2016 Pier Luigi Fiorini
- *
- * Author(s):
- *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+ * Copyright (C) 2017 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  *
  * $BEGIN_LICENSE:GPL3+$
  *
@@ -37,7 +34,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName(QStringLiteral("Liri"));
 
     // Register
-    if (!QDBusConnection::sessionBus().registerService(QStringLiteral("io.liri.powermanager"))) {
+    if (!QDBusConnection::sessionBus().registerService(QStringLiteral("io.liri.PowerManager"))) {
         qWarning("Unable to register D-Bus service");
         return 1;
     }
