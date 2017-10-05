@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of Liri.
+
+ Copyright (C) 2017 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+-->
+<schemalist gettext-domain="liri">
+  <enum id="io.liri.hardware.PowerButtonActionType">
+    <value nick="nothing" value="0"/>
+    <value nick="interactive" value="1"/>
+    <value nick="suspend" value="2"/>
+    <value nick="hibernate" value="3"/>
+  </enum>
+  <enum id="io.liri.hardware.PowerActionType">
+    <value nick="nothing" value="0"/>
+    <value nick="suspend" value="1"/>
+    <value nick="hibernate" value="2"/>
+  </enum>
+</schemalist>

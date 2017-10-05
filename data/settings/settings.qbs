@@ -12,7 +12,10 @@ Product {
 
     Group {
         name: "Schemas"
-        files: ["*.gschema.xml"]
+        files: [
+            "*.gschema.xml",
+            "io.liri.hardware.enums.xml",
+        ]
         qbs.install: true
         qbs.installDir: lirideployment.dataDir + "/glib-2.0/schemas"
     }

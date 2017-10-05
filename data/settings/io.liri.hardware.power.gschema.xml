@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of Liri.
+
+ Copyright (C) 2017 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+-->
+<schemalist gettext-domain="liri">
+  <schema id="io.liri.hardware.power" path="/io/liri/hardware/power/">
+    <key type="b" name="idle-dim">
+      <default>true</default>
+      <summary>Dim the screen when the session is idle</summary>
+      <description>
+        Whether the screen should be dimmed to save power when the session is idle.
+      </description>
+    </key>
+    <key type="i" name="idle-brightness">
+      <default>30</default>
+      <summary>The brightness of the screen when idle</summary>
+      <description>
+        Laptop panel screen brightness used when the session is idle.
+      </description>
+    </key>
+    <key name="power-button-action" enum="io.liri.hardware.PowerButtonActionType">
+      <default>'interactive'</default>
+      <summary>Power button action</summary>
+      <description>
+        The action to take when the system power button is pressed on laptops and desktops.
+        Pressing the power button always correspond to power off on virtual machines and suspend on tablets and smartphones.
+      </description>
+    </key>
+    <key type="i" name="sleep-inactive-ac-timeout">
+      <default>0</default>
+      <summary>Sleep timeout computer when on AC</summary>
+      <description>
+        Amount of time in seconds the computer on AC power needs to be inactive before it goes to sleep.
+        A value of 0 means never.
+      </description>
+    </key>
+    <key name="sleep-inactive-ac-type" enum="io.liri.hardware.PowerActionType">
+      <default>'suspend'</default>
+      <summary>Type of sleeping to perform when the computer on AC power is inactive</summary>
+      <description>
+        Whether to hibernate, suspend or do nothing when the computer on AC power is inactive.
+      </description>
+    </key>
+    <key type="i" name="sleep-inactive-battery-timeout">
+      <default>0</default>
+      <summary>Sleep timeout computer when on battery</summary>
+      <description>
+        Amount of time in seconds the computer on battery power needs to be inactive before it goes to sleep.
+        A value of 0 means never.
+      </description>
+    </key>
+    <key name="sleep-inactive-battery-type" enum="io.liri.hardware.PowerActionType">
+      <default>'suspend'</default>
+      <summary>Type of sleeping to perform when the computer on battery power is inactive</summary>
+      <description>
+        Whether to hibernate, suspend or do nothing when the computer on battery power is inactive.
+      </description>
+    </key>
+  </schema>
+</schemalist>
