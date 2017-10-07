@@ -35,7 +35,7 @@
     </key>
     <key type="i" name="sleep-inactive-ac-timeout">
       <default>0</default>
-      <summary>Sleep timeout computer when on AC</summary>
+      <summary>Sleep timeout when the computer is on AC power</summary>
       <description>
         Amount of time in seconds the computer on AC power needs to be inactive before it goes to sleep.
         A value of 0 means never.
@@ -50,7 +50,7 @@
     </key>
     <key type="i" name="sleep-inactive-battery-timeout">
       <default>0</default>
-      <summary>Sleep timeout computer when on battery</summary>
+      <summary>Sleep timeout when the computer is on battery power</summary>
       <description>
         Amount of time in seconds the computer on battery power needs to be inactive before it goes to sleep.
         A value of 0 means never.
