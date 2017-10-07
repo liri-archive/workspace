@@ -21,23 +21,36 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#include <QCoreApplication>
-#include <QDBusConnection>
+#pragma once
 
-int main(int argc, char *argv[])
+#include <QObject>
+
+#include <Qt5GSettings/QGSettings>
+
+class PowerManager : public QObject
 {
-    // Setup application
-    QCoreApplication app(argc, argv);
-    app.setApplicationName(QStringLiteral("Power Manager"));
-    app.setApplicationVersion(QStringLiteral(LIRIWORKSPACE_VERSION));
-    app.setOrganizationDomain(QStringLiteral("liri.io"));
-    app.setOrganizationName(QStringLiteral("Liri"));
+    Q_OBJECT
+    Q_PROPERTY(int sleepInactiveAcTimeout READ sleepInactiveAcTimeout NOTIFY sleepInactiveAcTimeoutChanged)
+    Q_PROPERTY(int sleepInactiveBatteryTimeout READ sleepInactiveBatteryTimeout NOTIFY sleepInactiveBatteryTimeoutChanged)
+public:
+    explicit PowerManager(QObject *parent = nullptr);
 
-    // Register
-    if (!QDBusConnection::sessionBus().registerService(QStringLiteral("io.liri.PowerManager"))) {
-        qWarning("Unable to register D-Bus service");
-        return 1;
-    }
+    int sleepInactiveAcTimeout() const;
+    int sleepInactiveBatteryTimeout() const;
 
-    return app.exec();
-}
+Q_SIGNALS:
+    void sleepInactiveAcTimeoutChanged();
+    void sleepInactiveAcTypeChanged();
+    void sleepInactiveBatteryTimeoutChanged();
+    void sleepInactiveBatteryTypeChanged();
+
+private:
+    QtGSettings::QGSettings *m_settings = nullptr;
+    int m_sleepAcTimeout = 0;
+    QString m_sleepAcAction;
+    int m_sleepBatteryTimeout = 0;
+    QString m_sleepBatteryAction;
+
+private Q_SLOTS:
+    void settingChanged(const QString &key);
+};

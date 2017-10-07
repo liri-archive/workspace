@@ -21,23 +21,20 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#include <QCoreApplication>
-#include <QDBusConnection>
+#pragma once
 
-int main(int argc, char *argv[])
+#include <QObject>
+
+class IdleWatcher : public QObject
 {
-    // Setup application
-    QCoreApplication app(argc, argv);
-    app.setApplicationName(QStringLiteral("Power Manager"));
-    app.setApplicationVersion(QStringLiteral(LIRIWORKSPACE_VERSION));
-    app.setOrganizationDomain(QStringLiteral("liri.io"));
-    app.setOrganizationName(QStringLiteral("Liri"));
+    Q_OBJECT
+public:
+    explicit IdleWatcher(QObject *parent = nullptr);
 
-    // Register
-    if (!QDBusConnection::sessionBus().registerService(QStringLiteral("io.liri.PowerManager"))) {
-        qWarning("Unable to register D-Bus service");
-        return 1;
-    }
+private:
+    int m_acId = -1;
+    int m_batteryId = -1;
 
-    return app.exec();
-}
+private Q_SLOTS:
+    void timeoutReached(int id);
+};

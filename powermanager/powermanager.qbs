@@ -6,6 +6,10 @@ QtGuiApplication {
 
     Depends { name: "lirideployment" }
     Depends { name: "Qt"; submodules: ["core", "dbus"] }
+    Depends { name: "Qt5GSettings" }
+    Depends { name: "LiriCore" }
+    Depends { name: "LiriNotifications" }
+    Depends { name: "KF5.Solid" }
 
     cpp.defines: [
         'LIRIWORKSPACE_VERSION="' + project.version + '"',
@@ -13,7 +17,15 @@ QtGuiApplication {
         "QT_NO_CAST_TO_ASCII"
     ]
 
-    files: ["*.cpp", "*.h"]
+    files: [
+        "batterywatcher.cpp",
+        "batterywatcher.h",
+        "idlewatcher.cpp",
+        "idlewatcher.h",
+        "main.cpp",
+        "powermanager.cpp",
+        "powermanager.h",
+    ]
 
     Group {
         name: "Desktop File"

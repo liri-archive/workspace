@@ -15,6 +15,7 @@ Includes:
 
 * liri-screenshot, screenshot application
 * liri-screencast, screencast application
+* liri-powermanager, power management
 * Settings schemas
 * XDG menu definition
 
@@ -29,7 +30,10 @@ Make sure you have Qt >= 5.8.0 with the following modules:
 And the following modules:
 
  * [qbs-shared](https://github.com/lirios/qbs-shared.git)
+ * [solid](http://quickgit.kde.org/?p=solid.git)
  * [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
+ * [qtgsettings](https://github.com/lirios/qtgsettings.git)
+ * [libliri](https://github.com/lirios/libliri.git)
  * [liri-wayland](https://github.com/lirios/wayland.git)
 
 Themes and wallpapers to honor default settings:
@@ -39,6 +43,18 @@ Themes and wallpapers to honor default settings:
 
 If you do not install those dependencies, please configure the desktop with an
 alternative icon theme and wallpaper.
+
+Optional services at runtime:
+
+ * `upower` is used by `liri-powermanager` to determine whether the
+   system is on battery power or AC power, whether lid is closed or not.
+   If `upower` is not available, the system is assumed to be a desktop
+   computer on AC power.
+
+ * `systemd` is used by `liri-powermanager` to determine whether
+   the system is a virtual machine and the chassis type.
+   If `systemd` is not available, the system is assumed to be
+   a bare-metal desktop computer.
 
 ## Installation
 
