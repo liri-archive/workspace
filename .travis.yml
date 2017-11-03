@@ -21,6 +21,8 @@ env:
 arch:
   artifacts:
     - qbs-shared-artifacts.tar.gz
+    - qtgsettings-artifacts.tar.gz
+    - libliri-artifacts.tar.gz
     - liri-wayland-artifacts.tar.gz
   packages:
     - qbs
