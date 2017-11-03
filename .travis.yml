@@ -30,6 +30,7 @@ arch:
     - qt5-wayland
     - qt5-tools
     - qt-gstreamer
+    - solid
     - boost
     - xorg-server-xvfb
     #- clazy-git
