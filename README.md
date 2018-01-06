@@ -7,7 +7,7 @@ Workspace
 [![GitHub release](https://img.shields.io/github/release/lirios/workspace.svg)](https://github.com/lirios/workspace)
 [![Build Status](https://travis-ci.org/lirios/workspace.svg?branch=develop)](https://travis-ci.org/lirios/workspace)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/workspace.svg)](https://github.com/lirios/workspace/issues)
-[![Maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/lirios/workspace/commits/develop)
+[![Maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/lirios/workspace/commits/develop)
 
 Base applications and settings for the Liri OS workspace.
 
