@@ -54,7 +54,7 @@ public:
     };
     Q_ENUM(What)
 
-    Screenshooter(QObject *parent = Q_NULLPTR);
+    Screenshooter(QObject *parent = nullptr);
     ~Screenshooter();
 
     bool isEnabled() const;
@@ -68,7 +68,7 @@ Q_SIGNALS:
     void screenshotDone();
 
 protected:
-    bool event(QEvent *event) Q_DECL_OVERRIDE;
+    bool event(QEvent *event) override;
 
 private:
     bool m_initialized;

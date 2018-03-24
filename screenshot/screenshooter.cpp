@@ -76,8 +76,8 @@ Screenshooter::Screenshooter(QObject *parent)
     , m_thread(new QThread())
     , m_connection(WaylandClient::ClientConnection::fromQt())
     , m_registry(new WaylandClient::Registry(this))
-    , m_shm(Q_NULLPTR)
-    , m_shooter(Q_NULLPTR)
+    , m_shm(nullptr)
+    , m_shooter(nullptr)
     , m_imageProvider(new ImageProvider())
 {
     m_deferredShooter.initialized = false;
@@ -147,25 +147,25 @@ void Screenshooter::takeScreenshot(What what, bool includePointer, bool includeB
 
     switch (what) {
     case Screen:
-        Q_FOREACH (QScreen *screen, QGuiApplication::screens()) {
+        for (QScreen *screen : QGuiApplication::screens()) {
             ss = m_shooter->captureOutput(WaylandClient::Output::fromQt(screen, this), effects);
-            m_pending.append({screen->geometry().topLeft(), ss, Q_NULLPTR});
+            m_pending.append({screen->geometry().topLeft(), ss, nullptr});
             setupScreenshot(ss);
         }
         break;
     case ActiveWindow:
         ss = m_shooter->captureActiveWindow(effects);
-        m_pending.append({QPoint(0, 0), ss, Q_NULLPTR});
+        m_pending.append({QPoint(0, 0), ss, nullptr});
         setupScreenshot(ss);
         break;
     case Window:
         ss = m_shooter->captureWindow(effects);
-        m_pending.append({QPoint(0, 0), ss, Q_NULLPTR});
+        m_pending.append({QPoint(0, 0), ss, nullptr});
         setupScreenshot(ss);
         break;
     case Area:
         ss = m_shooter->captureArea(effects);
-        m_pending.append({QPoint(0, 0), ss, Q_NULLPTR});
+        m_pending.append({QPoint(0, 0), ss, nullptr});
         setupScreenshot(ss);
         break;
     default:
@@ -211,7 +211,7 @@ void Screenshooter::process()
     int width = 0, height = 0;
 
     // Calculate the final size
-    Q_FOREACH (const ScreenshotRequest &sr, m_process) {
+    for (const ScreenshotRequest &sr : qAsConst(m_process)) {
         minX = qMin(minX, sr.position.x());
         minY = qMin(minY, sr.position.y());
         width += sr.buffer->size().width();
@@ -225,7 +225,7 @@ void Screenshooter::process()
     memset(data, 0x00, stride * height);
 
     // Compose a new image
-    Q_FOREACH (const ScreenshotRequest &sr, m_process) {
+    for (const ScreenshotRequest &sr : qAsConst(m_process)) {
         // Copy buffer data to the image
         uchar *address = sr.buffer->address();
         uchar *newdata = data + (sr.position.y() - minY) * stride + (sr.position.x() - minX) * 4;
