@@ -7,7 +7,7 @@ QtGuiApplication {
     Depends { name: "lirideployment" }
     Depends { name: "Qt"; submodules: ["core", "gui"] }
     Depends { name: "LiriWaylandClient" }
-    Depends { name: "Qt5GStreamer.Utils" }
+    Depends { name: "Qt5GStreamer"; submodules: ["GLib", "Utils"] }
 
     condition: {
         if (!Qt5GStreamer.Utils.found) {
