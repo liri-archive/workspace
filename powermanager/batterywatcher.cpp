@@ -24,6 +24,7 @@
 #include <Solid/Device>
 #include <Solid/DeviceNotifier>
 #include <Solid/Battery>
+#include <KF5/solid_version.h>
 
 #include <LiriNotifications/Notification>
 
@@ -182,7 +183,16 @@ void BatteryWatcher::batteryChanged()
                 notification->setBody(tr("Monitor is very low in power (%1%). "
                                          "This device will soon stop functioning if not charged.").arg(battery->chargePercent()));
                 break;
-            case Solid::Battery::UnknownBattery:
+#if SOLID_VERSION >= QT_VERSION_CHECK(5, 45, 0)
+            case Solid::Battery::GamingInputBattery:
+                //: Gaming input battery level is critically low
+                notification->setSummary(tr("Gaming input battery low"));
+                //: Tell users how much power is left (percentage)
+                notification->setBody(tr("Gaming input is very low in power (%1%). "
+                                         "This device will soon stop functioning if not charged.").arg(battery->chargePercent()));
+                break;
+#endif
+            default:
                 // Skipped
                 break;
             }
@@ -256,7 +266,15 @@ void BatteryWatcher::batteryChanged()
                 //: Tell users how much power is left (percentage)
                 notification->setBody(tr("Monitor is low in power (%1%)").arg(battery->chargePercent()));
                 break;
-            case Solid::Battery::UnknownBattery:
+#if SOLID_VERSION >= QT_VERSION_CHECK(5, 45, 0)
+            case Solid::Battery::GamingInputBattery:
+                //: Gaming input battery level is low
+                notification->setSummary(tr("Gaming input low"));
+                //: Tell users how much power is left (percentage)
+                notification->setBody(tr("Gaming input is low in power (%1%)").arg(battery->chargePercent()));
+                break;
+#endif
+            default:
                 // Skipped
                 break;
             }
