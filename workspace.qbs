@@ -15,7 +15,5 @@ Project {
         "data/menu/menu.qbs",
         "data/settings/settings.qbs",
         "powermanager/powermanager.qbs",
-        "screencast/screencast.qbs",
-        "screenshot/screenshot.qbs",
     ]
 }

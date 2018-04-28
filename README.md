@@ -31,7 +31,6 @@ And the following modules:
 
  * [qbs-shared](https://github.com/lirios/qbs-shared.git)
  * [solid](http://quickgit.kde.org/?p=solid.git)
- * [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
  * [qtgsettings](https://github.com/lirios/qtgsettings.git)
  * [libliri](https://github.com/lirios/libliri.git)
  * [liri-wayland](https://github.com/lirios/wayland.git)
