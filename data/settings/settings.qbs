@@ -5,7 +5,7 @@ import qbs.ModUtils
 import qbs.TextFile
 
 Product {
-    name: "GSettings Schemas"
+    name: "liri-workspace-gsettings"
     type: "gschemaOut"
 
     Depends { name: "lirideployment" }
