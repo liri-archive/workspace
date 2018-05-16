@@ -12,7 +12,6 @@ Project {
     minimumQbsVersion: "1.8.0"
 
     references: [
-        "data/menu/menu.qbs",
         "data/settings/settings.qbs",
         "powermanager/powermanager.qbs",
     ]
